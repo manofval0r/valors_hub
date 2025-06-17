@@ -28,6 +28,31 @@ body {
 }
 
 /* ========= NAVIGATION BAR ========= */
+/* New Styles for Upgraded Nav */
+.logo a {
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.hamburger {
+    display: none; /* Hidden on desktop */
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: var(--text-color);
+}
+
 nav {
     position: fixed;
     top: 0;
@@ -36,9 +61,10 @@ nav {
     background-color: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     gap: 2rem;
+    padding: 0 5%;
     z-index: 1000;
     border-bottom: 1px solid #ddd;
 }
