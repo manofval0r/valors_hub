@@ -1,6 +1,26 @@
 // This function runs when the entire page is loaded.
 document.addEventListener('DOMContentLoaded', function() {
-    
+
+    // --- HAMBURGER MENU FUNCTIONALITY ---
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const allLinks = document.querySelectorAll(".nav-links a");
+
+    // Toggle menu on hamburger click
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navLinks.classList.toggle("active");
+    });
+
+    // Close menu when a link is clicked
+    allLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navLinks.classList.remove("active");
+        });
+    });
+
+
     // --- POPULATE DATA FROM CONFIG.JS ---
     
     // Page Title
@@ -56,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- SMOOTH SCROLLING FUNCTIONALITY ---
-    const navLinks = document.querySelectorAll('nav a, .hero-buttons a');
-    for (const link of navLinks) {
+    const smoothScrollLinks = document.querySelectorAll('nav a, .hero-buttons a');
+    for (const link of smoothScrollLinks) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
