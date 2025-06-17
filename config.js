@@ -36,7 +36,7 @@ const portfolioData = {
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process. The site includes a back-end dashboard for order management.",
             tech: "HTML, CSS, Java, Node.js",
             liveLink: "#", // <-- UPDATE THIS
-            codeLink: "#" // <-- UPDATE THIS
+            codeLink: "https://github.com/manofval0r/websstt" // <-- UPDATE THIS
         },
         {
             title: "Educational Platform",
@@ -44,7 +44,6 @@ const portfolioData = {
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students at the Nigerian University of Technology and Management.",
             tech: "Next.js, TypeScript, JavaScript, Java",
             liveLink: null, // No link yet, the button will be disabled.
-            codeLink: "#" // <-- UPDATE THIS
-        }
+                    }
     ]
 };
