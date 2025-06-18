@@ -1,52 +1,83 @@
-// config.js
-// All your personal data is in this one file.
-// Just edit this file to update your portfolio!
+// This file now controls the ENTIRE content of my portfolio.
 
 const portfolioData = {
+    // Personal Info
     name: "David Idowu",
     title: "Web Developer & Web Designer",
     location: "Lagos, Nigeria | Open to Remote & Hybrid Roles",
     
+    // Contact & Socials
     contact: {
         email: "didowu903@gmail.com",
         phone: "+2347037000448"
     },
-
     socials: {
-        github: "https://github.com/manofval0r", // <-- UPDATE THIS
-        linkedin: "https://linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
+        github: "https://github.com/your-github-username", // <-- UPDATE THIS
+        linkedin: "https://linkedin.com/in/your-linkedin-profile" // <-- UPDATE THIS
     },
     
-    // You can add a link to your actual photo here.
-    // For now, it uses a placeholder.
+    // About Section
     about: {
-        imageUrl: "/Hero-image.jpg",
-        // The description is an array of strings. Each string is a paragraph.
+        imageUrl: "david-photo.jpg", // Make sure this image is in your folder
         description: [
             "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.",
             "Currently developing a sophisticated Learning Management System utilizing Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across computing, data analysis, and cybersecurity sectors."
         ]
     },
 
-    // To add a new project, just copy an object and add it to the array.
+    // --- NEW: Experience Section Data ---
+    experience: [
+        {
+            title: "Web Developer",
+            company: "Sidedish Foods",
+            details: "Kano (Remote)",
+            responsibilities: [
+                "Developed a full-stack e-commerce website to enable seamless online food ordering for clients.",
+                "Implemented an internal dashboard for staff to track orders in real-time and monitor business goals.",
+                "Managed the end-to-end deployment process using sustainable, cost-effective tools.",
+                "Currently provide ongoing website management, maintenance, and feature updates."
+            ]
+        }
+    ],
+
+    // --- NEW: Skills Section Data ---
+    skills: [
+        "HTML", "CSS", "JavaScript", "TypeScript", "Next.js", "Node.js", "Java", "UI/UX Design", "Data Analytics", "Project Management", "AI Tools", "Git & GitHub", "Vercel"
+    ],
+
+    // --- NEW: Education & Certifications Data ---
+    education: [
+        {
+            degree: "Bachelor's Degree in Cybersecurity Science",
+            institution: "Nigerian University of Technology and Management, Lagos",
+            dates: "2024 - Present",
+            description: "Focusing on core principles of network protection and digital security at a world-class university."
+        }
+    ],
+    certifications: [
+        { name: "MIT App Development Course", issuerDate: "NessCrown, 09.2024" },
+        { name: "Scratch App Development Course", issuerDate: "NessCrown, 08.2023" }
+    ],
+
+    // Projects Section
     projects: [
         {
             title: "Restaurant Website",
             client: "Client: Sidedish Foods",
-            description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process. The site includes a back-end dashboard for order management.",
+            description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
-            imageUrl: "/SDSHFDS-pic.jpg",
-            liveLink: "#", // <-- UPDATE THIS
-            codeLink: "https://github.com/manofval0r/websstt" // <-- UPDATE THIS
+            imageUrl: "project-restaurant.jpg", // Make sure this image is in your folder
+            liveLink: "#", // Add your live link
+            codeLink: "https://github.com/your-username/your-repo/..." // Add your code link
         },
         {
             title: "Educational Platform",
             client: "Personal Project",
-            description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students at the Nigerian University of Technology and Management.",
+            description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
             tech: "Next.js, TypeScript, JavaScript, Java",
-            imageUrl: "/LMS-project-pic.jpg",
-            liveLink: null, // No link yet, the button will be disabled.
+            imageUrl: "project-lms.jpg", // Make sure this image is in your folder
+            liveLink: null,
             codeLink: null
-                    }
+        }
     ]
 };
