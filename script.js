@@ -50,15 +50,21 @@ document.addEventListener('DOMContentLoaded', function() {
             : `<a href="#" class="btn btn-secondary disabled" target="_blank">Live Site (Soon)</a>`;
 
         const projectCard = `
-            <div class="project-card">
-                <h3>${project.title}</h3>
-                <p class="project-client">${project.client}</p>
-                <p>${project.description}</p>
-                <p class="tech-stack"><strong>Technologies:</strong> ${project.tech}</p>
+            <div class="project-card reveal">
+                <a href="${project.liveLink || project.codeLink}" target="_blank">
+                    <div class="project-image">
+                        <img src="${project.imageUrl}" alt="${project.title} screenshot">
+                    </div>
+                    <div class="project-info">
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                        <p class="tech-stack"><strong>Technologies:</strong> ${project.tech}</p>
+                    </div>
+                </a>
                 <div class="project-links">
                     ${liveSiteButton}
-                    <a href="${project.codeLink}" class="btn btn-secondary" target="_blank">View Code</a>
-                </div>
+        <a href="${project.codeLink}" class="btn btn-secondary" target="_blank">View Code</a>
+        </div>
             </div>`;
         projectGrid.innerHTML += projectCard;
     });
@@ -90,4 +96,22 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    
+    const revealElements = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target); // Optional: stop observing after it's revealed
+        }
+    });
+}, {
+    threshold: 0.15 // Trigger when 15% of the element is visible
+});
+
+revealElements.forEach(element => {
+    revealObserver.observe(element);
+});
+
 });

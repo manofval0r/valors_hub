@@ -35,6 +35,7 @@ const portfolioData = {
             client: "Client: Sidedish Foods",
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process. The site includes a back-end dashboard for order management.",
             tech: "HTML, CSS, Java, Node.js",
+            imageUrl: "/SDSHFDS-pic.jpg",
             liveLink: "#", // <-- UPDATE THIS
             codeLink: "https://github.com/manofval0r/websstt" // <-- UPDATE THIS
         },
@@ -43,7 +44,9 @@ const portfolioData = {
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students at the Nigerian University of Technology and Management.",
             tech: "Next.js, TypeScript, JavaScript, Java",
+            imageUrl: "/LMS-project-pic.jpg",
             liveLink: null, // No link yet, the button will be disabled.
+            codeLink: null
                     }
     ]
 };
