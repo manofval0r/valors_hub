@@ -18,7 +18,7 @@ const portfolioData = {
     
     // About Section
     about: {
-        imageUrl: "david-photo.jpg", // Make sure this image is in your folder
+        imageUrl: "/Hero-image.jpg", // Make sure this image is in your folder
         description: [
             "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.",
             "Currently developing a sophisticated Learning Management System utilizing Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across computing, data analysis, and cybersecurity sectors."
@@ -61,13 +61,23 @@ const portfolioData = {
 
     // Projects Section
     projects: [
+                // --- Paste the new project object here ---
+        {
+            title: "Midwife Tracking & Payroll System",
+            client: "Client-Focused Project",
+            description: "Developed an automated system to solve a real-world data management problem, replacing a strenuous manual ledger process for midwives. The solution ensures accurate, performance-based pay calculations.",
+            tech: "Google Apps Script, Google Sheets, JavaScript, HTML",
+            imageUrl: "/Midwive-Tracker.png", // You'll need to add this image to your folder
+            liveLink: "https://script.google.com/macros/s/AKfycbz7BLj481tg4TeJ66u6RTobd5x8eb4kJz6CUyaAhquuZdx2zLfZ3id_xOzseqqzJ_Dw/exec",
+            codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
+        }, // <-- The comma is very important!
         {
             title: "Restaurant Website",
             client: "Client: Sidedish Foods",
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
-            imageUrl: "project-restaurant.jpg", // Make sure this image is in your folder
-            liveLink: "#", // Add your live link
+            imageUrl: "/SDSHFDS-pic.jpg", // Make sure this image is in your folder
+            liveLink: "sidedishfoodsweb.vercel.app", // Add your live link
             codeLink: "https://github.com/your-username/your-repo/..." // Add your code link
         },
         {
@@ -75,7 +85,7 @@ const portfolioData = {
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
             tech: "Next.js, TypeScript, JavaScript, Java",
-            imageUrl: "project-lms.jpg", // Make sure this image is in your folder
+            imageUrl: "/LMS-project-pic.jpg", // Make sure this image is in your folder
             liveLink: null,
             codeLink: null
         }
