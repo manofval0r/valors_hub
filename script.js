@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectGrid = document.getElementById('project-grid');
     portfolioData.projects.forEach(project => {
         let liveSiteButton = project.liveLink 
-            ? `<a href="${project.liveLink}" class="btn btn-secondary" target="_blank">Live Site</a>`
+            ? `<a href="#" class="btn btn-secondary" disabled" target="_blank">Live Site (Soon)</a>`
             : `<a href="#" class="btn btn-secondary disabled" target="_blank">Live Site (Soon)</a>`;
 
         const projectCard = `

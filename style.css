@@ -18,13 +18,36 @@ html {
     scroll-padding-top: var(--nav-height);
 }
 
+/* 1. Set the base font to Georgia */
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif; /* <-- CHANGED */
     color: var(--text-color);
-    background-image: url('background.jpg'); /* This is your crumpled paper image */
+    background-image: url('background.jpg');
     background-attachment: fixed;
     background-size: cover;
-    line-height: 1.6;
+    line-height: 1.7; /* Increased line-height for better readability with Georgia */
+}
+
+/* 2. Override with Poppins for modern UI elements */
+
+/* Navigation Links */
+.nav-links a, .logo a {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* All Buttons */
+.btn {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Skill Tags */
+.skill-tag {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Project Card Client & Tech Stack */
+.project-client, .tech-stack {
+    font-family: 'Poppins', sans-serif;
 }
 
 /* ========= NAVIGATION BAR ========= */
