@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>`;
     });
 
-    // --- NEW: Skills Builder ---
+    // Skills Builder ---
     const skillsGrid = document.getElementById('skills-grid');
     portfolioData.skills.forEach(skill => {
         skillsGrid.innerHTML += `<span class="skill-tag">${skill}</span>`;
     });
 
-    // --- NEW: Education Builder ---
+    // Education Builder ---
     const educationContainer = document.getElementById('education-container');
     educationContainer.innerHTML = '<h3>Education</h3>';
     portfolioData.education.forEach(edu => {
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>${edu.description}</p>`;
     });
 
-    // --- NEW: Certifications Builder ---
+    // Certifications Builder ---
     const certificationsContainer = document.getElementById('certifications-container');
     certificationsContainer.innerHTML = '<h4>Certifications</h4>';
     let certsHTML = portfolioData.certifications.map(cert => `<li>${cert.name} - <em>${cert.issuerDate}</em></li>`).join('');
@@ -78,9 +78,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Projects
     const projectGrid = document.getElementById('project-grid');
     portfolioData.projects.forEach(project => {
-        let liveSiteButton = project.liveLink ? `<a href="${project.liveLink}" class="btn btn-secondary" target="_blank">Live Site</a>` : `<a href="#" class="btn btn-secondary disabled" target="_blank">Live Site (Soon)</a>`;
+         let liveSiteButton = project.liveLink ? `<a href="${project.liveLink}" class="btn btn-secondary" target="_blank">Live Site</a>` : `<a href="#" class="btn btn-secondary disabled" target="_blank">Live Site (Soon)</a>`;
         let codeSiteButton = project.codeLink ? `<a href="${project.codeLink}" class="btn btn-secondary" target="_blank">View Code</a>` : `<a href="#" class="btn btn-secondary disabled" target="_blank">View Code (Soon)</a>`;
-        projectGrid.innerHTML += `
+
+        // --- NEW: Collaborator Logic ---
+        let collaboratorHTML = ''; // Start with an empty string
+        if (project.collaborator && project.GitHub) {
+            collaboratorHTML = `
+                <div class="project-collaborator">
+                    <span>In collaboration with: </span>
+                    <a href="${project.GitHub}" target="_blank" class="collaborator-link">
+                        ${project.collaborator}
+                    </a>
+                </div>
+            `;
+        }
+
+        // --- Updated Project Card Template ---
+        const projectCard = `
             <div class="project-card reveal">
                 <a href="${project.liveLink || project.codeLink || '#'}" target="_blank">
                     <div class="project-image"><img src="${project.imageUrl}" alt="${project.title} screenshot"></div>
@@ -90,8 +105,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         <p class="tech-stack"><strong>Technologies:</strong> ${project.tech}</p>
                     </div>
                 </a>
+                ${collaboratorHTML} 
                 <div class="project-links">${liveSiteButton}${codeSiteButton}</div>
             </div>`;
+
+        projectGrid.innerHTML += projectCard;
     });
 
     // Contact & Footer
@@ -101,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('contact-phone').textContent = portfolioData.contact.phone;
     document.getElementById('footer-github').href = portfolioData.socials.github;
     document.getElementById('footer-linkedin').href = portfolioData.socials.linkedin;
-    document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${portfolioData.name}. Built with code.`;
+    document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${portfolioData.name}. Built with AI and TIME`;
 
 
     // --- SMOOTH SCROLLING FUNCTIONALITY ---

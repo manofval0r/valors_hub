@@ -12,8 +12,8 @@ const portfolioData = {
         phone: "+2347037000448"
     },
     socials: {
-        github: "https://github.com/your-github-username", // <-- UPDATE THIS
-        linkedin: "https://linkedin.com/in/your-linkedin-profile" // <-- UPDATE THIS
+        github: "https://github.com/manofval0r", // <-- UPDATE THIS
+        linkedin: "www.linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
     },
     
     // About Section
@@ -40,18 +40,18 @@ const portfolioData = {
         }
     ],
 
-    // --- NEW: Skills Section Data ---
+    // --- Skills Section Data ---
     skills: [
-        "HTML", "CSS", "JavaScript", "TypeScript", "Next.js", "Node.js", "Java", "UI/UX Design", "Data Analytics", "Project Management", "AI Tools", "Git & GitHub", "Vercel"
+        "HTML", "CSS", "JavaScript", "Next.js", "UI/UX Design", "Data Analytics", "Project Management", "AI Tools", "Git & GitHub", "Vercel"
     ],
 
-    // --- NEW: Education & Certifications Data ---
+    // --- Education & Certifications Data ---
     education: [
         {
             degree: "Bachelor's Degree in Cybersecurity Science",
             institution: "Nigerian University of Technology and Management, Lagos",
             dates: "2024 - Present",
-            description: "Focusing on core principles of network protection and digital security at a world-class university."
+            description: "Focusing on core principles of network protection and digital security at a strong university."
         }
     ],
     certifications: [
@@ -72,13 +72,24 @@ const portfolioData = {
             codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
         }, // <-- The comma is very important!
         {
+            title: "Solar Market Trend Analyzer",
+            client: "Confidential",
+            description: "A comprehensive web app for analyzing solar, inverter, and battery market trends using real-time data scraping and partly free to use, open-source API integrations.",
+            tech: "Node.js, Express.js, REST APIs, Web Scraping, HTML, CSS",
+            imageUrl: "/PES-analyser.png", // Make sure this image is in your folder
+            liveLink: "https://pes-analyser.vercel.app", // Add your live link
+            codeLink: "https://github.com/Anikin-kings/PES-analyzer",
+            collaborator: "Anikin Kings",
+            GitHub: "https://github.com/Anikin-kings"
+        },
+        {
             title: "Restaurant Website",
             client: "Client: Sidedish Foods",
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
             imageUrl: "/SDSHFDS-pic.jpg", // Make sure this image is in your folder
             liveLink: "sidedishfoodsweb.vercel.app", // Add your live link
-            codeLink: "https://github.com/your-username/your-repo/..." // Add your code link
+            codeLink: "https://github.com/manofval0r/webstt/..." // Add your code link
         },
         {
             title: "Educational Platform",
