@@ -143,4 +143,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.15 });
     revealElements.forEach(el => { revealObserver.observe(el); });
+
+
+    // --- NEW: AJAX Contact Form Submission ---
+    const form = document.getElementById('contact-form');
+    
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const status = document.getElementById('form-status');
+        const data = new FormData(event.target);
+        
+        try {
+            const response = await fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                status.innerHTML = "Thanks for your submission!";
+                status.className = 'success';
+                form.reset();
+            } else {
+                const responseData = await response.json();
+                if (Object.hasOwn(responseData, 'errors')) {
+                    status.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
+                } else {
+                    status.innerHTML = "Oops! There was a problem submitting your form";
+                }
+                status.className = 'error';
+            }
+        } catch (error) {
+            status.innerHTML = "Oops! There was a problem submitting your form";
+            status.className = 'error';
+        }
+    }
+    
+    form.addEventListener('submit', handleSubmit);
 });

@@ -422,6 +422,68 @@ footer p:first-child {
     border-color: var(--primary-color);
 }
 
+/* ========= NEW: Contact Form Styles ========= */
+.contact-form-container {
+    max-width: 600px;
+    margin: 2rem auto 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+}
+
+.contact-form-container .btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+#form-status {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    display: none; /* Hidden by default */
+}
+
+#form-status.success {
+    background-color: #d4edda;
+    color: #155724;
+    display: block;
+}
+
+#form-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
 /* ========= UPGRADED RESPONSIVE DESIGN ========= */
 @media (max-width: 768px) {
     /* Hide the desktop links container */
