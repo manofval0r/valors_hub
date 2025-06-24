@@ -136,4 +136,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     form.addEventListener("submit", handleSubmit);
+    const backToTopButton = document.querySelector(".back-to-top-btn");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) { // Show button after scrolling 300px
+            backToTopButton.classList.add("active");
+        } else {
+            backToTopButton.classList.remove("active");
+        }
+    });
+
+        // --- NEW: Dark Mode Toggle Logic ---
+    const themeToggle = document.querySelector('#checkbox');
+    const currentTheme = localStorage.getItem('theme');
+
+    // Apply the saved theme on initial load
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            themeToggle.checked = true;
+        }
+    }
+
+    // Listen for toggle change
+    themeToggle.addEventListener('change', function(e) {
+        if(e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark'); // Save theme to local storage
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light'); // Save theme to local storage
+        }
+    });
 });
