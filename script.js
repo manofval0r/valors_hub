@@ -1,4 +1,5 @@
-// script.js
+// script.js (Corrected: Obsolete contact lines removed)
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- HAMBURGER MENU FUNCTIONALITY ---
@@ -65,10 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
         projectGrid.innerHTML += `<div class="project-card reveal"><a href="${project.liveLink || project.codeLink || '#'}" target="_blank"><div class="project-image"><img src="${project.imageUrl}" alt="${project.title} screenshot"></div><div class="project-info"><h3>${project.title}</h3><p>${project.description}</p>${collaboratorHTML}<p class="tech-stack"><strong>Technologies:</strong> ${project.tech}</p></div></a><div class="project-links">${liveSiteButton}${codeSiteButton}</div></div>`;
     });
 
-    document.getElementById('contact-email').href = `mailto:${portfolioData.contact.email}`;
-    document.getElementById('contact-email').textContent = portfolioData.contact.email;
-    document.getElementById('contact-phone').href = `tel:${portfolioData.contact.phone}`;
-    document.getElementById('contact-phone').textContent = portfolioData.contact.phone;
+    // *** THIS SECTION IS NOW CORRECTED ***
+    // The old lines that tried to find 'contact-email' and 'contact-phone' are gone.
     document.getElementById('footer-github').href = portfolioData.socials.github;
     document.getElementById('footer-linkedin').href = portfolioData.socials.linkedin;
     document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${portfolioData.name}. Built with AI and TIME`;
