@@ -1,5 +1,4 @@
-// script.js (Complete with Dark Mode Overhaul)
-
+// script.js
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- HAMBURGER MENU FUNCTIONALITY ---
