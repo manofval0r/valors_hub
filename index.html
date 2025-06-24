@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">Portfolio</title>
+
+    <!-- Favicon Links -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Stylesheet & Fonts -->
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +32,7 @@
             <a href="#contact">Contact</a>
         </div>
         
+        <!-- Upgraded Dark Mode Toggle -->
         <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle dark mode">
             <span class="sun-icon">☀</span> <!-- Sun character -->
             <span class="moon-icon">☾</span> <!-- Moon character -->
@@ -98,11 +103,9 @@
         <!-- Contact Section -->
         <section id="contact" class="content-section reveal">
             <h2>Get in touch</h2>
-            <p>I am currently seeking new opportunities. Feel free to send me a message directly from here.</p>
-            
-            <!-- Live Contact Form -->
+            <p>I am currently seeking new opportunities. If you have a project in mind or just want to connect, I'd love to hear from you.</p>
             <div class="contact-form-container">
-                <form id="contact-form" action="https://formspree.io/f/xvgrboln" method="POST">
+                <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_CODE" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required>
@@ -119,23 +122,20 @@
                 </form>
                 <div id="form-status"></div>
             </div>
-            
-            <div class="social-links-footer" style="margin-top: 2rem;">
+             <div class="social-links-footer">
                 <a id="footer-github" href="https://github.com/manofval0r" target="_blank">GitHub</a>
-                <a id="footer-linkedin" href="#www.linkedin.com/in/david-idowu-669687307 target="_blank">LinkedIn</a>
+                <a id="footer-linkedin" href="www.linkedin.com/in/david-idowu-669687307v" target="_blank">LinkedIn</a>
             </div>
         </section>
     </main>
-
-    <!-- NEW: Back to Top Button -->
-    <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
-        ⇧ <!-- This is an upwards arrow character -->
-    </a>
-
+    
     <footer>
         <p>Here's To Us Working Together</p>
         <p id="footer-copyright"></p>
     </footer>
+
+    <!-- Back to Top Button (Moved outside footer) -->
+    <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
     
     <script src="config.js"></script>
     <script src="script.js"></script>
