@@ -88,8 +88,8 @@ const portfolioData = {
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
             imageUrl: "/SDSHFDS-pic.jpg", // Make sure this image is in your folder
-            liveLink: "sidedishfoodsweb.vercel.app", // Add your live link
-            codeLink: "https://github.com/manofval0r/webstt/..." // Add your code link
+            liveLink: "https://sidedishfoodsweb.vercel.app", // Add your live link
+            codeLink: "https://github.com/manofval0r/webstt" // Add your code link
         },
         {
             title: "Educational Platform",
