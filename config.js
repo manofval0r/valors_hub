@@ -42,8 +42,19 @@ const portfolioData = {
 
     // --- Skills Section Data ---
     skills: [
-        "HTML", "CSS", "JavaScript", "Next.js", "UI/UX Design", "Data Analytics", "Project Management", "AI Tools", "Git & GitHub", "Vercel"
+        { name: "HTML" },
+        { name: "CSS" },
+        { name: "JavaScript" },
+        { name: "Next.js" },
+        { name: "UI/UX Design" },
+        { name: "Data Analytics" },
+        { name: "Project Management" },
+        { name: "AI Prompting" },
+        { name: "Gen AI", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
+        { name: "Git & GitHub" },
+        { name: "Vercel" }
     ],
+
 
     // --- Education & Certifications Data ---
     education: [

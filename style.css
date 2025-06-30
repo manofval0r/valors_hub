@@ -162,6 +162,31 @@ nav {
 .skills-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .skill-tag { background-color: transparent; color: var(--text-color); padding: 0.5rem 1rem; border-radius: 5px; font-weight: 500; font-size: 0.9rem; border: 1px solid var(--border-color); }
 .skill-tag:hover { background-color: var(--primary-color); color: var(--secondary-color); border-color: var(--primary-color); }
+.skill-tag-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color); /* Ensure link color matches other tags */
+}
+
+/* Add a visual indicator to the linked tag */
+.skill-tag-link::after {
+    content: ' ↗'; /* A simple arrow to indicate an outbound link */
+    font-size: 0.8em;
+    opacity: 0.6;
+    display: inline-block;
+    transition: transform 0.2s ease-out;
+}
+
+/* Make the linked tag stand out more on hover */
+.skill-tag-link:hover {
+    background-color: #3b82f6; /* A nice blue color */
+    color: white;
+    border-color: #2563eb;
+}
+
+.skill-tag-link:hover::after {
+    transform: translate(2px, -2px); /* Make the arrow 'jump' on hover */
+}
 
 /* Contact Form */
 .contact-form-container { max-width: 600px; margin: 2rem auto 0; }
