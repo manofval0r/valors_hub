@@ -213,17 +213,69 @@ footer p:first-child { font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem;
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .nav-links { position: fixed; left: -100%; top: var(--nav-height); gap: 0; flex-direction: column; background-color: var(--card-bg-color); width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); }
+    /* --- MOBILE NAVIGATION --- */
+    .nav-links {
+        position: fixed;
+        left: -100%;
+        top: 60px; /* Same as --nav-height */
+        gap: 0;
+        flex-direction: column;
+        background-color: var(--background-color);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    }
     .nav-links.active { left: 0; }
     .nav-links a { padding: 1.5rem 0; margin: 0; border-bottom: 1px solid var(--border-color); }
     .hamburger { display: block; }
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* --- NEW: GENERAL MOBILE TYPOGRAPHY & SPACING --- */
+    .content-section {
+        padding: 3rem 1.5rem; /* Reduce top/bottom padding slightly */
+    }
+
+    h2 {
+        font-size: 2rem; /* Reduce heading size for compactness */
+    }
+
+    p, li {
+        font-size: 0.95rem; /* Slightly adjust body text for readability */
+        line-height: 1.8; /* Increase line height for easier reading on narrow screens */
+    }
+
+    /* --- HERO SECTION --- */
     .hero-content h1 { font-size: 2.5rem; }
     .hero-content h2 { font-size: 1.2rem; }
-    .about-container, .skills-container { flex-direction: column; text-align: center; }
-    .project-grid { grid-template-columns: 1fr; }
-    .experience-item { flex-direction: column; text-align: center; }
-    .experience-number { margin: auto; }
+    .hero-buttons .btn {
+        padding: 1rem 1.5rem; /* Make buttons a bit larger for touch */
+        width: 80%;
+        max-width: 280px;
+    }
+
+    /* --- LAYOUT ADJUSTMENTS --- */
+    .about-container, .skills-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+    .experience-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    .experience-number {
+        margin: auto;
+    }
+
+    /* --- NEW: IMPROVE CONTACT FORM ON MOBILE --- */
+    .contact-form-container .btn {
+        padding: 1.2rem; /* Make send button very easy to tap */
+    }
 }

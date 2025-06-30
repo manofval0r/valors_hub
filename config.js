@@ -13,7 +13,7 @@ const portfolioData = {
     },
     socials: {
         github: "https://github.com/manofval0r", // <-- UPDATE THIS
-        linkedin: "www.linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
+        linkedin: "https://www.linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
     },
     
     // About Section

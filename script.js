@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', function() {
     hamburger.addEventListener("click", () => {
         hamburger.classList.toggle("active");
         navLinks.classList.toggle("active");
+        document.body.classList.toggle("mobile-menu-active");
     });
     allLinks.forEach(link => {
         link.addEventListener("click", () => {
             hamburger.classList.remove("active");
             navLinks.classList.remove("active");
+            document.body.classList.remove("mobile-menu-active");
         });
     });
 
