@@ -172,27 +172,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    const sections = document.querySelectorAll("section[id]");
-    const navLi = document.querySelectorAll(".nav-links a");
+    // --- NAV ACTIVE LINK INDICATOR ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinksAll = document.querySelectorAll('.nav-links a');
 
-    const navObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.getAttribute("id");
-                navLi.forEach(link => {
-                    link.classList.remove("active");
-                    if (link.getAttribute("href") === `#${sectionId}`) {
-                        link.classList.add("active");
+    function activateNavLink() {
+        let scrollY = window.pageYOffset;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 80; // adjust for nav height
+            const sectionHeight = section.offsetHeight;
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                navLinksAll.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${section.id}`) {
+                        link.classList.add('active');
                     }
                 });
             }
         });
-    }, {
-        // A section is "active" if it's taking up at least 50% of the screen
-        threshold: 0.5 
-    });
+    }
 
-    sections.forEach(section => {
-        navObserver.observe(section);
-    });
+    window.addEventListener('scroll', activateNavLink);
+    activateNavLink(); // Run on load
 });

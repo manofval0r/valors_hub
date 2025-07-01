@@ -113,6 +113,14 @@ nav {
 .logo a { font-weight: 900; font-size: 1.2rem; color: var(--primary-color); text-decoration: none; }
 .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 700; padding: 0.5rem; margin: 0 1rem; }
 .nav-links a:hover { color: var(--accent-color); }
+/* Highlight the active nav link */
+.nav-links a.active {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: 999px; /* pill shape */
+    padding: 0.5rem 1rem;
+    transition: background 0.3s, color 0.3s;
+}
 .hamburger { display: none; cursor: pointer; background: none; border: none; }
 .bar { display: block; width: 25px; height: 3px; margin: 5px auto; transition: all 0.3s ease-in-out; background-color: var(--text-color); }
 
