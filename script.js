@@ -171,4 +171,28 @@ document.addEventListener('DOMContentLoaded', function() {
             setTheme('dark');
         }
     });
+
+    const sections = document.querySelectorAll("section[id]");
+    const navLi = document.querySelectorAll(".nav-links a");
+
+    const navObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.getAttribute("id");
+                navLi.forEach(link => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${sectionId}`) {
+                        link.classList.add("active");
+                    }
+                });
+            }
+        });
+    }, {
+        // A section is "active" if it's taking up at least 50% of the screen
+        threshold: 0.5 
+    });
+
+    sections.forEach(section => {
+        navObserver.observe(section);
+    });
 });
