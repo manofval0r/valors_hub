@@ -1,6 +1,8 @@
-// script.js (Corrected: Obsolete contact lines removed)
+// script.js (Final, Complete, and Synchronized Code)
 
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Initialize Global Variables ---
+    let pJS_instance = null;
 
     // --- HAMBURGER MENU FUNCTIONALITY ---
     const hamburger = document.querySelector(".hamburger");
@@ -19,6 +21,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // --- ACCESSIBLE THEME TOGGLE & PARTICLES LOGIC ---
+    const themeToggleCheckbox = document.getElementById('theme-toggle-checkbox');
+    const docElement = document.documentElement;
+
+    function updateParticlesColor(theme) {
+        if (!pJS_instance) return;
+        // Use the CSS variables for perfect color consistency
+        const color = theme === 'dark' ? getComputedStyle(docElement).getPropertyValue('--accent-color').trim() : getComputedStyle(docElement).getPropertyValue('--text-color').trim();
+        pJS_instance.particles.color.value = color;
+        pJS_instance.particles.line_linked.color = color;
+        pJS_instance.fn.particlesRefresh();
+    }
+
+    function setTheme(theme) {
+        docElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        themeToggleCheckbox.checked = theme === 'dark';
+        updateParticlesColor(theme);
+    }
+
+    themeToggleCheckbox.addEventListener('change', () => {
+        const newTheme = themeToggleCheckbox.checked ? 'dark' : 'light';
+        setTheme(newTheme);
+    });
+
+    // --- INITIALIZE PARTICLES.JS ---
+    function initializeParticles() {
+        if (typeof particlesJS === 'undefined') {
+            console.error('particles.js script not loaded');
+            return;
+        }
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 900 } },
+                "color": { "value": "#2c3e50" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.6, "random": true },
+                "size": { "value": 4, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#2c3e50", "opacity": 0.35, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
+            },
+            "retina_detect": true
+        });
+        pJS_instance = window.pJSDom[0].pJS;
+    }
+
+    initializeParticles();
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    setTheme(currentTheme);
 
     // --- POPULATE ALL DATA FROM CONFIG.JS ---
     document.getElementById('page-title').textContent = `${portfolioData.name} | ${portfolioData.title}`;
@@ -44,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Skills Builder with UPGRADED LOGIC ---
     const skillsGrid = document.getElementById('skills-grid');
     portfolioData.skills.forEach(skill => {
-        // ** HERE'S THE NEW LOGIC **
         if (skill.certificateUrl) {
             // If a certificate URL exists, create a clickable link
             skillsGrid.innerHTML += `
@@ -56,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             skillsGrid.innerHTML += `<span class="skill-tag">${skill.name}</span>`;
         }
     });
+    
 
     const educationContainer = document.getElementById('education-container');
     educationContainer.innerHTML = '<h3>Education</h3>';
@@ -83,43 +138,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // The old lines that tried to find 'contact-email' and 'contact-phone' are gone.
     document.getElementById('footer-github').href = portfolioData.socials.github;
     document.getElementById('footer-linkedin').href = portfolioData.socials.linkedin;
-    document.getElementById('footer-copyright').textContent = `© ${new Date().getFullYear()} ${portfolioData.name}. Built with AI and TIME`;
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-
-    // --- SMOOTH SCROLLING FUNCTIONALITY ---
-    const smoothScrollLinks = document.querySelectorAll('nav a, .hero-buttons a, .scroll-down, .back-to-top-btn');
-    smoothScrollLinks.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    });
-
-    // --- INTERSECTION OBSERVER FOR SCROLL ANIMATIONS ---
-    const revealElements = document.querySelectorAll(".reveal");
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-    revealElements.forEach(el => { revealObserver.observe(el); });
-
-    // --- AJAX Contact Form Submission ---
     const form = document.getElementById('contact-form');
     async function handleSubmit(event) {
         event.preventDefault();
         const status = document.getElementById('form-status');
         const data = new FormData(event.target);
         try {
-            const response = await fetch(event.target.action, {
-                method: form.method,
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
+            const response = await fetch(event.target.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
             if (response.ok) {
                 status.innerHTML = "Thanks for your submission!";
                 status.className = 'success';
@@ -136,62 +163,103 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     form.addEventListener("submit", handleSubmit);
 
-    // --- Back to Top Button Logic ---
-    const backToTopButton = document.querySelector(".back-to-top-btn");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add("active");
-        } else {
-            backToTopButton.classList.remove("active");
+    // --- SCROLL-BASED FUNCTIONALITY ---
+    const smoothScrollLinks = document.querySelectorAll('nav a, .hero-buttons a, .scroll-down, .back-to-top-btn');
+    smoothScrollLinks.forEach(link => { link.addEventListener('click', e => { e.preventDefault(); const target = document.querySelector(link.getAttribute('href')); if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
+    
+// --- INTERSECTION OBSERVER FOR SCROLL ANIMATIONS ---
+const revealElements = document.querySelectorAll(".reveal");
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target);
         }
-    });
+        });
+}, { threshold: 0.15 });
+revealElements.forEach(el => { revealObserver.observe(el); });
 
-    // --- OVERHAULED: Dark Mode Toggle Logic ---
-    const themeToggleButton = document.getElementById('theme-toggle-btn');
-    const docElement = document.documentElement;
 
-    function setTheme(theme) {
-        docElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }
-
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-        setTheme(currentTheme);
+    // --- NAVIGATION LINK ACTIVATION ON SCROLL ---
+// --- Back to Top Button Logic ---
+const backToTopButton = document.querySelector(".back-to-top-btn");
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTopButton.classList.add("active");
     } else {
-        // Default to light theme if no preference is saved
-        setTheme('light');
+        backToTopButton.classList.remove("active");
     }
+});
 
-    themeToggleButton.addEventListener('click', () => {
-        const activeTheme = docElement.getAttribute('data-theme');
-        if (activeTheme === 'dark') {
-            setTheme('light');
-        } else {
-            setTheme('dark');
+// --- INITIALIZE PARTICLES.JS ---
+function initializeParticles() {
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 60, "density": { "enable": true, "value_area": 900 } },
+            "color": { "value": "#254a66" }, // Default to light theme color
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.6, "random": true },
+            "size": { "value": 4, "random": true },
+            "line_linked": { "enable": true, "distance": 150, "color": "#254a66", "opacity": 0.85, "width": 2 },
+            "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out" }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" } },
+            "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.35 } }, "push": { "particles_nb": 4 } }
+        },
+        "retina_detect": true
+    });
+    // Store the instance so we can control it later
+    pJS_instance = window.pJSDom[0].pJS;
+}
+
+// Initialize everything on page load
+initializeParticles();
+
+// --- NAV ACTIVE LINK INDICATOR ---
+const sections = document.querySelectorAll('section[id]');
+const navLinksAll = document.querySelectorAll('.nav-links a');
+
+function activateNavLink() {
+    let scrollY = window.pageYOffset;
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80; // adjust for nav height
+        const sectionHeight = section.offsetHeight;
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${section.id}`) {
+                    link.classList.add('active');
+                }
+            });
         }
     });
+}
 
-    // --- NAV ACTIVE LINK INDICATOR ---
-    const sections = document.querySelectorAll('section[id]');
-    const navLinksAll = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', activateNavLink);
+activateNavLink(); // Run on load
 
-    function activateNavLink() {
-        let scrollY = window.pageYOffset;
+
+    function handleScroll() {
+        if (window.scrollY > 300) { backToTopButton.classList.add("active"); } 
+        else { backToTopButton.classList.remove("active"); }
+        
+        let currentSectionId = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 80; // adjust for nav height
-            const sectionHeight = section.offsetHeight;
-            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                navLinksAll.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${section.id}`) {
-                        link.classList.add('active');
-                    }
-                });
+            const sectionTop = section.offsetTop - 100;
+            if (window.scrollY >= sectionTop) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+        navLinksAll.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSectionId}`) {
+                link.classList.add('active');
             }
         });
     }
 
-    window.addEventListener('scroll', activateNavLink);
-    activateNavLink(); // Run on load
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call to set active link on page load
 });

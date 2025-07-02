@@ -1,31 +1,31 @@
 /* ========= OVERHAULED: Dark Mode Color Palette ========= */
 :root {
     /* Light Theme */
-    --primary-color: #1a1a1a;        /* Black for main text, buttons */
-    --secondary-color: #ffffff;      /* White for text on dark buttons */
-    --bg-color: #f4f4f8;             /* Light grey page background */
-    --card-bg-color: #ffffff;        /* White for cards, sections */
-    --nav-bg-color: rgba(244, 244, 248, 0.85); /* Semi-transparent nav */
-    --text-color: #2c3e50;           /* Dark blue-grey for body text */
-    --subtle-text-color: #7f8c8d;     /* Grey for subtle text */
-    --border-color: #ecf0f1;         /* Light grey for borders */
-    --accent-color: #3498db;          /* A modern blue for links/hovers */
-    --experience-num-color: #e0e0e0; /* Very light grey for numbers */
+    --primary-color: #1a1a1a;
+    --secondary-color: #ffffff;
+    --bg-color: #f4f4f8;
+    --card-bg-color: #ffffff;
+    --nav-bg-color: rgba(244, 244, 248, 0.85);
+    --text-color: #2c3e50;
+    --subtle-text-color: #7f8c8d;
+    --border-color: #ecf0f1;
+    --accent-color: #3498db;
+    --experience-num-color: #e0e0e0;
     --nav-height: 60px;
 }
 
 [data-theme="dark"] {
     /* Dark Theme */
-    --primary-color: #e0e0e0;        /* Light grey for main text, buttons */
-    --secondary-color: #121212;      /* Near-black for text on light buttons */
-    --bg-color: #121212;             /* Near-black page background */
-    --card-bg-color: #1e1e1e;        /* Charcoal grey for cards, sections */
-    --nav-bg-color: rgba(30, 30, 30, 0.85); /* Semi-transparent nav */
-    --text-color: #bdc3c7;           /* Light grey for body text */
-    --subtle-text-color: #7f8c8d;     /* Same grey for subtle text */
-    --border-color: #34495e;         /* Dark blue-grey for borders */
-    --accent-color: #3498db;          /* Same blue for links/hovers */
-    --experience-num-color: #2c3e50; /* Dark blue-grey for numbers */
+    --primary-color: #e0e0e0;
+    --secondary-color: #121212;
+    --bg-color: #121212;
+    --card-bg-color: #1e1e1e;
+    --nav-bg-color: rgba(30, 30, 30, 0.85);
+    --text-color: #bdc3c7;
+    --subtle-text-color: #7f8c8d;
+    --border-color: #34495e;
+    --accent-color: #3498db;
+    --experience-num-color: #2c3e50;
 }
 
 * {
@@ -44,9 +44,8 @@ body {
     font-family: Georgia, 'Times New Roman', Times, serif;
     color: var(--text-color);
     background-color: var(--bg-color);
-    background-image: url('background.jpg');
-    background-attachment: fixed;
-    background-size: cover;
+
+    background-image: none; /* <-- KEY CHANGE: Remove static background image */
     line-height: 1.7;
 }
 
@@ -70,12 +69,16 @@ body {
 /* --- END OF CORRECTION --- */
 
 .content-section {
-    max-width: 100%;
-    margin: 0 0 3rem 0; /* Increased bottom margin for more spacing */
+    max-width: 1200px; /* Reduced from 100% for a more focused content area */
+    margin: 0 auto 3rem auto; /* Center and add bottom margin */
     padding: 6rem 10%;
     background-color: var(--card-bg-color);
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .content-section {
+    border-bottom: 1px solid transparent;
 }
 
 .text-container {
@@ -95,20 +98,20 @@ h2 {
 
 /* Navigation & Header */
 nav {
-    position: fixed; 
-    top: 0; 
-    width: 100%; 
+    position: fixed;
+    top: 0;
+    width: 100%;
     height: var(--nav-height);
-    background-color: var(--nav-bg-color); /* Semi-transparent using theme variable */
-    backdrop-filter: blur(16px) saturate(180%); /* Strong blur and a bit of vibrancy */
+    background-color: var(--nav-bg-color);
+    backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    display: flex; 
-    justify-content: space-between; 
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 5%; 
-    z-index: 1000; 
+    padding: 0 5%;
+    z-index: 1000; /* Ensures nav is always on top */
     border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07); /* Optional: subtle shadow for depth */
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
 }
 .logo a { font-weight: 900; font-size: 1.2rem; color: var(--primary-color); text-decoration: none; }
 .nav-links a { color: var(--text-color); text-decoration: none; font-weight: 700; padding: 0.5rem; margin: 0 1rem; }
@@ -131,8 +134,103 @@ nav {
 [data-theme="dark"] .sun-icon { opacity: 0; transform: translateY(10px); }
 [data-theme="dark"] .moon-icon { opacity: 1; transform: translateY(0); }
 
+/* ========= NEW: Toggle Switch Styles ========= */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide the default HTML checkbox */
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider is the track of the switch */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+/* The ::before element is the thumb that slides */
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+/* When the checkbox is checked (dark mode), change slider color and move thumb */
+input:checked + .slider {
+    background-color: var(--accent-color);
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--accent-color);
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Sun and Moon icons inside the switch */
+.slider .sun-icon, .slider .moon-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.slider .sun-icon {
+    left: 8px; /* Position sun on the left */
+}
+
+.slider .moon-icon {
+    right: 8px; /* Position moon on the right */
+    opacity: 0; /* Hidden by default */
+}
+
+/* Hide sun and show moon in dark mode */
+input:checked + .slider .sun-icon {
+    opacity: 0;
+}
+
+input:checked + .slider .moon-icon {
+    opacity: 1;
+}
+
 /* Hero Section */
-.hero-section { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 1rem; }
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative; /* Needed for z-index to work */
+    z-index: 2;         /* Lifts hero content above particles */
+}
 .hero-content h1 { font-size: 4rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 .hero-content h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 2rem; border: none; color: var(--subtle-text-color); }
 .hero-buttons { margin-bottom: 2rem; }
@@ -230,95 +328,244 @@ nav {
 [data-theme="dark"] #form-status.error { background-color: #58151c; color: #f1b0b7; }
 
 /* Footer & Back to Top */
-footer { text-align: center; padding: 2rem; background: var(--primary-color); color: var(--secondary-color); }
-footer p:first-child { font-size: 2rem; font-weight: 900; margin-bottom: 0.5rem; }
-.social-links-footer { text-align: center; margin: 2rem 0; }
-.social-links-footer a { display: inline-block; padding: 0.5rem 1rem; margin: 0 0.5rem; border: 2px solid var(--text-color); color: var(--text-color); text-decoration: none; font-weight: 700; }
-.social-links-footer a:hover { background-color: var(--text-color); color: var(--card-bg-color); }
-.back-to-top-btn { position: fixed; bottom: 20px; right: 20px; background-color: var(--primary-color); color: var(--secondary-color); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 24px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.4s, visibility 0.4s, transform 0.4s; }
+footer {
+    position: relative; /* <-- FINAL FIX: Ensures footer is part of the normal flow on top of particles */
+    z-index: 2;
+    background: #111;
+    color: var(--secondary-color);
+    text-align: center;
+    padding: .7rem 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] footer {
+    background: linear-gradient(120deg, #424444 0%, #999e9e 40%, #424444 100%);
+    padding: .7rem 1rem;
+}
+footer p:first-child { font-size: 2rem; font-weight: 600; margin-bottom: 0.5rem; }
+.social-links-footer { margin: 1.5rem 0 0 0; display: flex; justify-content: center; gap: 1.5rem; }
+.social-links-footer a { display: flex; align-items: center; justify-content: center; padding: 0.7rem; border-radius: 50%; background: rgba(255,255,255,0.07); border: none; color: var(--secondary-color); font-size: 1.5rem; transition: background 0.2s, color 0.2s, transform 0.2s; width: 44px; height: 44px; }
+.social-links-footer a:hover { background: var(--accent-color); color: #fff; transform: translateY(-4px); }
+[data-theme="dark"] .social-links-footer a {
+    background: linear-gradient(135deg, #0a2342 0%, #1e3a5c 60%, #3498db 100%);
+    color: #e0e0e0;
+    box-shadow: 0 2px 16px 0 rgba(30,58,92,0.28), 0 1.5px 8px 0 rgba(0,0,0,0.18);
+    border: 1.5px solid #1e3a5c;
+    transition: 
+        background 0.2s, 
+        color 0.2s, 
+        box-shadow 0.2s, 
+        border-color 0.2s, 
+        transform 0.2s;
+}
+
+[data-theme="dark"] .social-links-footer a:hover {
+    background: linear-gradient(135deg, #3498db 0%, #1e3a5c 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(52,152,219,0.45), 0 2px 12px 0 rgba(0,0,0,0.22);
+    border-color: #3498db;
+    transform: translateY(-6px) scale(1.12);
+}
+
+[data-theme="dark"] .social-links-footer a#footer-github {
+    background: linear-gradient(135deg, #18191a 0%, #23272f 80%, #1e3a5c 100%);
+    color: #e0e0e0;
+    box-shadow: 0 2px 16px 0 rgba(24,25,26,0.28), 0 1.5px 8px 0 rgba(0,0,0,0.18);
+    border: 1.5px solid #23272f;
+    transition: 
+        background 0.2s, 
+        color 0.2s, 
+        box-shadow 0.2s, 
+        border-color 0.2s, 
+        transform 0.2s;
+}
+
+[data-theme="dark"] .social-links-footer a#footer-github:hover {
+    background: linear-gradient(135deg, #23272f 0%, #18191a 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(24,25,26,0.45), 0 2px 12px 0 rgba(0,0,0,0.22);
+    border-color: #23272f;
+    transform: translateY(-6px) scale(1.12);
+}
+
+/* LinkedIn stays blue */
+[data-theme="dark"] .social-links-footer a#footer-linkedin {
+    background: linear-gradient(135deg, #0a2342 0%, #1e3a5c 60%, #3498db 100%);
+    color: #e0e0e0;
+    box-shadow: 0 2px 16px 0 rgba(30,58,92,0.28), 0 1.5px 8px 0 rgba(0,0,0,0.18);
+    border: 1.5px solid #1e3a5c;
+    transition: 
+        background 0.2s, 
+        color 0.2s, 
+        box-shadow 0.2s, 
+        border-color 0.2s, 
+        transform 0.2s;
+}
+
+[data-theme="dark"] .social-links-footer a#footer-linkedin:hover {
+    background: linear-gradient(135deg, #3498db 0%, #1e3a5c 100%);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(52,152,219,0.45), 0 2px 12px 0 rgba(0,0,0,0.22);
+    border-color: #3498db;
+    transform: translateY(-6px) scale(1.12);
+}
+.back-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 999; /* <-- FINAL FIX: Ensures it's on top of all content */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s, transform 0.4s;
+}
 .back-to-top-btn.active { opacity: 1; visibility: visible; }
 .back-to-top-btn:hover { transform: translateY(-5px); }
 
+/* Particles.js Background */
+#particles-js {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* This is correct, it forces it to the very back */
+}
+
+/* Main Content Wrapper */
+main {
+    position: relative;
+    z-index: 2;
+    background-color: transparent; /* <-- KEY CHANGE: The magic happens here */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    /* --- MOBILE NAVIGATION --- */
+    /* --- 1. MOBILE LAYOUT & SPACING REFINEMENTS --- */
+    .content-section {
+        padding: 4rem 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about-container,
+    .skills-container,
+    .experience-item {
+        flex-direction: column;
+        text-align: left !important;
+        gap: 2rem;
+    }
+
+    .experience-number {
+        margin: auto;
+    }
+
+    /* --- 2. MOBILE TYPOGRAPHY REFINEMENTS --- */
+    h2 {
+        font-size: 1.8rem;
+        line-height: 1.3;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    p,
+    li,
+    .subtitle,
+    .company,
+    .details,
+    .form-group label {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    /* --- 3. HERO SECTION MOBILE REFINEMENTS --- */
+    .hero-section {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.2rem;
+        line-height: 1.2;
+    }
+
+    .hero-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .hero-buttons .btn {
+        width: 90%;
+        max-width: 300px;
+        padding: 1rem;
+    }
+
+    /* --- 4. EXISTING MOBILE STYLES (Hamburger Menu, etc.) --- */
     .nav-links {
         position: fixed;
         left: -100%;
-        top: 60px; /* Same as --nav-height */
+        top: var(--nav-height);
         gap: 0;
         flex-direction: column;
-        background-color: var(--background-color);
+        background-color: var(--card-bg-color);
         width: 100%;
         text-align: center;
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
     }
-    /* NEW: Styles for Active Navigation Link */
-    .nav-links a.active {
-        background-color: var(--primary-color);
-        color: var(--secondary-color);
-        border-radius: 999px; /* This creates the "pill" shape */
-        padding: 0.5rem 1rem;
+
+    .nav-links.active {
+        left: 0;
     }
-    .nav-links.active { left: 0; }
+
     .nav-links a {
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 700;
-    padding: 0.5rem 1rem; /* Standardize padding */
-    margin: 0 0.25rem;   /* Reduce margin slightly */
-    border-radius: 999px; /* Add this so the shape doesn't "pop" in */
-    transition: all 0.3s ease;
-    }
-    .hamburger { display: block; }
-    .hamburger.active .bar:nth-child(2) { opacity: 0; }
-    .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-    /* --- NEW: GENERAL MOBILE TYPOGRAPHY & SPACING --- */
-    .content-section {
-        padding: 3rem 1.5rem; /* Reduce top/bottom padding slightly */
+        padding: 1.5rem 0;
+        margin: 0;
+        border-radius: 0;
+        border-bottom: 1px solid var(--border-color);
     }
 
-    h2 {
-        font-size: 2rem; /* Reduce heading size for compactness */
+    .nav-links a.active {
+        background-color: var(--accent-color);
+        color: white;
     }
 
-    p, li {
-        font-size: 0.95rem; /* Slightly adjust body text for readability */
-        line-height: 1.8; /* Increase line height for easier reading on narrow screens */
+    .hamburger {
+        display: block;
     }
 
-    /* --- HERO SECTION --- */
-    .hero-content h1 { font-size: 2.5rem; }
-    .hero-content h2 { font-size: 1.2rem; }
-    .hero-buttons .btn {
-        padding: 1rem 1.5rem; /* Make buttons a bit larger for touch */
-        width: 80%;
-        max-width: 280px;
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
-    /* --- LAYOUT ADJUSTMENTS --- */
-    .about-container, .skills-container {
-        flex-direction: column;
-        text-align: center;
-        gap: 3rem;
-    }
-    .project-grid {
-        grid-template-columns: 1fr;
-    }
-    .experience-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    .experience-number {
-        margin: auto;
-    }
-
-    /* --- NEW: IMPROVE CONTACT FORM ON MOBILE --- */
-    .contact-form-container .btn {
-        padding: 1.2rem; /* Make send button very easy to tap */
+    /* Only left-align education text under Skills & Qualifications on mobile */
+    @media (max-width: 768px) {
+        .skills-container .education,
+        .skills-container .education * {
+            text-align: left !important;
+        }
     }
 }
