@@ -103,6 +103,24 @@ const portfolioData = {
             codeLink: "https://github.com/manofval0r/websstt" // Add your code link
         },
         {
+            title: "Client Portfolio Website",
+            client: "Client-Focused Project",
+            description: "Developed a portfolio website to showcase the client's work, integrating a blog and a contact form for potential clients.",
+            tech: "HTML, CSS, JavaScript",
+            imageUrl: "/client-portfolio.png", // You'll need to add this image to your folder
+            liveLink: "https://solomon-binutu.vercel.app",
+            codeLink: "https://github.com/manofval0r/ay-design"
+        }, // <-- The comma is very important!
+        {
+            title: "Fashion Ecommerce Website",
+            client: "Client-Focused Project",
+            description: "Developed a fashion ecommerce website with a focus on user experience and seamless shopping.",
+            tech: "HTML, CSS, JavaScript",
+            imageUrl: "/kloshouse.png", // You'll need to add this image to your folder
+            liveLink: "https://kloshouse.vercel.app",
+            codeLink: "https://github.com/manofval0r/kloshouse"
+        }, 
+        {
             title: "Educational Platform",
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
