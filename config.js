@@ -42,14 +42,13 @@ const portfolioData = {
 
     // --- Skills Section Data ---
     skills: [
-        { name: "HTML" },
-        { name: "CSS" },
+        { name: "Responsive Web Design (HTML and CSS)", certificateUrl: "/Responsive web design.png" },
         { name: "JavaScript" },
         { name: "Next.js" },
-        { name: "UI/UX Design" },
+        { name: "UI/UX Design", certificateUrl: "/Responsive web design.png" },
         { name: "Data Analytics" },
         { name: "Project Management" },
-        { name: "AI Prompting" },
+        { name: "AI Prompting", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf"},
         { name: "Gen AI", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
         { name: "Git & GitHub" },
         { name: "Vercel" }
