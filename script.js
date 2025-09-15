@@ -140,28 +140,67 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('footer-linkedin').href = portfolioData.socials.linkedin;
     document.getElementById('footer-year').textContent = new Date().getFullYear();
 
+    
+
     const form = document.getElementById('contact-form');
+if (form) {
+    // Ensure there's a visible status element
+    let status = document.getElementById('form-status');
+    if (!status) {
+        status = document.createElement('div');
+        status.id = 'form-status';
+        status.setAttribute('role', 'status');
+        form.parentElement.appendChild(status);
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
-        const status = document.getElementById('form-status');
         const data = new FormData(event.target);
+
         try {
-            const response = await fetch(event.target.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' } });
+            const response = await fetch(event.target.action, {
+                method: (form.method || 'POST'),
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
             if (response.ok) {
-                status.innerHTML = "Thanks for your submission!";
+                // Always show success message for successful sends
+                status.textContent = "Thanks — your message was sent successfully!";
                 status.className = 'success';
+                status.style.display = 'block';
+                status.style.opacity = '1';
                 form.reset();
+
+                // Auto-hide after 6s
+                setTimeout(() => {
+                    status.style.opacity = '0';
+                    setTimeout(() => { status.style.display = 'none'; }, 400);
+                }, 6000);
             } else {
-                const responseData = await response.json();
-                status.innerHTML = responseData.errors ? responseData.errors.map(e => e.message).join(", ") : "Oops! There was a problem.";
+                // Try to extract server error details
+                let msg = "Oops! There was a problem sending your message.";
+                try {
+                    const json = await response.json();
+                    if (json && json.errors) msg = json.errors.map(e => e.message).join(', ');
+                    else if (json && json.message) msg = json.message;
+                } catch (_) { /* ignore parse errors */ }
+
+                status.textContent = msg;
                 status.className = 'error';
+                status.style.display = 'block';
+                status.style.opacity = '1';
             }
-        } catch (error) {
-            status.innerHTML = "Oops! There was a problem submitting your form.";
+        } catch (err) {
+            status.textContent = "Network error: message not sent.";
             status.className = 'error';
+            status.style.display = 'block';
+            status.style.opacity = '1';
         }
     }
-    form.addEventListener("submit", handleSubmit);
+
+    form.addEventListener('submit', handleSubmit);
+}
 
     // --- SCROLL-BASED FUNCTIONALITY ---
     const smoothScrollLinks = document.querySelectorAll('nav a, .hero-buttons a, .scroll-down, .back-to-top-btn');
@@ -190,6 +229,8 @@ window.addEventListener("scroll", () => {
         backToTopButton.classList.remove("active");
     }
 });
+
+
 
 // --- INITIALIZE PARTICLES.JS ---
 function initializeParticles() {
