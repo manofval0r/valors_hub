@@ -11,8 +11,11 @@ body { font-family: Georgia, 'Times New Roman', Times, serif; color: var(--text-
 body.mobile-menu-active { overflow: hidden; }
 .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
 section { position: relative; overflow: hidden; }
-.fullscreen-section:not(.hire-me) { height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; }
-.hire-me{height: 170vh; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;}
+.fullscreen-section:not(.hire-me, .reachout) { height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; }
+.reachout{
+    height: 120vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;
+}
+.hire-me{height: 140vh; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;}
 .traditional-scroll { scroll-snap-align: start; padding: 6rem 2rem; background-color: var(--card-bg-color); transition: background-color 0.3s ease; }
 .vanta-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
 .section-content-wrapper, .hero-content, .text-container { position: relative; z-index: 1; width: 100%; max-width: 1200px; padding: 0 1rem; }
@@ -275,7 +278,9 @@ footer { text-align: center; padding: 2rem 1rem; background: var(--card-bg-color
 /* ========= RESPONSIVE DESIGN ========= */
 @media (max-width: 768px) {
     h2.section-title { font-size: 2rem; }
-    .fullscreen-section { padding: var(--nav-height) 1rem 3rem 1rem; }
+    .fullscreen-section:not(.hire-me) { padding: var(--nav-height) 1rem 3rem 1rem; }
+    .hire-me {height: auto; padding: var(--nav-height) 1rem 3rem 1rem;}
+    .collaborate{padding:0 auto}
     .traditional-scroll { padding: 4rem 1.5rem; }
     .nav-links { position: fixed; left: -100%; top: var(--nav-height); gap: 0; flex-direction: column; background-color: var(--card-bg-color); width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); z-index: 999; }
     .nav-links.active { left: 0; }
