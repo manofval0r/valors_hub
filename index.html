@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="MBFlWl1s1D2CAVFKDdo8X9C-mT8naI4hJdTx8xnhaPg" />
     <title id="page-title">Portfolio</title>
 
     <!-- Favicon Links -->
@@ -24,42 +23,47 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation (Stays fixed on top of everything) -->
     <nav>
       <div class="logo"><a href="#home">David Idowu</a></div>
       <div class="nav-links">
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#experience">Experience</a>
+        <a href="#services">Services</a>
+        <a href="#collaborate">Collaborate</a>
         <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </div>
-
-      <!-- NEW: Accessible Toggle Switch -->
-      <label
-        class="theme-switch"
-        for="theme-toggle-checkbox"
-        aria-label="Toggle theme"
-      >
-        <input type="checkbox" id="theme-toggle-checkbox" />
-        <div class="slider">
-          <span class="sun-icon">☀️</span>
-          <span class="moon-icon">🌙</span>
-        </div>
-      </label>
-
-      <button class="hamburger">
-        <span class="bar"></span><span class="bar"></span
-        ><span class="bar"></span>
-      </button>
+      <div class="nav-controls">
+        <label
+          class="theme-switch"
+          for="theme-toggle-checkbox"
+          aria-label="Toggle theme"
+        >
+          <input type="checkbox" id="theme-toggle-checkbox" />
+          <div class="slider">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+          </div>
+        </label>
+        <button class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </button>
+      </div>
     </nav>
 
-    <main>
-      <!-- Hero Section -->
-      <section id="home" class="hero-section">
+    <!-- Main Scrollable Container for all sections -->
+    <div class="scroll-container">
+      <!-- Section 1: Hero (Fullscreen) -->
+      <section id="home" class="fullscreen-section">
+        <div id="vanta-hero-bg" class="vanta-canvas"></div>
         <div class="hero-content">
           <h1 id="hero-name"></h1>
           <h2 id="hero-title"></h2>
@@ -68,17 +72,11 @@
             <a href="#contact" class="btn btn-secondary">Get In Touch</a>
           </div>
           <div class="social-links">
-            <a
-              id="hero-github"
-              href="https://github.com/manofval0r"
-              target="_blank"
+            <a id="hero-github" class="linkin" href="#" target="_blank"
               >GitHub</a
             >
             |
-            <a
-              id="hero-linkedin"
-              href="www.linkedin.com/in/david-idowu-669687307"
-              target="_blank"
+            <a id="hero-linkedin" class="linkin" href="#" target="_blank"
               >LinkedIn</a
             >
           </div>
@@ -86,158 +84,310 @@
         <a href="#about" class="scroll-down"><span></span></a>
       </section>
 
-      <!-- About Section -->
-      <section id="about" class="content-section reveal">
+      <!-- Section 2: Qualifications (Traditional Scroll) -->
+      <section id="about" class="content-section traditional-scroll">
         <div class="text-container">
-          <!-- WRAPPER ADDED -->
+          <!-- About Me -->
           <div class="about-container">
             <div class="about-image">
               <img id="about-image" src="" alt="Headshot" />
             </div>
             <div class="about-text">
-              <h2 id="about-name"></h2>
+              <h2 id="about-name" class="section-title"></h2>
               <p id="about-location" class="subtitle"></p>
               <div id="about-description"></div>
             </div>
           </div>
-        </div>
-        <!-- WRAPPER ADDED -->
-      </section>
 
-      <!-- Experience Section -->
-      <section id="experience" class="content-section reveal">
-        <div class="text-container">
-          <!-- WRAPPER ADDED -->
-          <h2>Experience</h2>
+          <!-- Experience -->
+          <h2 class="section-title">Experience</h2>
           <div id="experience-container"></div>
-        </div>
-        <!-- WRAPPER ADDED -->
-      </section>
 
-      <!-- Projects Section -->
-      <section id="projects" class="content-section reveal">
-        <h2>Projects</h2>
-        <div id="project-grid" class="project-grid"></div>
-      </section>
-
-      <!-- Skills & Qualifications Section -->
-      <section id="skills" class="content-section reveal">
-        <h2>Skills & Qualifications</h2>
-        <div class="skills-container">
-          <div class="skill-column">
-            <h3>Technical Skills</h3>
-            <div id="skills-grid" class="skills-grid"></div>
-          </div>
-          <div class="skill-column">
-            <div id="education-container"></div>
-            <div id="certifications-container"></div>
+          <!-- Skills & Qualifications -->
+          <h2 class="section-title">Skills & Qualifications</h2>
+          <div id="skills-container" class="skills-container">
+            <div class="skill-column">
+              <h3 class="column-title">Technical Skills</h3>
+              <div id="skills-grid" class="skills-grid"></div>
+            </div>
+            <div class="skill-column">
+              <div id="education-container"></div>
+              <div id="certifications-container"></div>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact Section -->
-      <section id="contact" class="content-section reveal">
+      <!-- Section 3: Services (Fullscreen) -->
+      <section id="services" class="fullscreen-section hire-me">
+        <div id="vanta-services-bg" class="vanta-canvas"></div>
+        <div class="section-content-wrapper">
+          <h2 class="section-title">Services</h2>
+          <div class="process-steps" id="process-steps-container"></div>
+          <div id="pricing-grid" class="pricing-grid"></div>
+        </div>
+      </section>
+
+      <!-- NEW: Collaborate (styled like Services) -->
+      <section
+        id="collaborate"
+        class="content-section traditional-scroll collab-code-section"
+      >
+        <div id="vanta-collab-bg" class="vanta-canvas"></div>
+
+        <div class="section-content-wrapper">
+          <h2 class="section-title">Collaborate</h2>
+          <p class="section-tagline"></p>
+
+          <div class="collab-grid">
+            <!-- Left: Terminal / Code panel -->
+            <div class="code-panel reveal">
+              <div class="code-header">
+                <span class="dot red"></span><span class="dot yellow"></span
+                ><span class="dot green"></span>
+                <div class="file-path">~/projects/collaborate/README.md</div>
+              </div>
+
+              <pre class="terminal">
+<span class="t-muted"># Quick start</span>
+<span class="t-ls">$</span> <span class="t-cmd">git clone https://github.com/manofval0r/your-project.git</span>
+<span class="t-ls">$</span> <span class="t-cmd">cd your-project && npm install</span>
+
+<span class="t-muted"># What I offer</span>
+- <span class="t-key">Product-Prompt engineering</span>
+- <span class="t-key">Design → Code (Figma → React)</span>
+- <span class="t-key">Open-source contributions & mentoring</span>
+
+<span class="t-muted"># Contact</span>
+<span class="t-ls">$</span> <span class="t-cmd">open mailto:apexheightgames.valor@gmail.com</span>
+              </pre>
+
+              <div class="code-actions">
+                <button
+                  class="cmd-btn"
+                  data-copy="git clone https://github.com/manofval0r/your-project.git"
+                >
+                  Copy clone
+                </button>
+                <button
+                  class="cmd-btn"
+                  data-copy="cd your-project && npm install"
+                >
+                  Copy install
+                </button>
+                <button
+                  class="cmd-btn"
+                  data-copy="mailto:apexheightgames.valor@gmail.com"
+                >
+                  Copy email
+                </button>
+              </div>
+            </div>
+
+            <!-- Right: Technical card + donation like a config -->
+            <aside class="collab-side reveal">
+              <div class="card tech-specs">
+                <h3>Technical Specs</h3>
+                <ul>
+                  <li>
+                    <strong>Stack</strong>:
+                    <span class="badge-code">HTML5</span>
+                    <span class="badge-code">CSS3</span>
+                    <span class="badge-code">Javascript</span>
+                    <span class="badge-code">Tailwind</span>
+                    <span class="badge-code">Vanta.js</span>
+                    <span class="badge-code">Node.js</span>
+                    <span class="badge-code">Github Copilot</span>
+                    <span class="badge-code">Vercel</span>
+                  </li>
+                  <li>
+                    <strong>Work style</strong>: Git workflow, PR reviews, CI
+                  </li>
+                  <li>
+                    <strong>Deliverables</strong>: tests, docs, typed APIs
+                  </li>
+                </ul>
+              </div>
+
+              <div class="card donation-card">
+                <h3>Support (optional)</h3>
+                <pre class="donation-line">
+O. Idowu = "7037000448 - 
+Opay Mobile"</pre
+                >
+                <div class="donation-actions">
+                  <button id="copy-btn" class="btn btn-secondary">Copy</button>
+                  <a href="#contact" class="btn btn-primary">Request details</a>
+                </div>
+              </div>
+
+              <div class="card collab-cta">
+                <h3>Ready to collaborate?</h3>
+                <a href="#contact" class="btn btn-primary"
+                  >Start a Collaboration</a
+                >
+                <a href="mailto:didowu903@gmail.com" class="btn btn-secondary"
+                  >Email Me</a
+                >
+              </div>
+            </aside>
+          </div>
+        </div>
+
+        <div
+          id="collab-toast"
+          class="collab-toast"
+          aria-live="polite"
+          role="status"
+        ></div>
+      </section>
+
+      <!-- Section 4: Projects (New Grid Layout) -->
+      <section id="projects" class="content-section traditional-scroll">
         <div class="text-container">
-          <!-- WRAPPER ADDED -->
-          <h2>Get in touch</h2>
-          <p>
-            I am currently seeking new opportunities. If you have a project in
-            mind or just want to connect, I'd love to hear from you.
+          <h2 class="section-title">Projects</h2>
+          <p class="section-tagline">
+            A selection of my recent work. Each project is a testament to my
+            commitment to clean code and user-centric design.
           </p>
-          <div class="contact-form-container">
-            <form
-              id="contact-form"
-              action="https://formspree.io/f/xvgrboln"
-              method="POST"
-            >
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required />
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  required
-                ></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">
-                Send Message
-              </button>
-            </form>
-            <div id="form-status"></div>
+        </div>
+        <!-- The new, simple grid container -->
+        <div id="project-grid" class="project-grid">
+          <!-- Project cards will be built by script.js -->
+        </div>
+      </section>
+
+      <!-- Section 5: Contact (Fullscreen) -->
+      <section id="contact" class="fullscreen-section">
+        <div id="vanta-contact-bg" class="vanta-canvas"></div>
+        <div class="section-content-wrapper">
+          <div class="text-container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>
+              Ready to start a project? Let's build something amazing together.
+            </p>
+            <div class="contact-form-container">
+              <form
+                id="contact-form"
+                action="https://formspree.io/f/xvgrboln"
+                method="POST"
+              >
+                <div class="form-group">
+                  <label for="name">Name</label
+                  ><input type="text" id="name" name="name" required />
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label
+                  ><input type="email" id="email" name="email" required />
+                </div>
+
+                <!-- New: Type of Project (select + "other" free text) -->
+                <div class="form-group">
+                  <label for="project-type">Type of Project / Website</label>
+                  <select id="project-type" name="projectType" required>
+                    <option value="">Select a type...</option>
+                    <option>Website</option>
+                    <option>Mobile App</option>
+                    <option>Backend / API</option>
+                    <option>SaaS Platform</option>
+                    <option>Landing Page</option>
+                    <option>Other</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="project-type-other"
+                    name="projectTypeOther"
+                    placeholder="Describe the project type"
+                    style="display: none; margin-top: 0.6rem"
+                  />
+                </div>
+
+                <!-- New: Plan Selection -->
+                <div class="form-group">
+                  <label for="plan-selection">Plan Selection</label>
+                  <select id="plan-selection" name="planSelection" required>
+                    <option value="">Choose a plan...</option>
+                    <option value="Starter">Starter</option>
+                    <option value="Business">Business</option>
+                    <option value="Custom">Custom</option>
+                    <option value="Revamp">Revamp</option>
+                  </select>
+                  <textarea
+                    id="custom-plan-details"
+                    name="customPlanDetails"
+                    rows="3"
+                    placeholder="If Custom, describe your needs"
+                    style="display: none; margin-top: 0.6rem"
+                  ></textarea>
+                </div>
+
+                <!-- New: Preferred Language / Stack (multi-select + other) -->
+                <div class="form-group">
+                  <label for="preferred-stack"
+                    >Preferred Language / Stack</label
+                  >
+                  <select
+                    id="preferred-stack"
+                    name="preferredStack[]"
+                    multiple
+                    size="5"
+                  >
+                    <option>JavaScript</option>
+                    <option>TypeScript</option>
+                    <option>React</option>
+                    <option>Next.js</option>
+                    <option>Node.js</option>
+                    <option>Python</option>
+                    <option>Django</option>
+                    <option>Java</option>
+                    <option>Other</option>
+                  </select>
+                  <input
+                    type="text"
+                    id="preferred-stack-other"
+                    name="preferredStackOther"
+                    placeholder="Other stack (comma separated)"
+                    style="display: none; margin-top: 0.6rem"
+                  />
+                  <small
+                    style="
+                      display: block;
+                      margin-top: 0.4rem;
+                      color: var(--subtle-text-color);
+                    "
+                    >Hold Ctrl / ⌘ to select multiple.</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="message">Message</label
+                  ><textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    required
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Send Message
+                </button>
+              </form>
+              <div id="form-status"></div>
+            </div>
           </div>
         </div>
-        <!-- WRAPPER ADDED -->
       </section>
-    </main>
+    </div>
 
-    <footer>
-      <p>Here's To Us Working Together</p>
-      <p id="footer-copyright">
-        &copy; <span id="footer-year"></span> David Idowu. All rights reserved.
-      </p>
-      <div class="social-links-footer">
-        <a
-          id="footer-github"
-          href="https://github.com/manofval0r"
-          target="_blank"
-          aria-label="GitHub"
-        >
-          <!-- GitHub SVG Icon -->
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle"
-          >
-            <path
-              fill="currentColor"
-              d="M12 2C6.48 2 2 6.58 2 12.26c0 4.49 2.87 8.3 6.84 9.64.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.1-1.5-1.1-1.5-.9-.63.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.36-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.38-2.03 1.02-2.75-.1-.26-.44-1.3.1-2.7 0 0 .84-.28 2.75 1.05A9.36 9.36 0 0 1 12 6.84c.85.004 1.71.12 2.51.35 1.91-1.33 2.75-1.05 2.75-1.05.54 1.4.2 2.44.1 2.7.63.72 1.02 1.63 1.02 2.75 0 3.94-2.34 4.81-4.57 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12.26C22 6.58 17.52 2 12 2Z"
-            />
-          </svg>
-        </a>
-        <a
-          id="footer-linkedin"
-          href="https://www.linkedin.com/in/david-idowu-669687307v"
-          target="_blank"
-          aria-label="LinkedIn"
-        >
-          <!-- LinkedIn SVG Icon -->
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            style="vertical-align: middle"
-          >
-            <path
-              fill="currentColor"
-              d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.27c-.97 0-1.75-.79-1.75-1.76s.78-1.76 1.75-1.76 1.75.79 1.75 1.76-.78 1.76-1.75 1.76zm13.5 11.27h-3v-5.6c0-1.34-.03-3.07-1.87-3.07-1.87 0-2.16 1.46-2.16 2.97v5.7h-3v-10h2.89v1.36h.04c.4-.75 1.38-1.54 2.84-1.54 3.04 0 3.6 2 3.6 4.59v5.59z"
-            />
-          </svg>
-        </a>
-      </div>
-    </footer>
+    <!-- Footer (Stays outside the scroll container) -->
+    <footer id="footer"></footer>
 
-    <!-- Back to Top Button (Moved outside footer) -->
+    <!-- Back to Top Button -->
     <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
 
-    <div id="particles-js"></div>
-
+    <!-- Scripts -->
     <script src="config.js"></script>
     <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   </body>
 </html>

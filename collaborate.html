@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <!-- This head section is a copy from index.html to inherit all styles and fonts -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Collaborate & Support | David Idowu</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  </head>
+  <body>
+    <div id="particles-js"></div>
+
+    <!-- Navigation Bar (Updated for Multi-Page) -->
+    <nav>
+      <div class="logo"><a href="index.html#home">David Idowu</a></div>
+      <div class="nav-links">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="services.html">Services</a>
+        <a class="active" href="collaborate.html">Collaborate</a>
+        <!-- Active link -->
+        <a href="index.html#projects">Projects</a>
+      </div>
+      <div class="nav-controls">
+        <label
+          class="theme-switch"
+          for="theme-toggle-checkbox"
+          aria-label="Toggle theme"
+          ><input type="checkbox" id="theme-toggle-checkbox" />
+          <div class="slider">
+            <span class="sun-icon">☀️</span><span class="moon-icon">🌙</span>
+          </div></label
+        >
+        <button class="hamburger">
+          <span class="bar"></span><span class="bar"></span
+          ><span class="bar"></span>
+        </button>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Page Hero Section -->
+      <section class="page-hero">
+        <h1>Let's Build Something Great Together.</h1>
+        <p class="section-tagline">
+          I'm passionate about open-source projects, exploring new technologies,
+          and building tools that help the developer community. If you have an
+          idea, I'd love to hear it.
+        </p>
+      </section>
+
+      <!-- Collaboration Details Section -->
+      <section class="content-section reveal">
+        <div class="text-container collab-details">
+          <div class="collab-strengths">
+            <h3>What I Bring to the Table</h3>
+            <ul>
+              <li>Full-Stack MERN Skills</li>
+              <li>Creative Problem-Solving</li>
+              <li>UI/UX Design & Implementation</li>
+              <li>A Passion for Clean, Maintainable Code</li>
+            </ul>
+          </div>
+          <div class="collab-cta">
+            <a
+              href="mailto:didowu903@gmail.com?subject=Collaboration%20Inquiry"
+              class="btn btn-primary"
+              >Let's Grab Lunch</a
+            >
+            <p class="collab-hover-text">
+              You'll have to buy me lunch first 😅
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Support Mission Section -->
+      <section class="content-section reveal">
+        <div class="text-container">
+          <h2>Support the Mission</h2>
+          <p>
+            My services are subsidized to help empower new businesses and
+            individuals with a strong online presence. Every contribution, no
+            matter the size, helps me dedicate more time to this mission. Thank
+            you for your support.
+          </p>
+          <div id="donation-container" class="donation-details">
+            <!-- Donation info will be built by script.js -->
+            <strong>Account (NGN):</strong>
+            <span id="account-number">7037000448 - Opay Mobile </span>
+            <button id="copy-btn" class="btn btn-secondary">Copy</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <!-- Footer will be dynamically loaded by script.js -->
+    </footer>
+
+    <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  </body>
+</html>

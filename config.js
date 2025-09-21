@@ -8,7 +8,7 @@ const portfolioData = {
     
     // Contact & Socials
     contact: {
-        email: "didowu903@gmail.com",
+        email: "didowu903@gmail.com | apexheightgames.valor@gmail.com",
         phone: "+2347037000448"
     },
     socials: {
@@ -23,6 +23,52 @@ const portfolioData = {
             "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.",
             "Currently developing a sophisticated Learning Management System utilizing Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across computing, data analysis, and cybersecurity sectors."
         ]
+    },
+
+    // --- NEW: Services & Pricing Data ---
+    services: [
+        {
+            id: 'starter',
+            name: "Starter Portfolio",
+            priceUSD: 50,
+            priceNGN: "75,000",
+            description: "A stunning, responsive 1-3 page site to showcase your skills and projects. Perfect for individuals, students, and job seekers."
+        },
+        {
+            id: 'business',
+            name: "Business & Startup Site",
+            priceUSD: 150,
+            priceNGN: "225,000",
+            description: "A professional, multi-page (up to 6) website with a contact form and modern design to establish your online presence."
+        },
+        {
+            id: 'custom',
+            name: "Full Custom Project",
+            priceUSD: "300+",
+            priceNGN: "450,000+",
+            description: "A bespoke web application, e-commerce store, or complex platform built to your exact specifications. Let's talk!"
+        },
+        {
+            id: 'revamp',
+            name: "Website Revamp / Fixes",
+            priceUSD: "40/hr",
+            priceNGN: "60,000/hr",
+            description: "Upgrade, fix, or add new features to your existing website to improve its performance, design, and functionality."
+        }
+    ],
+
+    // --- NEW: Donation & Collaboration Data ---
+    donations: {
+        title: "Support My Mission",
+        description: "My services are subsidized to help empower new businesses and individuals. If you believe in this mission, you can support my work through a donation.",
+        accountNumber: "YOUR_ACCOUNT_NUMBER", // <-- IMPORTANT: Update this
+        bankName: "YOUR_BANK_NAME" // <-- IMPORTANT: Update this
+    },
+    collaboration: {
+        title: "Have an idea for a project?",
+        description: "I'm always open to collaborating with other developers and designers on exciting projects. If you have an idea, let's connect.",
+        buttonText: "Let's Grab Lunch",
+        hoverText: "You'll have to buy me lunch first 😅"
     },
 
     // --- NEW: Experience Section Data ---
@@ -128,5 +174,98 @@ const portfolioData = {
             liveLink: null,
             codeLink: null
         }
-    ]
+    ],      
+    // --- NEW: Vanta.js Background Configurations ---
+    vantaConfigs: {
+        hero: {
+            effect: "net",
+            el: "#vanta-hero-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3498db,      // Accent color
+            backgroundColor: 0x121212, // Dark BG
+            points: 10.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        },
+        services: {
+            effect: "topology",
+            el: "#vanta-services-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x27ae60,      // A professional green
+            backgroundColor: 0x1e1e1e
+        },
+        contact: {
+            effect: "waves",
+            el: "#vanta-contact-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x8e44ad,      // A creative purple
+            shininess: 30.00,
+            waveHeight: 15.00,
+            waveSpeed: 0.8,
+            zoom: 0.8
+        }
+    },
+
+    // --- NEW: "My Process" Section Data ---
+    myProcess: [
+        {
+            number: 1,
+            title: "Discovery & Planning",
+            description: "We start with a deep dive into your goals to create a clear blueprint for success."
+        },
+        {
+            number: 2,
+            title: "Design & Development",
+            description: "I design a beautiful, modern interface and build it with clean, efficient code."
+        },
+        {
+            number: 3,
+            title: "Review & Launch",
+            description: "You'll review the project for refinements, and I'll handle the deployment to get you live."
+        }
+    ],
+
+    // Authoritative tech → URL map used by script.js
+    techLinks: {
+        "JavaScript": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        "TypeScript": "https://www.typescriptlang.org",
+        "Node.js": "https://nodejs.org",
+        "Express.js": "https://expressjs.com",
+        "React": "https://reactjs.org",
+        "Next.js": "https://nextjs.org",
+        "HTML": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+        "CSS": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+        "Python": "https://www.python.org",
+        "Django": "https://www.djangoproject.com",
+        "Figma": "https://www.figma.com",
+        "Vercel": "https://vercel.com",
+        "Firebase": "https://firebase.google.com",
+        "GraphQL": "https://graphql.org",
+        "REST": "https://en.wikipedia.org/wiki/Representational_state_transfer"
+    },
+
+    services: [ // Using your exact pricing now
+        { id: 'starter', name: "Starter Portfolio", priceUSD: 50, priceNGN: "75,000", description: "// A stunning, responsive 1-3 page site to showcase your skills." },
+        { id: 'business', name: "Business Website", priceUSD: 120, priceNGN: "180,000", description: "// A professional multi-page site with a contact form for your business." },
+        { id: 'custom', name: "Full Custom Project", priceUSD: "250+", priceNGN: "375,000+", description: "// A bespoke web app, e-commerce store, or complex platform." },
+        { id: 'revamp', name: "Website Revamp / Fixes", priceUSD: 30, priceNGN: "45,000", description: "// Upgrade, fix, or add new features to your existing website." }
+    ],
 };

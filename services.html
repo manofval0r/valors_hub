@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- This head section is a copy from index.html to inherit all styles and fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | David Idowu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+</head>
+<body>
+    <div id="particles-js"></div>
+
+    <!-- Navigation Bar (Updated for Multi-Page) -->
+    <nav>
+        <div class="logo"><a href="index.html#home">David Idowu</a></div>
+        <div class="nav-links">
+            <a href="index.html#home">Home</a>
+            <a href="index.html#about">About</a>
+            <a class="active" href="services.html">Services</a> <!-- Active link -->
+            <a href="collaborate.html">Collaborate</a>
+            <a href="index.html#projects">Projects</a>
+        </div>
+        <div class="nav-controls">
+            <label class="theme-switch" for="theme-toggle-checkbox" aria-label="Toggle theme"><input type="checkbox" id="theme-toggle-checkbox" /><div class="slider"><span class="sun-icon">☀️</span><span class="moon-icon">🌙</span></div></label>
+            <button class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Page Hero Section -->
+        <section class="page-hero">
+            <h1>Your Vision, Realized with Code.</h1>
+            <p class="section-tagline">I build high-performance, modern websites for startups, businesses, and individuals. Together, we'll create a powerful online presence that achieves your goals.</p>
+            <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+        </section>
+
+        <!-- "My Process" Section -->
+        <section class="content-section reveal">
+            <div class="text-container">
+                <h2>My Process</h2>
+                <div class="process-steps">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Discovery & Planning</h3>
+                        <p>We start with a deep dive into your goals to create a clear blueprint for success.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Design & Development</h3>
+                        <p>I design a beautiful, modern interface and build it with clean, efficient code.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Review & Launch</h3>
+                        <p>You'll review the project for refinements, and I'll handle the deployment to get you live.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Pricing Section -->
+        <section class="content-section reveal">
+            <div class="text-container">
+                <h2>Services & Pricing</h2>
+            </div>
+            <div id="pricing-grid" class="pricing-grid">
+                <!-- Pricing cards will be built by script.js -->
+            </div>
+        </section>
+
+        <!-- Tech Logos Section -->
+        <section class="content-section reveal">
+             <div class="text-container">
+                <h2>Technologies I Use</h2>
+                <div class="tech-logos">
+                    <!-- Placeholder for logos, can be SVGs or images -->
+                    <span>React</span>
+                    <span>Next.js</span>
+                    <span>Node.js</span>
+                    <span>MongoDB</span>
+                    <span>Vercel</span>
+                    <span>JavaScript</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Form Section -->
+        <section id="contact" class="content-section reveal">
+            <div class="text-container">
+                <h2>Start Your Project Today</h2>
+                <p>Ready to build something amazing? Fill out the form below to get started.</p>
+                <div class="contact-form-container">
+                    <!-- The form from index.html has been moved here -->
+                    <form id="contact-form" action="https://formspree.io/f/xvgrboln" method="POST">
+                        <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" required></div>
+                        <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" required></div>
+                        <div class="form-group"><label for="reason">Service of Interest</label><select id="reason" name="reason" required></select></div>
+                        <div class="form-group"><label for="message">Project Details</label><textarea id="message" name="message" rows="5" required></textarea></div>
+                        <button type="submit" class="btn btn-primary">Send Inquiry</button>
+                    </form>
+                    <div id="form-status"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <!-- Footer will be dynamically loaded by script.js -->
+    </footer>
+    
+    <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</body>
+</html> 
