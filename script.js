@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // DOTS (contact)
             await tryInit('DOTS', '#vanta-contact-bg', 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js', (cfgRoot) => {
                 const cfg = (cfgRoot.vantaConfigs && cfgRoot.vantaConfigs.contact) || {};
-                const bg = cfg.backgroundColor ?? (isDark ? 0x071022 : 0x0b2f6b);
+                const bg = 0x39364a ?? (isDark ? 0x071022 : 0x0b2f6b);
                 const color = cfg.color ?? (isDark ? 0xffffff : 0x9ad1ff);
                 return { ...cfg, backgroundColor: bg, color };
             });
@@ -108,17 +108,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 return { ...cfg, backgroundColor: bg, color };
             });
 
-            // BIRDS (projects) - optional
-            if (pd.vantaConfigs && pd.vantaConfigs.birds && pd.vantaConfigs.birds.enabled) {
-                await tryInit('BIRDS', '#projects', 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js', (cfgRoot) => {
-                    const cfg = cfgRoot.vantaConfigs.birds || {};
-                    const bg = cfg.backgroundColor ?? (isDark ? 0x111827 : 0x072761);
-                    const color = cfg.color ?? 0xd1ff;
-                    return { ...cfg, backgroundColor: bg, color };
-                });
-            } else {
-                console.info('initVanta: birds effect not enabled in config');
-            }
+            // // BIRDS (projects) - optional
+            // if (pd.vantaConfigs && pd.vantaConfigs.birds && pd.vantaConfigs.birds.enabled) {
+            //     await tryInit('BIRDS', '#projects', 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js', (cfgRoot) => {
+            //         const cfg = cfgRoot.vantaConfigs.birds || {};
+            //         const bg = cfg.backgroundColor ?? (isDark ? 0x111827 : 0x072761);
+            //         const color = cfg.color ?? 0xd1ff;
+            //         return { ...cfg, backgroundColor: bg, color };
+            //     });
+            // } else {
+            //     console.info('initVanta: birds effect not enabled in config');
+            // }
 
         })();
 

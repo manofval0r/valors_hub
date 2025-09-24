@@ -130,7 +130,7 @@ input:checked + .slider .moon-icon { opacity: 1; }
 
 .project-card {
     background: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
