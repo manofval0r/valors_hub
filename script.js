@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // NET (hero)
             await tryInit('NET', '#vanta-hero-bg', 'https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js', (cfgRoot) => {
                 const cfg = (cfgRoot.vantaConfigs && cfgRoot.vantaConfigs.hero) || {};
-                const heroBg = isDark ? cfg.backgroundColor ?? 0x121212 : cfg.backgroundColor ?? 0x072761;
-                const heroColor = isDark ? cfg.color ?? 0x3498db : (cfg.lightColor ?? cfg.color ?? 0x072761);
+                const heroBg = isDark ? cfg.backgroundColor ?? 0x121212 : cfg.backgroundColor ?? 0x39364a;
+                const heroColor = isDark ? cfg.color ?? 0x39364a : (cfg.lightColor ?? cfg.color ?? 0xffffff);
                 return { ...cfg, backgroundColor: heroBg, color: heroColor };
             });
 
