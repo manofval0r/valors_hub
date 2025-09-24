@@ -20,8 +20,7 @@ const portfolioData = {
     about: {
         imageUrl: "/Hero-image.jpg", // Make sure this image is in your folder
         description: [
-            "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.",
-            "Currently developing a sophisticated Learning Management System utilizing Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across computing, data analysis, and cybersecurity sectors."
+            "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.","Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency."
         ]
     },
 
@@ -29,24 +28,24 @@ const portfolioData = {
     services: [
         {
             id: 'starter',
-            name: "Starter Portfolio",
+            name: "Starter Portfolio | Gold",
             priceUSD: 50,
             priceNGN: "75,000",
             description: "A stunning, responsive 1-3 page site to showcase your skills and projects. Perfect for individuals, students, and job seekers."
         },
         {
             id: 'business',
-            name: "Business & Startup Site",
+            name: "Business & Startup | Diamond",
             priceUSD: 150,
             priceNGN: "225,000",
             description: "A professional, multi-page (up to 6) website with a contact form and modern design to establish your online presence."
         },
         {
             id: 'custom',
-            name: "Full Custom Project",
+            name: "Full Custom Project | Paladium",
             priceUSD: "300+",
             priceNGN: "450,000+",
-            description: "A bespoke web application, e-commerce store, or complex platform built to your exact specifications. Let's talk!"
+            description: "A bespoke web application, e-commerce store, or complex platform built to your exact specifications. Might take a while!"
         },
         {
             id: 'revamp',
@@ -61,8 +60,8 @@ const portfolioData = {
     donations: {
         title: "Support My Mission",
         description: "My services are subsidized to help empower new businesses and individuals. If you believe in this mission, you can support my work through a donation.",
-        accountNumber: "YOUR_ACCOUNT_NUMBER", // <-- IMPORTANT: Update this
-        bankName: "YOUR_BANK_NAME" // <-- IMPORTANT: Update this
+        accountNumber: "6092179815", 
+        bankName: "9 Payment Service Bank" 
     },
     collaboration: {
         title: "Have an idea for a project?",
@@ -112,12 +111,13 @@ const portfolioData = {
     ],
     certifications: [
         { name: "MIT App Development Course", issuerDate: "NessCrown, 09.2024" },
-        { name: "Scratch App Development Course", issuerDate: "NessCrown, 08.2023" }
+        { name: "Scratch App Development Course", issuerDate: "NessCrown, 08.2023" },
+        { name: "What is Generative AI?", issuerDate: "LinkedIn Learning, 06.2025", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
+        { name: "Responsive Web Design", issuerDate: "freeCodeCamp, 09.2025", certificateUrl: "/Responsive web design.png" }
     ],
 
     // Projects Section
     projects: [
-                // --- Paste the new project object here ---
         {
             title: "Midwife Tracking & Payroll System",
             client: "Client-Focused Project",
@@ -126,14 +126,14 @@ const portfolioData = {
             imageUrl: "/Midwive-Tracker.png", // You'll need to add this image to your folder
             liveLink: "https://script.google.com/macros/s/AKfycbz7BLj481tg4TeJ66u6RTobd5x8eb4kJz6CUyaAhquuZdx2zLfZ3id_xOzseqqzJ_Dw/exec",
             codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
-        }, // <-- The comma is very important!
+        }, 
         {
             title: "Solar Market Trend Analyzer",
             client: "Confidential",
             description: "A comprehensive web app for analyzing solar, inverter, and battery market trends using real-time data scraping and partly free to use, open-source API integrations.",
             tech: "Node.js, Express.js, REST APIs, Web Scraping, HTML, CSS",
-            imageUrl: "/PES-analyser.png", // Make sure this image is in your folder
-            liveLink: "https://pes-analyser.vercel.app", // Add your live link
+            imageUrl: "/PES-analyser.png", 
+            liveLink: "https://pes-analyser.vercel.app",
             codeLink: "https://github.com/Anikin-kings/PES-analyzer",
             collaborator: "Anikin Kings",
             GitHub: "https://github.com/Anikin-kings"
@@ -143,25 +143,25 @@ const portfolioData = {
             client: "Client: Sidedish Foods",
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
-            imageUrl: "/SDSHFDS-pic.jpg", // Make sure this image is in your folder
-            liveLink: "https://sidedishfoodsweb.vercel.app", // Add your live link
-            codeLink: "https://github.com/manofval0r/websstt" // Add your code link
+            imageUrl: "/SDSHFDS-pic.jpg",
+            liveLink: "https://sidedishfoodsweb.vercel.app",
+            codeLink: "https://github.com/manofval0r/websstt"
         },
         {
             title: "Client Portfolio Website",
             client: "Client-Focused Project",
             description: "Developed a portfolio website to showcase the client's work, integrating a blog and a contact form for potential clients.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/client-portfolio.png", // You'll need to add this image to your folder
+            imageUrl: "/client-portfolio.png",
             liveLink: "https://solomon-binutu.vercel.app",
             codeLink: "https://github.com/manofval0r/ay-design"
-        }, // <-- The comma is very important!
+        }, 
         {
             title: "Fashion Ecommerce Website",
             client: "Client-Focused Project",
             description: "Developed a fashion ecommerce website with a focus on user experience and seamless shopping.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/kloshouse.png", // You'll need to add this image to your folder
+            imageUrl: "/kloshouse.png",
             liveLink: "https://kloshouse.vercel.app",
             codeLink: "https://github.com/manofval0r/kloshouse"
         }, 
@@ -170,7 +170,7 @@ const portfolioData = {
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
             tech: "Next.js, TypeScript, JavaScript, Java",
-            imageUrl: "/LMS-project-pic.jpg", // Make sure this image is in your folder
+            imageUrl: "/LMS-project-pic.jpg", 
             liveLink: null,
             codeLink: null
         }

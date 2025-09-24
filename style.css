@@ -13,7 +13,7 @@ body.mobile-menu-active { overflow: hidden; }
 section { position: relative; overflow: hidden; }
 .fullscreen-section:not(.hire-me, .reachout) { height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem; }
 .reachout{
-    height: 120vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;
+    height: 130vh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;
 }
 .hire-me{height: 140vh; scroll-snap-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 2rem;}
 .traditional-scroll { scroll-snap-align: start; padding: 6rem 2rem; background-color: var(--card-bg-color); transition: background-color 0.3s ease; }
@@ -21,7 +21,10 @@ section { position: relative; overflow: hidden; }
 .section-content-wrapper, .hero-content, .text-container { position: relative; z-index: 1; width: 100%; max-width: 1200px; padding: 0 1rem; }
 #hero-name{
     color:#d1ddf4;
-    text-shadow: 0 0 7px #1a242b, 0 0 10px #3498db, 0 0 21px #3498db, 0 0 42px #21272b, 0 0 82px #303f49;
+    text-shadow: 0 0 7px #1a242b, 0 0 10px #3498db, 0 0 21px #3498db, 0 0 42px #3498db, 0 0 82px #303f49;
+}
+#hero-title{
+    color: #ddd;
 }
 .linkin{
     color: #ddd;
@@ -194,13 +197,27 @@ input:checked + .slider .moon-icon { opacity: 1; }
     margin-bottom: 1rem;
 }
 
-.tech-stack {
+.tech-stack1 {
     font-family: 'Fira Code', monospace;
     font-size: 0.85rem;
     color: var(--accent-color);
     margin-bottom: 1.5rem;
+    text-decoration: none;
 }
 
+.tech-link {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-size: .85rem;
+}
+
+.tech-link:hover {
+    color: var(--primary-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 2px 6px;
+    transition-duration: 1s;
+}
 .collaborator {
     font-style: italic;
     color: var(--subtle-text-color);
@@ -229,7 +246,7 @@ select{
 /* ========= BUTTONS, FORMS & FOOTER ========= */
 .btn { padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: 700; transition: all 0.3s ease; display: inline-block; margin: 0.5rem; cursor: pointer; }
 .btn-primary { background-color: var(--primary-color); color: var(--secondary-color); border: 2px solid var(--primary-color); }
-.btn-primary:hover { background-color: transparent; color: var(--secondary-color); }
+.btn-primary:hover { background-color: transparent; color: lightsteelblue; }
 .btn-secondary { background-color: transparent; color: lightblue; border: 2px solid var(--primary-color); }
 .btn-secondary:hover { background-color: var(--primary-color); color: var(--secondary-color); }
 .contact-form-container { max-width: 600px; margin: 2rem auto 0; text-align: left; }
@@ -280,7 +297,14 @@ footer { text-align: center; padding: 2rem 1rem; background: var(--card-bg-color
     h2.section-title { font-size: 2rem; }
     .fullscreen-section:not(.hire-me) { padding: var(--nav-height) 1rem 3rem 1rem; }
     .hire-me {height: auto; padding: var(--nav-height) 1rem 3rem 1rem;}
-    .collaborate{padding:0 auto}
+    #collaborate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        padding-right: 60px;
+    }
     .traditional-scroll { padding: 4rem 1.5rem; }
     .nav-links { position: fixed; left: -100%; top: var(--nav-height); gap: 0; flex-direction: column; background-color: var(--card-bg-color); width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05); z-index: 999; }
     .nav-links.active { left: 0; }
@@ -304,6 +328,24 @@ footer { text-align: center; padding: 2rem 1rem; background: var(--card-bg-color
 #form-status.error { background-color: #f8d7da; color: #721c24; }
 [data-theme="dark"] #form-status.error { background-color: #58151c; color: #f1b0b7; }
 
+/* Form TechStack Checkboxes */
+.checkbox-content {
+    display: flex;
+    width: 50%;
+    gap:1rem;
+    color: #bbb;
+}
+.checkbox-content label {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.tech-stack {
+    margin-right: 0.5rem;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
 /* --- Form Dropdown --- */
 .form-group select {
     width: 100%;
