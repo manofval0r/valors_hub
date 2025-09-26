@@ -316,6 +316,7 @@ footer { text-align: center; padding: 2rem 1rem; background: var(--card-bg-color
         justify-content: center;
         padding-left: 10px;
         padding-right: auto;
+        height:120vh;
     }
 
     .checkbox-content input[type="checkbox"].tech-stack,
@@ -673,3 +674,149 @@ grid-template-columns: repeat(3, 1fr);
     height:120px;
     font-size: 20px;
 }
+
+/* Collaborate: terminal-style card over Vanta globe */
+#collaborate {
+  position: relative;
+  padding: 3rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56vh;
+  overflow: visible;
+}
+
+/* ensure vanta canvas sits behind terminal */
+#vanta-collab-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* Terminal card */
+.terminal {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 980px;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  background: linear-gradient(180deg, #071023cc 0%, rgba(7,16,35,0.72) 59%);
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 24px 60px rgba(2,6,23,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+  border-top-right-radius: 1px;
+  border-top-left-radius: 1px;  
+  color: #B7F2C4;
+  font-family: "Fira Code", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+}
+
+/* Header with mac-style dots and file path */
+.code-header {
+  display: flex;
+  background-color: rgba(2,6,23,0.45);
+  align-items: center;
+  max-width: 980px;
+  padding: 3px 6px;
+  gap: 0.6rem;
+  margin-bottom: 0;
+  color: rgba(183,242,196,0.92);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+ .dot { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,0.35); display:inline-block; }
+.dot.red   { background: #ff5f56; }
+.dot.yellow{ background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+.file-path { margin-left: auto; font-family: 'Poppins', sans-serif; font-size: 0.9rem; color: rgba(183,242,196,0.88); opacity: 0.95; }
+
+/* Terminal content */
+pre.terminal,
+ pre.terminal code {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: inherit;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  max-height: 44vh;
+  overflow: auto;
+  padding-right: 0.25rem;
+  -webkit-overflow-scrolling: touch;
+  background: transparent;
+}
+
+/* Prompt, muted text, commands */
+.t-muted { color: rgba(183,242,196,0.55); display:block; margin-bottom:0.45rem; }
+.t-ls { color: rgba(183,242,196,0.9); font-weight:700; margin-right:0.45rem; }
+.t-cmd { color: #cff0d9; font-weight:600; }
+.t-key{ color: #7FA8F0; font-weight:600; }
+
+/* Blinking cursor inside terminal if used */
+.terminal-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1.05em;
+  background: #B7F2C4;
+  margin-left: 6px;
+  vertical-align: middle;
+  animation: v-cursor 1s steps(2,end) infinite;
+  border-radius: 2px;
+}
+@keyframes v-cursor { 0%,49%{opacity:1}50%,100%{opacity:0} }
+
+/* Action buttons under terminal */
+.code-actions { display: flex; gap: 0.6rem; margin-top: 0.9rem; }
+.cmd-btn {
+  padding: 0.5rem 0.75rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.03);
+  color: #ddd;
+  opacity: .5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform .12s ease, box-shadow .12s ease;
+  margin-bottom: .75rem;
+  margin-top: .25rem;;
+}
+
+.cmd-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.25); background-color: linear-gradient(180deg, #0c121ecc); }
+
+/* Make right-side collab cards visually consistent */
+.collab-side .card {
+  background: linear-gradient(180deg,#0b1220cc,#071021cc);
+  color: #e6f9e6;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 12px 30px rgba(2,6,23,0.5);
+}
+
+.tech-specs, .donation-card, .collab-cta {
+  margin-bottom: 1.5rem;
+}
+.badge-code{
+  background-color: rgba(2,6,23,0.5);
+  color: #bbb;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  margin-right: 0.45rem;
+}
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .code-panel { padding: 0.9rem; border-radius: 10px; }
+  .file-path { display: none; }
+  pre.terminal { max-height: 36vh; font-size: 0.92rem; }
+}
+
+/* Ensure the globe vanta canvas remains behind the terminal (no changes to vanta behavior) */
+#vanta-collab-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+/* .code-in-place{
+  background-color: rgba(2,6,23,0.7);
+  border-radius: 5px;
+  padding: 5px;
+
+} */

@@ -51,7 +51,7 @@
   <div class="scroll-container">
     <!-- Section 1: Hero (Fullscreen) -->
     <section id="home" class="fullscreen-section">
-      <div id="vanta-hero-bg" class="vanta-canvas"></div>
+      <div id="vanta-hero-bg" class="vanta-canvas" data-vanta="net"></div>
       <div class="hero-content">
         <h1 id="hero-name"></h1>
         <h2 id="hero-title"></h2>
@@ -104,7 +104,7 @@
 
     <!-- Section 3: Services (Fullscreen) -->
     <section id="services" class="fullscreen-section hire-me">
-      <div id="vanta-services-bg" class="vanta-canvas"></div>
+      <div id="vanta-services-bg" class="vanta-canvas" data-vanta="net"></div>
       <div class="section-content-wrapper">
         <h2 class="section-title">Services</h2>
         <div class="process-steps" id="process-steps-container"></div>
@@ -114,20 +114,20 @@
 
     <!-- NEW: Collaborate (styled like Services) -->
     <section id="collaborate" class="content-section traditional-scroll collab-code-section collaborate">
-      <div id="vanta-collab-bg" class="vanta-canvas"></div>
+      <div id="vanta-collab-bg" class="vanta-canvas" data-vanta="globe"></div>
 
       <div class="section-content-wrapper">
         <h2 class="section-title">Collaborate</h2>
         <p class="section-tagline"></p>
 
         <div class="collab-grid">
-          <!-- Left: Terminal / Code panel -->
+          <!-- Mini Terminal / Code panel -->
+          <div class="code-in-place">
           <div class="code-panel reveal">
             <div class="code-header">
               <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
               <div class="file-path">~/projects/collaborate/README.md</div>
             </div>
-
             <pre class="terminal">
 <span class="t-muted"># Quick start</span>
 <span class="t-ls">$</span> <span class="t-cmd">git clone https://github.com/manofval0r/your-project.git</span>
@@ -140,6 +140,7 @@
 
 <span class="t-muted"># Contact</span>
 <span class="t-ls">$</span> <span class="t-cmd">open mailto:apexheightgames.valor@gmail.com</span>
+              </div>
               </pre>
 
             <div class="code-actions">
@@ -220,7 +221,7 @@ O. Idowu = "6092179815 -
 
     <!-- Section 5: Contact (Fullscreen) -->
     <section id="contact" class="fullscreen-section reachout">
-      <div id="vanta-contact-bg" class="vanta-canvas"></div>
+      <div id="vanta-contact-bg" class="vanta-canvas" data-vanta="dots"></div>
       <div class="section-content-wrapper">
         <div class="text-container">
           <h2 class="section-title">Get In Touch</h2>
@@ -276,20 +277,13 @@ O. Idowu = "6092179815 -
                       class="tech-stack" />Javascript</label>
                   <label><input type="checkbox" value="TypeScript" name="tech-stack"
                       class="tech-stack" />TypeScript</label>
-                  <label><input type="checkbox" value="React" name="tech-stack"
-                      class="tech-stack" />React</label>
-                  <label><input type="checkbox" value="Next.js" name="tech-stack"
-                      class="tech-stack" />Next.js</label>
-                  <label><input type="checkbox" value="Node.js" name="tech-stack"
-                      class="tech-stack" />Node.js</label>
-                  <label><input type="checkbox" value="Python" name="tech-stack"
-                      class="tech-stack" />Python</label>
-                  <label><input type="checkbox" value="Django" name="tech-stack"
-                      class="tech-stack" />Django</label>
-                  <label><input type="checkbox" value="Java" name="tech-stack"
-                      class="tech-stack" />Java</label>
-                  <label><input type="checkbox" value="Other" name="tech-stack"
-                      class="tech-stack" />Other</label>
+                  <label><input type="checkbox" value="React" name="tech-stack" class="tech-stack" />React</label>
+                  <label><input type="checkbox" value="Next.js" name="tech-stack" class="tech-stack" />Next.js</label>
+                  <label><input type="checkbox" value="Node.js" name="tech-stack" class="tech-stack" />Node.js</label>
+                  <label><input type="checkbox" value="Python" name="tech-stack" class="tech-stack" />Python</label>
+                  <label><input type="checkbox" value="Django" name="tech-stack" class="tech-stack" />Django</label>
+                  <label><input type="checkbox" value="Java" name="tech-stack" class="tech-stack" />Java</label>
+                  <label><input type="checkbox" value="Other" name="tech-stack" class="tech-stack" />Other</label>
                 </div>
                 <input type="text" id="preferred-stack-other" name="preferredStackOther"
                   placeholder="Other stack (comma separated)" style="display: none; margin-top: 0.6rem" />
