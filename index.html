@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
-
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="page-title">Portfolio</title>
+  <title>David Idowu | Senior Software Engineer</title>
 
   <!-- Favicon Links -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -12,306 +11,187 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Stylesheet & Fonts -->
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+  
+  <!-- Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 
 <body>
-  <!-- Navigation (Stays fixed on top of everything) -->
+  <!-- Navigation -->
   <nav>
     <div class="logo"><a href="#home">David Idowu</a></div>
+    
     <div class="nav-links">
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#services">Services</a>
-      <a href="#collaborate">Collaborate</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </div>
+
     <div class="nav-controls">
-      <label class="theme-switch" for="theme-toggle-checkbox" aria-label="Toggle theme">
-        <input type="checkbox" id="theme-toggle-checkbox" />
-        <div class="slider">
-          <span class="sun-icon">☀️</span>
-          <span class="moon-icon">🌙</span>
-        </div>
-      </label>
+      <a href="#contact" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Let's Talk</a>
       <button class="hamburger">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
     </div>
   </nav>
 
-  <!-- Main Scrollable Container for all sections -->
-  <div class="scroll-container">
-    <!-- Section 1: Hero (Fullscreen) -->
-    <section id="home" class="fullscreen-section">
-      <div id="vanta-hero-bg" class="vanta-canvas" data-vanta="net"></div>
+  <!-- Main Content -->
+  <main>
+    <!-- Section 1: Hero -->
+    <section id="home" class="hero-section">
       <div class="hero-content">
-        <h1 id="hero-name"></h1>
-        <h2 id="hero-title"></h2>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn btn-primary">View My Projects</a>
-          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-        </div>
-        <div class="social-links">
-          <a id="hero-github" class="linkin" href="#" target="_blank">GitHub</a>
-          |
-          <a id="hero-linkedin" class="linkin" href="#" target="_blank">LinkedIn</a>
-        </div>
-      </div>
-      <a href="#about" class="scroll-down"><span></span></a>
-    </section>
-
-    <!-- Section 2: Qualifications (Traditional Scroll) -->
-    <section id="about" class="content-section traditional-scroll">
-      <div class="text-container">
-        <!-- About Me -->
-        <div class="about-container">
-          <div class="about-image">
-            <img id="about-image" src="" alt="Headshot" />
-          </div>
-          <div class="about-text">
-            <h2 id="about-name" class="section-title"></h2>
-            <p id="about-location" class="subtitle"></p>
-            <div id="about-description"></div>
-          </div>
-        </div>
-
-        <!-- Experience -->
-        <h2 class="section-title">Experience</h2>
-        <div id="experience-container"></div>
-
-        <!-- Skills & Qualifications -->
-        <h2 class="section-title">Skills & Qualifications</h2>
-        <div id="skills-container" class="skills-container">
-          <div class="skill-column">
-            <h3 class="column-title">Technical Skills</h3>
-            <div id="skills-grid" class="skills-grid"></div>
-          </div>
-          <div class="skill-column">
-            <div id="education-container"></div>
-            <div id="certifications-container"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 3: Services (Fullscreen) -->
-    <section id="services" class="fullscreen-section hire-me">
-      <div id="vanta-services-bg" class="vanta-canvas" data-vanta="net"></div>
-      <div class="section-content-wrapper">
-        <h2 class="section-title">Services</h2>
-        <div class="process-steps" id="process-steps-container"></div>
-        <div id="pricing-grid" class="pricing-grid"></div>
-      </div>
-    </section>
-
-    <!-- NEW: Collaborate (styled like Services) -->
-    <section id="collaborate" class="content-section traditional-scroll collab-code-section collaborate">
-      <div id="vanta-collab-bg" class="vanta-canvas" data-vanta="globe"></div>
-
-      <div class="section-content-wrapper">
-        <h2 class="section-title">Collaborate</h2>
-        <p class="section-tagline"></p>
-
-        <div class="collab-grid">
-          <!-- Mini Terminal / Code panel -->
-          <div class="code-in-place">
-          <div class="code-panel reveal">
-            <div class="code-header">
-              <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-              <div class="file-path">~/projects/collaborate/README.md</div>
-            </div>
-            <pre class="terminal">
-<span class="t-muted"># Quick start</span>
-<span class="t-ls">$</span> <span class="t-cmd">git clone https://github.com/manofval0r/your-project.git</span>
-<span class="t-ls">$</span> <span class="t-cmd">cd your-project && npm install</span>
-
-<span class="t-muted"># What I offer</span>
-- <span class="t-key">Product-Prompt engineering</span>
-- <span class="t-key">Design → Code (Figma → React)</span>
-- <span class="t-key">Open-source contributions & mentoring</span>
-
-<span class="t-muted"># Contact</span>
-<span class="t-ls">$</span> <span class="t-cmd">open mailto:apexheightgames.valor@gmail.com</span>
-              </div>
-              </pre>
-
-            <div class="code-actions">
-              <button class="cmd-btn" data-copy="git clone https://github.com/manofval0r/your-project.git">
-                Copy clone
-              </button>
-              <button class="cmd-btn" data-copy="cd your-project && npm install">
-                Copy install
-              </button>
-              <button class="cmd-btn" data-copy="mailto:apexheightgames.valor@gmail.com">
-                Copy email
-              </button>
-            </div>
-          </div>
-
-          <!-- Right: Technical card + donation like a config -->
-          <aside class="collab-side reveal">
-            <div class="card tech-specs">
-              <h3>Technical Specs</h3>
-              <ul>
-                <li>
-                  <strong>Stack</strong>:
-                  <span class="badge-code">HTML5</span>
-                  <span class="badge-code">CSS3</span>
-                  <span class="badge-code">Javascript</span>
-                  <span class="badge-code">Tailwind</span>
-                  <span class="badge-code">Vanta.js</span>
-                  <span class="badge-code">Node.js</span>
-                  <span class="badge-code">Github Copilot</span>
-                  <span class="badge-code">Vercel</span>
-                </li>
-                <li>
-                  <strong>Work style</strong>: Git workflow, PR reviews, CI
-                </li>
-                <li>
-                  <strong>Deliverables</strong>: tests, docs, typed APIs
-                </li>
-              </ul>
-            </div>
-
-            <div class="card donation-card">
-              <h3>Support (optional)</h3>
-              <pre class="donation-line">
-O. Idowu = "6092179815 - 
-9 Payment Service Bank"</pre>
-              <div class="donation-actions">
-                <button id="copy-btn" class="btn btn-secondary">Copy</button>
-                <a href="#contact" class="btn btn-primary">Request details</a>
-              </div>
-            </div>
-
-            <div class="card collab-cta">
-              <h3>Ready to collaborate?</h3>
-              <a href="#contact" class="btn btn-primary">Start a Collaboration</a>
-              <a href="mailto:apexheightgames.valor@gmail.com" class="btn btn-secondary">Email Me</a>
-            </div>
-          </aside>
-        </div>
-      </div>
-
-      <div id="collab-toast" class="collab-toast" aria-live="polite" role="status"></div>
-    </section>
-
-    <!-- Section 4: Projects (New Grid Layout) -->
-    <section id="projects" class="content-section traditional-scroll">
-      <div class="text-container">
-        <h2 class="section-title">Projects</h2>
-        <p class="section-tagline">
-          A selection of my recent work. Each project is a testament to my
-          commitment to clean code and user-centric design.
+        <span class="hero-badge">Available for new projects</span>
+        <h1 class="hero-title">
+          Building <span class="highlight">digital experiences</span> that matter.
+        </h1>
+        <p class="hero-subtitle">
+          I'm <span style="color: var(--text-main); font-weight: 600;">David Idowu</span>, a Senior Software Engineer specializing in building exceptional digital products, from concept to deployment.
         </p>
-      </div>
-      <!-- The new, simple grid container -->
-      <div id="project-grid" class="project-grid">
-        <!-- Project cards will be built by script.js -->
+        
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
+
+        <div class="social-row">
+          <a href="#" id="hero-github" class="social-link" target="_blank">
+            <span class="material-icons-outlined">code</span> GitHub
+          </a>
+          <a href="#" id="hero-linkedin" class="social-link" target="_blank">
+            <span class="material-icons-outlined">work</span> LinkedIn
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Section 5: Contact (Fullscreen) -->
-    <section id="contact" class="fullscreen-section reachout">
-      <div id="vanta-contact-bg" class="vanta-canvas" data-vanta="dots"></div>
-      <div class="section-content-wrapper contact-content">
-        <div class="text-container">
-          <h2 class="section-title">Get In Touch</h2>
-          <p>
-            Ready to start a project? Let's build something amazing together.
-          </p>
-          <div class="contact-form-container">
-            <form id="contact-form" action="https://formspree.io/f/xvgrboln" method="POST">
-              <div class="form-group">
-                <label for="name">Name</label><input type="text" id="name" name="name" required />
-              </div>
-
-              <div class="form-group">
-                <label for="email">Email</label><input type="email" id="email" name="email" required />
-              </div>
-
-              <!-- New: Type of Project (select + "other" free text) -->
-              <div class="form-group">
-                <label for="project-type">Type of Project / Website</label>
-                <select id="project-type" name="projectType" required>
-                  <option value="">Select a type...</option>
-                  <option>Website</option>
-                  <option>Mobile App</option>
-                  <option>Backend / API</option>
-                  <option>SaaS Platform</option>
-                  <option>Landing Page</option>
-                  <option>Other</option>
-                </select>
-                <input type="text" id="project-type-other" name="projectTypeOther"
-                  placeholder="Describe the project type" style="display: none; margin-top: 0.6rem" />
-              </div>
-
-              <!-- New: Plan Selection -->
-              <div class="form-group">
-                <label for="plan-selection">Plan Selection</label>
-                <select id="plan-selection" name="planSelection" required>
-                  <option value="">Choose a plan...</option>
-                  <option value="Starter">Starter</option>
-                  <option value="Business">Business</option>
-                  <option value="Custom">Custom</option>
-                  <option value="Revamp">Revamp</option>
-                </select>
-                <textarea id="custom-plan-details" name="customPlanDetails" rows="3"
-                  placeholder="If Custom, describe your needs" style="display: none; margin-top: 0.6rem"></textarea>
-              </div>
-
-              <!-- New: Preferred Language / Stack (multi-select + other) -->
-              <div class="form-group">
-                <label>Preferred Language / Stack (if you want to
-                  collaborate)</label>
-                <div class="checkbox-content">
-                  <label><input type="checkbox" value="JavaScript" name="tech-stack"
-                      class="tech-stack" />Javascript</label>
-                  <label><input type="checkbox" value="TypeScript" name="tech-stack"
-                      class="tech-stack" />TypeScript</label>
-                  <label><input type="checkbox" value="React" name="tech-stack" class="tech-stack" />React</label>
-                  <label><input type="checkbox" value="Next.js" name="tech-stack" class="tech-stack" />Next.js</label>
-                  <label><input type="checkbox" value="Node.js" name="tech-stack" class="tech-stack" />Node.js</label>
-                  <label><input type="checkbox" value="Python" name="tech-stack" class="tech-stack" />Python</label>
-                  <label><input type="checkbox" value="Django" name="tech-stack" class="tech-stack" />Django</label>
-                  <label><input type="checkbox" value="Java" name="tech-stack" class="tech-stack" />Java</label>
-                  <label><input type="checkbox" value="Other" name="tech-stack" class="tech-stack" />Other</label>
+    <!-- Section 2: About -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image-wrapper">
+             <!-- Placeholder for profile image, will be set by JS or manual -->
+            <img id="about-image" src="" alt="David Idowu" />
+          </div>
+          <div class="about-content">
+            <span class="section-title">About Me</span>
+            <div id="about-description"></div>
+            
+            <h3 style="margin-top: 2rem;">Core Competencies</h3>
+            <div class="core-competencies">
+                <div class="competency-card">
+                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">dns</span> Backend</h4>
+                    <p>Node.js, Python, Java, SQL</p>
                 </div>
-                <input type="text" id="preferred-stack-other" name="preferredStackOther"
-                  placeholder="Other stack (comma separated)" style="display: none; margin-top: 0.6rem" />
-              </div>
-
-              <div class="form-group">
-                <label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea>
-              </div>
-              <button id="submit-button" type="submit" class="btn btn-primary">
-                Send Message
-              </button>
-            </form>
-            <div id="form-status"></div>
+                <div class="competency-card">
+                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">web</span> Frontend</h4>
+                    <p>React, Next.js, TypeScript</p>
+                </div>
+                <div class="competency-card">
+                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">cloud</span> Cloud</h4>
+                    <p>AWS, Vercel, Firebase</p>
+                </div>
+                <div class="competency-card">
+                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">design_services</span> Design</h4>
+                    <p>Figma, UI/UX Principles</p>
+                </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- Footer (Stays outside the scroll container) -->
-  <footer id="footer"></footer>
+    <!-- Section 3: Services -->
+    <section id="services" class="services-section">
+      <div class="container">
+        <div style="text-align: center;">
+            <h2 class="section-title">What I Offer</h2>
+            <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
+                High-quality services tailored to your specific needs.
+            </p>
+        </div>
+        
+        <div id="pricing-grid" class="services-grid">
+          <!-- Populated by script.js -->
+        </div>
+      </div>
+    </section>
 
-  <!-- Back to Top Button -->
-  <a href="#home" class="back-to-top-btn" aria-label="Back to top">⇧</a>
+    <!-- Section 4: Projects -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <div style="text-align: center;">
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
+                A selection of my recent work building scalable solutions.
+            </p>
+        </div>
+
+        <div id="project-grid" class="projects-grid">
+          <!-- Populated by script.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Contact -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="contact-container">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="color: var(--text-muted);">
+                Have a project in mind? Let's build something amazing together.
+            </p>
+          </div>
+
+          <form id="contact-form" action="https://formspree.io/f/xvgrboln" method="POST">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe" />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" class="form-control" required placeholder="john@example.com" />
+            </div>
+
+            <div class="form-group">
+              <label for="project-type">Project Type</label>
+              <select id="project-type" name="projectType" class="form-control">
+                <option value="">Select a type...</option>
+                <option>Website / Landing Page</option>
+                <option>Web Application (SaaS)</option>
+                <option>Mobile App</option>
+                <option>E-commerce</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" class="form-control" required placeholder="Tell me about your project..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+            <div id="form-status" style="margin-top: 1rem; text-align: center;"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 David Idowu. All rights reserved.</p>
+    </div>
+  </footer>
 
   <!-- Scripts -->
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
-
 </html>
