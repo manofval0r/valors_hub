@@ -26,6 +26,26 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(typeWriter, 500);
     }
 
+    // --- 1.2 SCROLL FADE-IN ANIMATIONS ---
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    // Observe all sections except hero
+    document.querySelectorAll('section:not(.hero-section)').forEach(section => {
+        observer.observe(section);
+    });
+
     // --- 1.5 TECH BACKGROUND ANIMATION ---
     const canvas = document.getElementById('tech-bg');
     if (canvas) {
@@ -192,15 +212,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Smooth Scroll for Anchors
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', function (e) {
+    // Smooth Scroll for Anchors (with JS fallback for better compatibility)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
+
+            // Skip if it's just "#" or a mailto link
             if (!href || href === '#' || href.startsWith('mailto:')) return;
-            const target = document.querySelector(href);
-            if (target) {
+
+            const targetElement = document.querySelector(href);
+            if (targetElement) {
                 e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                // Calculate the position accounting for the fixed navbar
+                const navHeight = 70; // var(--nav-height)
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+                // Smooth scroll to the target
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
             }
         });
     });
