@@ -5,29 +5,45 @@
 
 :root {
     /* --- NEW PALETTE (Deep Slate / Tech) --- */
-    --bg-color: #101622;        /* Deep Navy/Slate Background */
-    --card-bg: #1e293b;         /* Lighter Slate for Cards */
-    --card-hover: #263345;      /* Hover state for cards */
-    
-    --primary-accent: #3b82f6;  /* Bright Tech Blue */
-    --secondary-accent: #64748b;/* Muted Slate Blue */
-    
-    --text-main: #f1f5f9;       /* Off-white for main text */
-    --text-muted: #94a3b8;      /* Muted gray-blue for secondary text */
-    
-    --border-color: #334155;    /* Subtle border */
-    
-    --nav-bg: rgba(16, 22, 34, 0.85); /* Glassmorphism Nav */
-    
+    --bg-color: #101622;
+    /* Deep Navy/Slate Background */
+    --card-bg: #1e293b;
+    /* Lighter Slate for Cards */
+    --card-hover: #263345;
+    /* Hover state for cards */
+
+    --primary-accent: #3b82f6;
+    /* Bright Tech Blue */
+    --secondary-accent: #64748b;
+    /* Muted Slate Blue */
+
+    --text-main: #f1f5f9;
+    /* Off-white for main text */
+    --text-muted: #94a3b8;
+    /* Muted gray-blue for secondary text */
+
+    --border-color: #334155;
+    /* Subtle border */
+
+    --nav-bg: rgba(16, 22, 34, 0.85);
+    /* Glassmorphism Nav */
+
     --font-main: 'Inter', sans-serif;
     --font-code: 'Fira Code', monospace;
-    
+
     --nav-height: 70px;
 }
 
 /* ========= RESET & BASE ========= */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     font-family: var(--font-main);
@@ -35,12 +51,19 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
-    /* Subtle CSS Grid Background Pattern */
-    background-image: 
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    background-position: center top;
+    position: relative;
+}
+
+/* ========= BACKGROUND ANIMATION ========= */
+#tech-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+    pointer-events: none;
 }
 
 /* ========= UTILITIES ========= */
@@ -56,6 +79,7 @@ body {
     margin-bottom: 1rem;
     background: linear-gradient(to right, #fff, #94a3b8);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
 }
@@ -114,7 +138,7 @@ nav {
     background-color: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -143,7 +167,8 @@ nav {
     transition: color 0.2s;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--primary-accent);
 }
 
@@ -154,7 +179,9 @@ nav {
 }
 
 /* Theme Toggle - Hidden/Disabled for now as we are enforcing Dark Tech Theme */
-.theme-switch { display: none; } 
+.theme-switch {
+    display: none;
+}
 
 .hamburger {
     display: none;
@@ -237,7 +264,8 @@ nav {
 
 .social-link {
     color: var(--text-muted);
-    font-size: 1.5rem; /* Icon size */
+    font-size: 1.5rem;
+    /* Icon size */
     transition: color 0.2s, transform 0.2s;
     display: flex;
     align-items: center;
@@ -245,7 +273,10 @@ nav {
     text-decoration: none;
 }
 
-.social-link span { font-size: 0.9rem; font-weight: 500; }
+.social-link span {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 
 .social-link:hover {
     color: var(--text-main);
@@ -272,7 +303,7 @@ nav {
     width: 100%;
     border-radius: 1rem;
     border: 1px solid var(--border-color);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .about-content h3 {
@@ -316,7 +347,8 @@ nav {
 /* ========= SERVICES SECTION ========= */
 .services-section {
     padding: 6rem 0;
-    background-color: rgba(0,0,0,0.2); /* Slight darken */
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Slight darken */
 }
 
 .services-grid {
@@ -392,7 +424,7 @@ nav {
 
 .project-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border-color: rgba(59, 130, 246, 0.3);
 }
 
@@ -473,7 +505,7 @@ nav {
 /* ========= CONTACT SECTION ========= */
 .contact-section {
     padding: 6rem 0;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .contact-container {
@@ -483,7 +515,7 @@ nav {
     padding: 3rem;
     border-radius: 1rem;
     border: 1px solid var(--border-color);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
 .form-group {
@@ -532,11 +564,24 @@ footer {
 
 /* ========= RESPONSIVE ========= */
 @media (max-width: 768px) {
-    .hero-title { font-size: 2.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .nav-links { display: none; } /* Mobile menu logic needed in JS */
-    .hamburger { display: block; }
-    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    /* Mobile menu logic needed in JS */
+    .hamburger {
+        display: block;
+    }
+
     .nav-links.active {
         display: flex;
         flex-direction: column;

@@ -26,6 +26,64 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(typeWriter, 500);
     }
 
+    // --- 1.5 TECH BACKGROUND ANIMATION ---
+    const canvas = document.getElementById('tech-bg');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        // Web Dev Characters: < > / { } [ ] ( ) ; = $
+        const chars = "<>/{}[];=$".split('');
+        const fontSize = 14;
+        let columns;
+        let drops = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            columns = Math.ceil(width / fontSize);
+            // Reset drops
+            drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = Math.random() * -100; // Start above screen randomly
+            }
+        }
+
+        function draw() {
+            // Semi-transparent black to create trail effect
+            ctx.fillStyle = 'rgba(16, 22, 34, 0.1)'; // Matches --bg-color
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.fillStyle = '#3b82f6'; // --primary-accent
+            ctx.font = `${fontSize}px "Fira Code", monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+
+                // Randomly brighter characters for "glint" effect
+                if (Math.random() > 0.98) {
+                    ctx.fillStyle = '#93c5fd'; // Lighter blue
+                } else {
+                    ctx.fillStyle = '#1d4ed8'; // Darker blue for depth
+                }
+
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                // Reset drop to top randomly
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        draw();
+    }
+
     // --- 2. DYNAMIC CONTENT BUILDERS ---
     function techToUrl(name) {
         const map = (window.portfolioData && portfolioData.techLinks) ? portfolioData.techLinks : {};

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>David Idowu | Senior Software Engineer</title>
+  <title>David Idowu | AI | Full-Stack</title>
 
   <!-- Favicon Links -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -12,19 +13,23 @@
   <link rel="manifest" href="/site.webmanifest" />
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css" />
-  
-  <!-- Icons -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Google Fonts & Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
 
 <body>
+  <!-- Background Animation Canvas -->
+  <canvas id="tech-bg"></canvas>
+
   <!-- Navigation -->
   <nav>
-    <div class="logo"><a href="#home">David Idowu</a></div>
-    
+    <div class="logo">
+      <a href="#">David.</a>
+    </div>
+
     <div class="nav-links">
-      <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#services">Services</a>
       <a href="#projects">Projects</a>
@@ -49,9 +54,10 @@
           Building <span class="highlight">digital experiences</span> that matter.
         </h1>
         <p class="hero-subtitle">
-          I'm <span style="color: var(--text-main); font-weight: 600;">David Idowu</span>, a Senior Software Engineer specializing in building exceptional digital products, from concept to deployment.
+          I'm <span style="color: var(--text-main); font-weight: 600;">David Idowu</span>, a Senior Software Engineer
+          specializing in building exceptional digital products, from concept to deployment.
         </p>
-        
+
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">View My Work</a>
           <a href="#contact" class="btn btn-secondary">Contact Me</a>
@@ -73,31 +79,32 @@
       <div class="container">
         <div class="about-grid">
           <div class="about-image-wrapper">
-             <!-- Placeholder for profile image, will be set by JS or manual -->
+            <!-- Placeholder for profile image, will be set by JS or manual -->
             <img id="about-image" src="" alt="David Idowu" />
           </div>
           <div class="about-content">
             <span class="section-title">About Me</span>
             <div id="about-description"></div>
-            
+
             <h3 style="margin-top: 2rem;">Core Competencies</h3>
             <div class="core-competencies">
-                <div class="competency-card">
-                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">dns</span> Backend</h4>
-                    <p>Node.js, Python, Java, SQL</p>
-                </div>
-                <div class="competency-card">
-                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">web</span> Frontend</h4>
-                    <p>React, Next.js, TypeScript</p>
-                </div>
-                <div class="competency-card">
-                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">cloud</span> Cloud</h4>
-                    <p>AWS, Vercel, Firebase</p>
-                </div>
-                <div class="competency-card">
-                    <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">design_services</span> Design</h4>
-                    <p>Figma, UI/UX Principles</p>
-                </div>
+              <div class="competency-card">
+                <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">dns</span> Backend</h4>
+                <p>Node.js, Python, Java, SQL</p>
+              </div>
+              <div class="competency-card">
+                <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">web</span> Frontend</h4>
+                <p>React, Next.js, TypeScript</p>
+              </div>
+              <div class="competency-card">
+                <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">cloud</span> Cloud</h4>
+                <p>AWS, Vercel, Firebase</p>
+              </div>
+              <div class="competency-card">
+                <h4><span class="material-icons-outlined" style="color: var(--primary-accent);">design_services</span>
+                  Design</h4>
+                <p>Figma, UI/UX Principles</p>
+              </div>
             </div>
           </div>
         </div>
@@ -108,12 +115,12 @@
     <section id="services" class="services-section">
       <div class="container">
         <div style="text-align: center;">
-            <h2 class="section-title">What I Offer</h2>
-            <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
-                High-quality services tailored to your specific needs.
-            </p>
+          <h2 class="section-title">What I Offer</h2>
+          <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
+            High-quality services tailored to your specific needs.
+          </p>
         </div>
-        
+
         <div id="pricing-grid" class="services-grid">
           <!-- Populated by script.js -->
         </div>
@@ -124,10 +131,10 @@
     <section id="projects" class="projects-section">
       <div class="container">
         <div style="text-align: center;">
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
-                A selection of my recent work building scalable solutions.
-            </p>
+          <h2 class="section-title">Featured Projects</h2>
+          <p class="section-subtitle" style="margin: 0 auto 3rem auto;">
+            A selection of my recent work building scalable solutions.
+          </p>
         </div>
 
         <div id="project-grid" class="projects-grid">
@@ -143,7 +150,7 @@
           <div style="text-align: center; margin-bottom: 2rem;">
             <h2 class="section-title">Get In Touch</h2>
             <p style="color: var(--text-muted);">
-                Have a project in mind? Let's build something amazing together.
+              Have a project in mind? Let's build something amazing together.
             </p>
           </div>
 
@@ -155,7 +162,8 @@
 
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" name="email" class="form-control" required placeholder="john@example.com" />
+              <input type="email" id="email" name="email" class="form-control" required
+                placeholder="john@example.com" />
             </div>
 
             <div class="form-group">
@@ -172,7 +180,8 @@
 
             <div class="form-group">
               <label for="message">Message</label>
-              <textarea id="message" name="message" class="form-control" required placeholder="Tell me about your project..."></textarea>
+              <textarea id="message" name="message" class="form-control" required
+                placeholder="Tell me about your project..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
@@ -194,4 +203,5 @@
   <script src="config.js"></script>
   <script src="script.js"></script>
 </body>
+
 </html>
