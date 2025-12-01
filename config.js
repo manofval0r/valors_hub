@@ -170,7 +170,7 @@ const portfolioData = {
             client: "Naijadataman",
             description: "Developed a portfolio website to show the client's prowess in data analytics and training.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/client-portfolio.png",
+            imageUrl: "/image copy.png",
             liveLink: "https://naijadataman.vercel.app",
             codeLink: "https://github.com/manofval0r/naijadataman"
         }, 
@@ -179,7 +179,7 @@ const portfolioData = {
             client: "Uni project then Personal Project",
             description: "Its a platform meant to guide people to mastery of the skills they need to succeed in their career path.",
             tech: "Python(Django), React.js, Vite, Vanila CSS, HTML",
-            imageUrl: "/whats-next.png",
+            imageUrl: "/image.png",
             liveLink: "https://whats-next-1.onrender.com",
             codeLink: "https://github.com/manofval0r/WHATS-NEXT"
         },
