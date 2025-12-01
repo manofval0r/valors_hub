@@ -166,6 +166,24 @@ const portfolioData = {
             codeLink: "https://github.com/manofval0r/kloshouse"
         }, 
         {
+            title: "Client Portfolio Website",
+            client: "Naijadataman",
+            description: "Developed a portfolio website to show the client's prowess in data analytics and training.",
+            tech: "HTML, CSS, JavaScript",
+            imageUrl: "/client-portfolio.png",
+            liveLink: "https://naijadataman.vercel.app",
+            codeLink: "https://github.com/manofval0r/naijadataman"
+        }, 
+        {
+            title: "What's Next",
+            client: "Uni project then Personal Project",
+            description: "Its a platform meant to guide people to mastery of the skills they need to succeed in their career path.",
+            tech: "Python(Django), React.js, Vite, Vanila CSS, HTML",
+            imageUrl: "/whats-next.png",
+            liveLink: "https://whats-next-1.onrender.com",
+            codeLink: "https://github.com/manofval0r/WHATS-NEXT"
+        },
+        {
             title: "Educational Platform",
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
