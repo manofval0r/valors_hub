@@ -5,7 +5,7 @@ const portfolioData = {
     name: "David Idowu",
     title: "Web Developer & Web Designer",
     location: "Lagos, Nigeria | Open to Remote & Hybrid Roles",
-    
+
     // Contact & Socials
     contact: {
         email: "didowu903@gmail.com | apexheightgames.valor@gmail.com",
@@ -15,12 +15,12 @@ const portfolioData = {
         github: "https://github.com/manofval0r", // <-- UPDATE THIS
         linkedin: "https://www.linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
     },
-    
+
     // About Section
     about: {
         imageUrl: "/Hero-image.jpg", // Make sure this image is in your folder
         description: [
-            "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.","Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency."
+            "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.", "Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency."
         ]
     },
 
@@ -60,8 +60,8 @@ const portfolioData = {
     donations: {
         title: "Support My Mission",
         description: "My services are subsidized to help empower new businesses and individuals. If you believe in this mission, you can support my work through a donation.",
-        accountNumber: "6092179815", 
-        bankName: "9 Payment Service Bank" 
+        accountNumber: "6092179815",
+        bankName: "9 Payment Service Bank"
     },
     collaboration: {
         title: "Have an idea for a project?",
@@ -93,7 +93,7 @@ const portfolioData = {
         { name: "UI/UX Design", certificateUrl: "/Responsive web design.png" },
         { name: "Data Analytics" },
         { name: "Project Management" },
-        { name: "AI Prompting", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf"},
+        { name: "AI Prompting", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
         { name: "Gen AI", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
         { name: "Git & GitHub" },
         { name: "Vercel" }
@@ -126,13 +126,13 @@ const portfolioData = {
             imageUrl: "/Midwive-Tracker.png", // You'll need to add this image to your folder
             liveLink: "https://script.google.com/macros/s/AKfycbz7BLj481tg4TeJ66u6RTobd5x8eb4kJz6CUyaAhquuZdx2zLfZ3id_xOzseqqzJ_Dw/exec",
             codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
-        }, 
+        },
         {
             title: "Solar Market Trend Analyzer",
             client: "Confidential",
             description: "A comprehensive web app for analyzing solar, inverter, and battery market trends using real-time data scraping and partly free to use, open-source API integrations.",
             tech: "Node.js, Express.js, REST APIs, Web Scraping, HTML, CSS",
-            imageUrl: "/PES-analyser.png", 
+            imageUrl: "/PES-analyser.png",
             liveLink: "https://pes-analyser.vercel.app",
             codeLink: "https://github.com/Anikin-kings/PES-analyzer",
             collaborator: "Anikin Kings",
@@ -155,7 +155,7 @@ const portfolioData = {
             imageUrl: "/client-portfolio.png",
             liveLink: "https://solomon-binutu.vercel.app",
             codeLink: "https://github.com/manofval0r/ay-design"
-        }, 
+        },
         {
             title: "Fashion Ecommerce Website",
             client: "Client-Focused Project",
@@ -164,7 +164,7 @@ const portfolioData = {
             imageUrl: "/kloshouse.png",
             liveLink: "https://kloshouse.vercel.app",
             codeLink: "https://github.com/manofval0r/kloshouse"
-        }, 
+        },
         {
             title: "Client Portfolio Website",
             client: "Naijadataman",
@@ -173,7 +173,7 @@ const portfolioData = {
             imageUrl: "/image copy.png",
             liveLink: "https://naijadataman.vercel.app",
             codeLink: "https://github.com/manofval0r/naijadataman"
-        }, 
+        },
         {
             title: "What's Next",
             client: "Uni project then Personal Project",
@@ -188,11 +188,11 @@ const portfolioData = {
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
             tech: "Next.js, TypeScript, JavaScript, Java",
-            imageUrl: "/LMS-project-pic.jpg", 
+            imageUrl: "/LMS-project-pic.jpg",
             liveLink: null,
             codeLink: null
         }
-    ],      
+    ],
     // --- NEW: Vanta.js Background Configurations ---
     vantaConfigs: {
         hero: {
@@ -278,12 +278,5 @@ const portfolioData = {
         "Firebase": "https://firebase.google.com",
         "GraphQL": "https://graphql.org",
         "REST": "https://en.wikipedia.org/wiki/Representational_state_transfer"
-    },
-
-    services: [ // Using your exact pricing now
-        { id: 'starter', name: "Starter Portfolio", priceUSD: 50, priceNGN: "75,000", description: "// A stunning, responsive 1-3 page site to showcase your skills." },
-        { id: 'business', name: "Business Website", priceUSD: 120, priceNGN: "180,000", description: "// A professional multi-page site with a contact form for your business." },
-        { id: 'custom', name: "Full Custom Project", priceUSD: "250+", priceNGN: "375,000+", description: "// A bespoke web app, e-commerce store, or complex platform." },
-        { id: 'revamp', name: "Website Revamp / Fixes", priceUSD: 30, priceNGN: "45,000", description: "// Upgrade, fix, or add new features to your existing website." }
-    ],
+    }
 };
