@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // --- 1. TYPING ANIMATION ---
+    // --- TYPING ANIMATION ---
     const heroHighlight = document.querySelector('.hero-title .highlight');
     if (heroHighlight) {
         const textToType = "digital experiences";
@@ -22,11 +22,10 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Start after a slight delay
         setTimeout(typeWriter, 500);
     }
 
-    // --- 1.2 SCROLL FADE-IN ANIMATIONS ---
+    // --- FADE-IN ANIMATIONS ---
     const observerOptions = {
         threshold: 0.15,
         rootMargin: '0px 0px -50px 0px'
@@ -46,13 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(section);
     });
 
-    // --- 1.5 TECH BACKGROUND ANIMATION ---
+    // ---  BACKGROUND ANIMATION ---
     const canvas = document.getElementById('tech-bg');
     if (canvas) {
         const ctx = canvas.getContext('2d');
         let width, height;
 
-        // Web Dev Characters: < > / { } [ ] ( ) ; = $
         const chars = "<>/{}[];=$".split('');
         const fontSize = 14;
         let columns;
@@ -62,10 +60,9 @@ document.addEventListener('DOMContentLoaded', function () {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
             columns = Math.ceil(width / fontSize);
-            // Reset drops
             drops = [];
             for (let i = 0; i < columns; i++) {
-                drops[i] = Math.random() * -100; // Start above screen randomly
+                drops[i] = Math.random() * -100;
             }
         }
 

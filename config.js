@@ -19,7 +19,8 @@ const portfolioData = {
 
     // About Section
     about: {
-        imageUrl: "assets/Hero-image2.png",
+        imageUrl: "assets/Hero-image.png",
+        figureImage: "Father of Computer, Charles Babbage",
         description: [
             "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.", "Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency."
         ]
@@ -251,7 +252,7 @@ const portfolioData = {
         "REST": "https://en.wikipedia.org/wiki/Representational_state_transfer",
         "Vite": "https://vitejs.dev",
         "Google Cloud": "https://cloud.google.com",
-        "Stitch": "https://www.stitchdata.com", // Assuming Stitch Data, or could be others. Best guess or generic. User said "Stitch".
+        "Stitch": "https://www.stitch.withgoogle.com",
         "Canva": "https://www.canva.com",
         "V0 by Vercel": "https://v0.dev",
         "V0": "https://v0.dev",
@@ -260,7 +261,7 @@ const portfolioData = {
         "Microsoft Copilot": "https://copilot.microsoft.com",
         "Gemini": "https://deepmind.google/technologies/gemini",
         "Google AI Studio": "https://aistudio.google.com",
-        "Agentic AI": "https://cloud.google.com/use-cases/agentic-ai", // Generic informational link
+        "Agentic AI": "https://cloud.google.com/use-cases/agentic-ai",
         "LLMs": "https://en.wikipedia.org/wiki/Large_language_model",
         "Gen AI": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence",
         "Gen AI Tools": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence"
