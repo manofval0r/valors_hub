@@ -155,15 +155,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 const codeBtn = project.codeLink ? `<a href="${project.codeLink}" class="link-btn" target="_blank"><span class="material-icons-outlined">code</span> Code</a>` : '';
                 const techHTML = project.tech ? `<div class="project-tags">${buildTechTags(project.tech)}</div>` : '';
 
+                const collaboratorHTML = (project.collaborator && project.GitHub) ?
+                    `<div class="project-collab">
+                        <span class="collab-label">Collaborator:</span> 
+                        <a href="${project.GitHub}" target="_blank" class="collab-link">
+                            <span class="material-icons-outlined" style="font-size: 14px;">person</span> ${project.collaborator}
+                        </a>
+                    </div>` : '';
+
                 projectGrid.innerHTML += `
                     <div class="project-card">
                         <div class="project-image">
-                            <img src="${project.imageUrl || 'placeholder.jpg'}" alt="${project.title}">
+                            <img src="${project.imageUrl || 'assets/placeholder.jpg'}" alt="${project.title}">
                         </div>
                         <div class="project-content">
                             <h3 class="project-title">${project.title}</h3>
                             <p class="project-desc">${project.description || ''}</p>
                             ${techHTML}
+                            ${collaboratorHTML}
                             <div class="project-links">
                                 ${liveBtn}
                                 ${codeBtn}
@@ -188,6 +197,27 @@ document.addEventListener('DOMContentLoaded', function () {
                         <a href="#contact" class="btn btn-secondary" style="width: 100%;">Get Started</a>
                     </div>`;
             });
+        }
+
+        // DONATIONS
+        const donationContainer = document.getElementById('donation-container');
+        if (donationContainer && pd.donations) {
+            donationContainer.innerHTML = `
+                <div class="donation-card">
+                    <div class="donation-header">
+                        <span class="material-icons-outlined donation-icon">coffee</span>
+                        <h2 class="section-title" style="font-size: 2rem;">${pd.donations.title}</h2>
+                    </div>
+                    <p class="donation-desc">${pd.donations.description}</p>
+                    <div class="donation-info">
+                        <div class="bank-details">
+                            <span class="bank-label">Bank:</span> <span class="bank-value">${pd.donations.bankName}</span>
+                        </div>
+                        <div class="bank-details">
+                            <span class="bank-label">Account:</span> <span class="bank-value code-font">${pd.donations.accountNumber}</span>
+                        </div>
+                    </div>
+                </div>`;
         }
     }
 

@@ -11,20 +11,21 @@ const portfolioData = {
         email: "didowu903@gmail.com | apexheightgames.valor@gmail.com",
         phone: "+2347037000448"
     },
+
     socials: {
-        github: "https://github.com/manofval0r", // <-- UPDATE THIS
-        linkedin: "https://www.linkedin.com/in/david-idowu-669687307" // <-- UPDATE THIS
+        github: "https://github.com/manofval0r",
+        linkedin: "https://www.linkedin.com/in/david-idowu-669687307",
     },
 
     // About Section
     about: {
-        imageUrl: "/Hero-image.jpg", // Make sure this image is in your folder
+        imageUrl: "assets/Hero-image2.png",
         description: [
             "Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, Java, and Node.js.", "Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency."
         ]
     },
 
-    // --- NEW: Services & Pricing Data ---
+    // ---Services & Pricing Data ---
     services: [
         {
             id: 'starter',
@@ -70,7 +71,7 @@ const portfolioData = {
         hoverText: "You'll have to buy me lunch first 😅"
     },
 
-    // --- NEW: Experience Section Data ---
+    // --- Experience Section Data ---
     experience: [
         {
             title: "Web Developer",
@@ -87,10 +88,10 @@ const portfolioData = {
 
     // --- Skills Section Data ---
     skills: [
-        { name: "Responsive Web Design (HTML and CSS)", certificateUrl: "/Responsive web design.png" },
+        { name: "Responsive Web Design (HTML and CSS)", certificateUrl: "assets/Responsive web design.png" },
         { name: "JavaScript" },
         { name: "Next.js" },
-        { name: "UI/UX Design", certificateUrl: "/Responsive web design.png" },
+        { name: "UI/UX Design", certificateUrl: "assets/Responsive web design.png" },
         { name: "Data Analytics" },
         { name: "Project Management" },
         { name: "AI Prompting", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
@@ -113,7 +114,7 @@ const portfolioData = {
         { name: "MIT App Development Course", issuerDate: "NessCrown, 09.2024" },
         { name: "Scratch App Development Course", issuerDate: "NessCrown, 08.2023" },
         { name: "What is Generative AI?", issuerDate: "LinkedIn Learning, 06.2025", certificateUrl: "/CertificateOfCompletion_What Is Generative AI (1).pdf" },
-        { name: "Responsive Web Design", issuerDate: "freeCodeCamp, 09.2025", certificateUrl: "/Responsive web design.png" }
+        { name: "Responsive Web Design", issuerDate: "freeCodeCamp, 09.2025", certificateUrl: "assets/Responsive web design.png" }
     ],
 
     // Projects Section
@@ -123,7 +124,7 @@ const portfolioData = {
             client: "Client-Focused Project",
             description: "Developed an automated system to solve a real-world data management problem, replacing a strenuous manual ledger process for midwives. The solution ensures accurate, performance-based pay calculations.",
             tech: "Google Apps Script, Google Sheets, JavaScript, HTML",
-            imageUrl: "/Midwive-Tracker.png", // You'll need to add this image to your folder
+            imageUrl: "assets/Midwive-Tracker.png", // You'll need to add this image to your folder
             liveLink: "https://script.google.com/macros/s/AKfycbz7BLj481tg4TeJ66u6RTobd5x8eb4kJz6CUyaAhquuZdx2zLfZ3id_xOzseqqzJ_Dw/exec",
             codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
         },
@@ -132,7 +133,7 @@ const portfolioData = {
             client: "Confidential",
             description: "A comprehensive web app for analyzing solar, inverter, and battery market trends using real-time data scraping and partly free to use, open-source API integrations.",
             tech: "Node.js, Express.js, REST APIs, Web Scraping, HTML, CSS",
-            imageUrl: "/PES-analyser.png",
+            imageUrl: "assets/PES-analyser.png",
             liveLink: "https://pes-analyser.vercel.app",
             codeLink: "https://github.com/Anikin-kings/PES-analyzer",
             collaborator: "Anikin Kings",
@@ -143,7 +144,7 @@ const portfolioData = {
             client: "Client: Sidedish Foods",
             description: "An end-to-end web solution for a restaurant, featuring a customer-facing menu, dynamic cart functionality, and an automated checkout process.",
             tech: "HTML, CSS, Java, Node.js",
-            imageUrl: "/SDSHFDS-pic.jpg",
+            imageUrl: "assets/SDSHFDS-pic.jpg",
             liveLink: "https://sidedishfoodsweb.vercel.app",
             codeLink: "https://github.com/manofval0r/websstt"
         },
@@ -152,7 +153,7 @@ const portfolioData = {
             client: "Client-Focused Project",
             description: "Developed a portfolio website to showcase the client's work, integrating a blog and a contact form for potential clients.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/client-portfolio.png",
+            imageUrl: "assets/confidential.png",
             liveLink: "https://solomon-binutu.vercel.app",
             codeLink: "https://github.com/manofval0r/ay-design"
         },
@@ -161,7 +162,7 @@ const portfolioData = {
             client: "Client-Focused Project",
             description: "Developed a fashion ecommerce website with a focus on user experience and seamless shopping.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/kloshouse.png",
+            imageUrl: "assets/kloshouse.png",
             liveLink: "https://kloshouse.vercel.app",
             codeLink: "https://github.com/manofval0r/kloshouse"
         },
@@ -170,7 +171,7 @@ const portfolioData = {
             client: "Naijadataman",
             description: "Developed a portfolio website to show the client's prowess in data analytics and training.",
             tech: "HTML, CSS, JavaScript",
-            imageUrl: "/image copy.png",
+            imageUrl: "assets/confidential.png",
             liveLink: "https://naijadataman.vercel.app",
             codeLink: "https://github.com/manofval0r/naijadataman"
         },
@@ -179,7 +180,7 @@ const portfolioData = {
             client: "Uni project then Personal Project",
             description: "Its a platform meant to guide people to mastery of the skills they need to succeed in their career path.",
             tech: "Python(Django), React.js, Vite, Vanila CSS, HTML",
-            imageUrl: "/image.png",
+            imageUrl: "assets/image.png",
             liveLink: "https://whats-next-1.onrender.com",
             codeLink: "https://github.com/manofval0r/WHATS-NEXT"
         },
@@ -188,7 +189,7 @@ const portfolioData = {
             client: "Personal Project",
             description: "An in-development Learning Management System (LMS) designed to provide a centralized educational platform for students.",
             tech: "Next.js, TypeScript, JavaScript, Java",
-            imageUrl: "/LMS-project-pic.jpg",
+            imageUrl: "assets/LMS-project-pic.jpg",
             liveLink: null,
             codeLink: null
         }
