@@ -25,7 +25,7 @@ const portfolioData = {
         ]
     },
 
-    // ---Services & Pricing Data ---
+    // ---Pricing Data ---
     services: [
         {
             id: 'starter',
@@ -51,13 +51,13 @@ const portfolioData = {
         {
             id: 'revamp',
             name: "Website Revamp / Fixes",
-            priceUSD: "40/hr",
-            priceNGN: "60,000/hr",
+            priceUSD: "10/hr",
+            priceNGN: "15,000/hr",
             description: "Upgrade, fix, or add new features to your existing website to improve its performance, design, and functionality."
         }
     ],
 
-    // --- NEW: Donation & Collaboration Data ---
+    // ---Donation Data ---
     donations: {
         title: "Support My Mission",
         description: "My services are subsidized to help empower new businesses and individuals. If you believe in this mission, you can support my work through a donation.",
@@ -68,7 +68,7 @@ const portfolioData = {
         title: "Have an idea for a project?",
         description: "I'm always open to collaborating with other developers and designers on exciting projects. If you have an idea, let's connect.",
         buttonText: "Let's Grab Lunch",
-        hoverText: "You'll have to buy me lunch first 😅"
+        hoverText: "You might have to buy me lunch first 😅"
     },
 
     // --- Experience Section Data ---
@@ -82,6 +82,24 @@ const portfolioData = {
                 "Implemented an internal dashboard for staff to track orders in real-time and monitor business goals.",
                 "Managed the end-to-end deployment process using sustainable, cost-effective tools.",
                 "Currently provide ongoing website management, maintenance, and feature updates."
+            ]
+        },
+        {
+            title: "Freelance Web developer",
+            company: "Confidential client",
+            details: "Remote",
+            responsibilities: [
+                "Created a working portfolio website for a certain confidentialclient in the data world, using Vanilla JS, HTML, and CSS`",
+                "Continued tweaking until the client was satisfied",
+                "Continued to provide support and maintenance for the website"
+            ]
+        },
+        {
+            title: "Lead Developer",
+            company: "5VE",
+            details: "Remote, and Lab Situated",
+            responsibilities: [
+                "Built the prototype of a tech guide platform that uses AI to make skill learning more structured and reliable"
             ]
         }
     ],
@@ -105,7 +123,7 @@ const portfolioData = {
     education: [
         {
             degree: "Bachelor's Degree in Cybersecurity Science",
-            institution: "Nigerian University of Technology and Management, Lagos",
+            institution: "XXXXXX, Lagos",
             dates: "2024 - Present",
             description: "Focusing on core principles of network protection and digital security at a strong university."
         }
@@ -124,7 +142,7 @@ const portfolioData = {
             client: "Client-Focused Project",
             description: "Developed an automated system to solve a real-world data management problem, replacing a strenuous manual ledger process for midwives. The solution ensures accurate, performance-based pay calculations.",
             tech: "Google Apps Script, Google Sheets, JavaScript, HTML",
-            imageUrl: "assets/Midwive-Tracker.png", // You'll need to add this image to your folder
+            imageUrl: "assets/Midwive-Tracker.png",
             liveLink: "https://script.google.com/macros/s/AKfycbz7BLj481tg4TeJ66u6RTobd5x8eb4kJz6CUyaAhquuZdx2zLfZ3id_xOzseqqzJ_Dw/exec",
             codeLink: "https://github.com/manofval0r/Midwife-tracker-DT"
         },
@@ -194,56 +212,8 @@ const portfolioData = {
             codeLink: null
         }
     ],
-    // --- NEW: Vanta.js Background Configurations ---
-    vantaConfigs: {
-        hero: {
-            effect: "net",
-            el: "#vanta-hero-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x3498db,      // Accent color
-            backgroundColor: 0x121212, // Dark BG
-            points: 10.00,
-            maxDistance: 22.00,
-            spacing: 18.00
-        },
-        services: {
-            effect: "topology",
-            el: "#vanta-services-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x27ae60,      // A professional green
-            backgroundColor: 0x1e1e1e
-        },
-        contact: {
-            effect: "waves",
-            el: "#vanta-contact-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x8e44ad,      // A creative purple
-            shininess: 30.00,
-            waveHeight: 15.00,
-            waveSpeed: 0.8,
-            zoom: 0.8
-        }
-    },
 
-    // --- NEW: "My Process" Section Data ---
+    //  "My Process" Section Data ---
     myProcess: [
         {
             number: 1,
@@ -262,7 +232,7 @@ const portfolioData = {
         }
     ],
 
-    // Authoritative tech → URL map used by script.js
+    // URL map used by script.js
     techLinks: {
         "JavaScript": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
         "TypeScript": "https://www.typescriptlang.org",
@@ -278,6 +248,21 @@ const portfolioData = {
         "Vercel": "https://vercel.com",
         "Firebase": "https://firebase.google.com",
         "GraphQL": "https://graphql.org",
-        "REST": "https://en.wikipedia.org/wiki/Representational_state_transfer"
+        "REST": "https://en.wikipedia.org/wiki/Representational_state_transfer",
+        "Vite": "https://vitejs.dev",
+        "Google Cloud": "https://cloud.google.com",
+        "Stitch": "https://www.stitchdata.com", // Assuming Stitch Data, or could be others. Best guess or generic. User said "Stitch".
+        "Canva": "https://www.canva.com",
+        "V0 by Vercel": "https://v0.dev",
+        "V0": "https://v0.dev",
+        "Github Copilot": "https://github.com/features/copilot",
+        "Claude": "https://claude.ai",
+        "Microsoft Copilot": "https://copilot.microsoft.com",
+        "Gemini": "https://deepmind.google/technologies/gemini",
+        "Google AI Studio": "https://aistudio.google.com",
+        "Agentic AI": "https://cloud.google.com/use-cases/agentic-ai", // Generic informational link
+        "LLMs": "https://en.wikipedia.org/wiki/Large_language_model",
+        "Gen AI": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence",
+        "Gen AI Tools": "https://en.wikipedia.org/wiki/Generative_artificial_intelligence"
     }
 };

@@ -327,6 +327,68 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // --- 4. AUTO-LINK SKILLS IN COMPETENCY CARDS ---
+    document.querySelectorAll('.competency-card p').forEach(p => {
+        const childNodes = Array.from(p.childNodes);
+
+        childNodes.forEach(node => {
+            // Only process text nodes
+            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0) {
+                const text = node.textContent;
+                // Split by comma
+                const parts = text.split(/,/);
+                const fragment = document.createDocumentFragment();
+
+                parts.forEach((part, i) => {
+                    // Restore comma if not the first part
+                    if (i > 0) fragment.appendChild(document.createTextNode(','));
+
+                    // Handle colons (e.g., "Label: Value") to avoid linking the label if possible, 
+                    // or just separate them so they link individually.
+                    const subParts = part.split(/(:)/);
+
+                    subParts.forEach(sub => {
+                        if (sub === ':') {
+                            fragment.appendChild(document.createTextNode(':'));
+                            return;
+                        }
+
+                        // Preserving whitespace
+                        const preSpace = sub.match(/^\s*/)[0];
+                        const postSpace = sub.match(/\s*$/)[0];
+                        const trimmed = sub.trim();
+
+                        if (!trimmed) {
+                            fragment.appendChild(document.createTextNode(sub));
+                            return;
+                        }
+
+                        fragment.appendChild(document.createTextNode(preSpace));
+
+                        const a = document.createElement('a');
+                        // Clean parens for better URL lookup? e.g. "(Claude" -> "Claude"
+                        // But keep parens in display text.
+                        const cleanName = trimmed.replace(/^[(]+|[)]+$/g, '');
+                        a.href = techToUrl(cleanName);
+                        a.target = "_blank";
+                        a.textContent = trimmed;
+                        a.style.color = "inherit";
+                        a.style.textDecoration = "none";
+                        a.style.cursor = "pointer";
+
+                        // Add title for better UX
+                        a.title = `Learn more about ${cleanName}`;
+
+                        fragment.appendChild(a);
+                        fragment.appendChild(document.createTextNode(postSpace));
+                    });
+                });
+
+                p.replaceChild(fragment, node);
+            }
+        });
+    });
+
     // Footer Year
     const footer = document.querySelector('footer p');
     if (footer && pd) {

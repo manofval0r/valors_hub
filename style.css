@@ -594,53 +594,6 @@ footer {
 }
 
 /* ========= RESPONSIVE ========= */
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    /* Fix projects grid for mobile */
-    .projects-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .project-card {
-        max-width: 100%;
-    }
-
-    /* Fix services grid for mobile */
-    .services-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .nav-links {
-        display: none;
-    }
-
-    /* Mobile menu logic needed in JS */
-    .hamburger {
-        display: block;
-    }
-
-    .nav-links.active {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: var(--nav-height);
-        left: 0;
-        width: 100%;
-        background: var(--card-bg);
-        padding: 2rem;
-        border-bottom: 1px solid var(--border-color);
-    }
-}
 
 
 /* ========= DONATION SECTION ========= */
@@ -754,4 +707,61 @@ footer {
 .collab-link:hover {
     background: rgba(59, 130, 246, 0.2);
     transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    * {
+        overflow-x: hidden;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* Fix projects grid for mobile */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        max-width: 100%;
+    }
+
+    /* Fix services grid for mobile */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    /* Mobile menu logic needed in JS */
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background: var(--card-bg);
+        padding: 2rem;
+        border-bottom: 1px solid var(--border-color);
+    }
 }
