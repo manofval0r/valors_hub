@@ -1,0 +1,5 @@
+public/projects/*.mp4 !text !filter !merge !diff
+public/projects/*.mp4 filter=lfs diff=lfs merge=lfs -text
+public/projects/restaurant.mp4 !text !filter !merge !diff
+public/projects/kloshouse.mp4 !text !filter !merge !diff
+public/projects/whats-next.mp4 !text !filter !merge !diff
