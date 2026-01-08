@@ -1,26 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink-black: #0d1b2a;
+  --color-alabaster: #e0e1dd;
+  --color-lavender: #778da9;
+
+  --font-rubik: "Rubik", sans-serif;
+
+  /* Typography Scale */
+  --font-size-hero: 4rem; /* 64px */
+  --font-size-h1: 3rem;   /* 48px */
+  --font-size-h2: 2.5rem; /* 40px */
+  --font-size-h3: 2rem;   /* 32px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-base: 1rem;  /* 16px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-xs: 0.75rem;  /* 12px */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --ink-black: #0d1b2a;
+    --alabaster: #e0e1dd;
+    --lavender: #778da9;
+  }
+
+  * {
+    @apply border-lavender/30;
+    font-weight: 400 !important; /* Enforce single weight */
+  }
+
+  html {
+    @apply bg-ink-black text-alabaster antialiased;
+    font-family: var(--font-rubik);
+    scroll-behavior: smooth;
+    height: -webkit-fill-available;
+  }
+
+  body {
+    @apply bg-ink-black text-alabaster/90;
+    background-image: 
+      radial-gradient(circle at 2px 2px, rgba(119, 141, 169, 0.05) 1px, transparent 0);
+    background-size: 40px 40px;
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    line-height: 1.6;
+  }
+
+  h1, .hero-heading {
+    @apply text-alabaster leading-[1.2];
+    font-size: var(--font-size-h1);
+    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+  }
+
+  h2 {
+    @apply text-alabaster leading-[1.2];
+    font-size: var(--font-size-h2);
+    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+  }
+
+  h3 {
+    @apply text-alabaster leading-[1.2];
+    font-size: var(--font-size-h3);
+    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+  }
+
+  p {
+    @apply text-alabaster/90 leading-[1.6-1.8];
+  }
+
+  a {
+    @apply transition-colors duration-200;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ink-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lavender);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--alabaster);
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--lavender);
+  color: var(--ink-black);
+}
+
+/* Micro-interaction: Link Underline Slide-In */
+.link-underline {
+  @apply relative no-underline;
+}
+
+.link-underline::after {
+  content: '';
+  @apply absolute left-0 bottom-[-2px] w-0 h-[1px] bg-alabaster transition-[width] duration-200 ease-out;
+}
+
+.link-underline:hover::after {
+  @apply w-full;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
