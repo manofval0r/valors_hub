@@ -28,7 +28,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     return (
         <motion.div
             ref={containerRef}
-            className="min-h-[80vh] flex items-center justify-center py-20"
+            className="min-h-[80vh] flex items-center justify-center py-[90px] md:py-20"
             style={{ opacity, scale }}
         >
             <div className={`w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-32 items-center ${isEven ? '' : 'lg:flex-row-reverse'}`}>

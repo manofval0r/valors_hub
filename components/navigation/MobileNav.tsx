@@ -38,9 +38,9 @@ export default function MobileNav() {
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-[60] bg-[#0d1b2a]/95 backdrop-blur-sm border-b border-[#778da9]/20 lg:hidden font-rubik">
-            <div className="overflow-x-auto no-scrollbar flex justify-center">
+            <div className="overflow-x-auto no-scrollbar flex justify-center ">
                 <LayoutGroup id="mobile-nav">
-                    <ul className="flex items-center gap-8 px-4 py-4 whitespace-nowrap relative">
+                    <ul className="flex items-center gap-8 px-4 py-4 whitespace-nowrap relative ml-[18px]">
                         {navItems.map((item) => {
                             const isActive = activeSection === item.id;
                             return (
