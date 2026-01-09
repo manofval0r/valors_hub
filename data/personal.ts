@@ -55,14 +55,14 @@ export const certifications = [
     name: 'Gen AI Fundamentals Certification',
     issuer: 'LinkedIn Learning',
     date: 'Unknown',
-    url: '/gen-ai-certificate.pdf',
+    url: '/certificates/gen-ai-cert.pdf',
   },
   {
     id: '2',
     name: 'Responsive Web Design Certificate',
     issuer: 'freeCodeCamp',
     date: '05.2025',
-    url: null,
+    url: '/certificates/responsive-web-design.png',
   },
   {
     id: '3',
@@ -120,7 +120,7 @@ export const currentActivities = {
     description: 'Mastering the art of identifying bad code smells and applying systematic transformations to improve internal structure without changing external behavior.',
   },
   learning: {
-    title: 'Advanced TypeScript & System Design',
-    description: 'Deepening my understanding of type systems and scalable architecture patterns. Also exploring cybersecurity fundamentals as part of my degree program at NUTM.',
+    title: 'Advanced JavaScript & System Design',
+    description: 'Deepening my understanding of JavaScript and scalable architecture patterns. Also exploring cybersecurity fundamentals as part of my degree program at a university.',
   },
 };

@@ -34,9 +34,16 @@ export const skills: Skill[] = [
   },
   {
     id: 'react',
-    name: 'ReactJS',
+    name: 'React.Js',
     category: 'frontend',
     connections: ['javascript', 'nextjs', 'typescript', 'tailwind'],
+    core: true,
+  },
+  {
+    id: 'vitejs',
+    name: 'Vite.js',
+    category: 'frontend',
+    connections: ['django', 'github-copilot', 'gemini', 'gemini-cli'],
     core: true,
   },
   {
