@@ -120,13 +120,23 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         </div>
 
                         {/* Image / Content */}
-                        <div className="absolute inset-8 top-16 bg-gradient-to-br from-[#778da9]/10 to-transparent flex items-center justify-center rounded overflow-hidden group">
-                            {/* Real Image placeholder - 1.05x hover zoom */}
-                            <div className="w-full h-full flex items-center justify-center opacity-40 transition-transform duration-700 group-hover:scale-105">
-                                <span className="text-[#e0e1dd] text-sm uppercase tracking-[0.3em] text-center px-8">
-                                    {project.title} Preview
-                                </span>
-                            </div>
+                        <div className="absolute inset-x-8 bottom-0 top-16 bg-[#000]/10 flex items-center justify-center rounded-t-sm overflow-hidden group">
+                            <motion.div
+                                className="relative w-full h-full"
+                                whileHover={{ scale: 1.05 }}
+                                transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
+                            >
+                                <Image
+                                    src={project.imageUrl}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                                    sizes="(max-w-7xl) 50vw, 33vw"
+                                />
+
+                                {/* Subtle Overlay Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />
+                            </motion.div>
                         </div>
                     </div>
 
