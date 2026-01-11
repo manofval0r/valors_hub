@@ -47,10 +47,10 @@ export default function Skills() {
         const coreNodes = filteredSkills.filter(s => s.core);
         const nonCoreNodes = filteredSkills.filter(s => !s.core);
 
-        // Adaptive radii for mobile vs desktop - significantly wider for mobile spreading
-        const coreRadiusBase = isMobile ? 150 : 60;
-        const orbitalRadiusBase = isMobile ? 360 : 250;
-        const orbitalSpread = isMobile ? 100 : 80;
+        // Adaptive radii for mobile vs desktop - balanced spreading
+        const coreRadiusBase = isMobile ? 120 : 60;
+        const orbitalRadiusBase = isMobile ? 310 : 250;
+        const orbitalSpread = isMobile ? 80 : 80;
 
         // Core Layer (Ring 0)
         coreNodes.forEach((skill, i) => {
