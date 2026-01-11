@@ -1,0 +1,227 @@
+17:24:29.989877 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/bin
+17:24:30.034817 git.c:476               trace: built-in: git push origin main --force
+17:24:30.040868 run-command.c:668       trace: run_command: GIT_DIR=.git git remote-https origin https://github.com/manofval0r/valors_hub.git
+17:24:30.040868 run-command.c:929       trace: start_command: git remote-https origin https://github.com/manofval0r/valors_hub.git
+17:24:30.111669 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:30.132746 git.c:773               trace: exec: git-remote-https origin https://github.com/manofval0r/valors_hub.git
+17:24:30.132746 run-command.c:668       trace: run_command: git-remote-https origin https://github.com/manofval0r/valors_hub.git
+17:24:30.132746 run-command.c:929       trace: start_command: git-remote-https origin https://github.com/manofval0r/valors_hub.git
+17:24:30.183002 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:30.213831 http.c:902              == Info: Couldn't find host github.com in the .netrc file; using defaults
+17:24:30.230301 http.c:902              == Info: Host github.com:443 was resolved.
+17:24:30.230301 http.c:902              == Info: IPv6: (none)
+17:24:30.230301 http.c:902              == Info: IPv4: 140.82.121.3
+17:24:30.230301 http.c:902              == Info:   Trying 140.82.121.3:443...
+17:24:30.397402 http.c:902              == Info: schannel: disabled automatic use of client certificate
+17:24:31.377686 http.c:902              == Info: Connected to github.com (140.82.121.3) port 443
+17:24:31.377686 http.c:902              == Info: using HTTP/1.x
+17:24:31.379030 http.c:849              => Send header, 0000000203 bytes (0x000000cb)
+17:24:31.379030 http.c:861              => Send header: GET /manofval0r/valors_hub.git/info/refs?service=git-receive-pack HTTP/1.1
+17:24:31.379030 http.c:861              => Send header: Host: github.com
+17:24:31.379030 http.c:861              => Send header: User-Agent: git/2.49.0.windows.1
+17:24:31.379030 http.c:861              => Send header: Accept: */*
+17:24:31.379030 http.c:861              => Send header: Accept-Encoding: deflate, gzip, br, zstd
+17:24:31.379030 http.c:861              => Send header: Pragma: no-cache
+17:24:31.379030 http.c:861              => Send header:
+17:24:31.379030 http.c:902              == Info: Request completely sent off
+17:24:34.088269 http.c:902              == Info: schannel: remote party requests renegotiation
+17:24:34.088269 http.c:902              == Info: schannel: renegotiating SSL/TLS connection
+17:24:34.089280 http.c:902              == Info: schannel: SSL/TLS connection renegotiated
+17:24:34.089280 http.c:902              == Info: schannel: remote party requests renegotiation
+17:24:34.089280 http.c:902              == Info: schannel: renegotiating SSL/TLS connection
+17:24:34.089790 http.c:902              == Info: schannel: SSL/TLS connection renegotiated
+17:24:34.089790 http.c:849              <= Recv header, 0000000027 bytes (0x0000001b)
+17:24:34.089790 http.c:861              <= Recv header: HTTP/1.1 401 Unauthorized
+17:24:34.089790 http.c:849              <= Recv header, 0000000026 bytes (0x0000001a)
+17:24:34.089790 http.c:861              <= Recv header: Server: GitHub-Babel/3.0
+17:24:34.089790 http.c:849              <= Recv header, 0000000054 bytes (0x00000036)
+17:24:34.089790 http.c:861              <= Recv header: Content-Security-Policy: default-src 'none'; sandbox
+17:24:34.089790 http.c:849              <= Recv header, 0000000041 bytes (0x00000029)
+17:24:34.089790 http.c:861              <= Recv header: Content-Type: text/plain; charset=UTF-8
+17:24:34.089790 http.c:849              <= Recv header, 0000000040 bytes (0x00000028)
+17:24:34.089790 http.c:861              <= Recv header: www-authenticate: Basic realm="GitHub"
+17:24:34.089790 http.c:849              <= Recv header, 0000000020 bytes (0x00000014)
+17:24:34.089790 http.c:861              <= Recv header: Content-Length: 26
+17:24:34.089790 http.c:849              <= Recv header, 0000000037 bytes (0x00000025)
+17:24:34.089790 http.c:861              <= Recv header: Date: Sun, 11 Jan 2026 16:24:33 GMT
+17:24:34.089790 http.c:849              <= Recv header, 0000000023 bytes (0x00000017)
+17:24:34.089790 http.c:861              <= Recv header: X-Frame-Options: DENY
+17:24:34.089790 http.c:849              <= Recv header, 0000000073 bytes (0x00000049)
+17:24:34.089790 http.c:861              <= Recv header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+17:24:34.089790 http.c:849              <= Recv header, 0000000060 bytes (0x0000003c)
+17:24:34.089790 http.c:861              <= Recv header: X-GitHub-Request-Id: 7240:2B720C:103659EC:D701291:6963CEC0
+17:24:34.089790 http.c:849              <= Recv header, 0000000002 bytes (0x00000002)
+17:24:34.089790 http.c:861              <= Recv header:
+17:24:34.089790 http.c:902              == Info: Connection #0 to host github.com left intact
+17:24:34.089790 run-command.c:668       trace: run_command: 'git credential-manager get'
+17:24:34.090792 run-command.c:929       trace: start_command: 'C:/Program Files/Git/usr/bin/sh.exe' -c 'git credential-manager get' 'git credential-manager get'
+17:24:34.378990 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:34.401357 git.c:773               trace: exec: git-credential-manager get
+17:24:34.401357 run-command.c:668       trace: run_command: git-credential-manager get
+17:24:34.401357 run-command.c:929       trace: start_command: git-credential-manager get
+17:24:34.645847 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:34.662144 git.c:476               trace: built-in: git config --null --list
+17:24:34.952888 http.c:902              == Info: Re-using existing connection with host github.com
+17:24:34.952888 http.c:902              == Info: Server auth using Basic with user 'manofval0r'
+17:24:34.952888 http.c:849              => Send header, 0000000294 bytes (0x00000126)
+17:24:34.952888 http.c:861              => Send header: GET /manofval0r/valors_hub.git/info/refs?service=git-receive-pack HTTP/1.1
+17:24:34.952888 http.c:861              => Send header: Host: github.com
+17:24:34.952888 http.c:861              => Send header: Authorization: Basic <redacted>
+17:24:34.952888 http.c:861              => Send header: User-Agent: git/2.49.0.windows.1
+17:24:34.952888 http.c:861              => Send header: Accept: */*
+17:24:34.952888 http.c:861              => Send header: Accept-Encoding: deflate, gzip, br, zstd
+17:24:34.952888 http.c:861              => Send header: Pragma: no-cache
+17:24:34.952888 http.c:861              => Send header:
+17:24:34.952888 http.c:902              == Info: Request completely sent off
+17:24:36.434965 http.c:849              <= Recv header, 0000000017 bytes (0x00000011)
+17:24:36.434965 http.c:861              <= Recv header: HTTP/1.1 200 OK
+17:24:36.434965 http.c:849              <= Recv header, 0000000026 bytes (0x0000001a)
+17:24:36.434965 http.c:861              <= Recv header: Server: GitHub-Babel/3.0
+17:24:36.434965 http.c:849              <= Recv header, 0000000060 bytes (0x0000003c)
+17:24:36.434965 http.c:861              <= Recv header: Content-Type: application/x-git-receive-pack-advertisement
+17:24:36.434965 http.c:849              <= Recv header, 0000000054 bytes (0x00000036)
+17:24:36.434965 http.c:861              <= Recv header: Content-Security-Policy: default-src 'none'; sandbox
+17:24:36.434965 http.c:849              <= Recv header, 0000000040 bytes (0x00000028)
+17:24:36.434965 http.c:861              <= Recv header: expires: Fri, 01 Jan 1980 00:00:00 GMT
+17:24:36.434965 http.c:849              <= Recv header, 0000000018 bytes (0x00000012)
+17:24:36.434965 http.c:861              <= Recv header: pragma: no-cache
+17:24:36.434965 http.c:849              <= Recv header, 0000000053 bytes (0x00000035)
+17:24:36.434965 http.c:861              <= Recv header: Cache-Control: no-cache, max-age=0, must-revalidate
+17:24:36.434965 http.c:849              <= Recv header, 0000000023 bytes (0x00000017)
+17:24:36.434965 http.c:861              <= Recv header: Vary: Accept-Encoding
+17:24:36.434965 http.c:849              <= Recv header, 0000000028 bytes (0x0000001c)
+17:24:36.434965 http.c:861              <= Recv header: Transfer-Encoding: chunked
+17:24:36.434965 http.c:849              <= Recv header, 0000000037 bytes (0x00000025)
+17:24:36.434965 http.c:861              <= Recv header: Date: Sun, 11 Jan 2026 16:24:36 GMT
+17:24:36.434965 http.c:849              <= Recv header, 0000000023 bytes (0x00000017)
+17:24:36.434965 http.c:861              <= Recv header: X-Frame-Options: DENY
+17:24:36.434965 http.c:849              <= Recv header, 0000000073 bytes (0x00000049)
+17:24:36.434965 http.c:861              <= Recv header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+17:24:36.434965 http.c:849              <= Recv header, 0000000060 bytes (0x0000003c)
+17:24:36.434965 http.c:861              <= Recv header: X-GitHub-Request-Id: 7240:2B720C:103678BA:D702AAF:6963CEC1
+17:24:36.434965 http.c:849              <= Recv header, 0000000002 bytes (0x00000002)
+17:24:36.434965 http.c:861              <= Recv header:
+17:24:36.434965 http.c:902              == Info: Connection #0 to host github.com left intact
+17:24:36.435618 run-command.c:668       trace: run_command: 'git credential-manager store'
+17:24:36.436098 run-command.c:929       trace: start_command: 'C:/Program Files/Git/usr/bin/sh.exe' -c 'git credential-manager store' 'git credential-manager store'
+17:24:36.598398 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:36.635286 git.c:773               trace: exec: git-credential-manager store
+17:24:36.635286 run-command.c:668       trace: run_command: git-credential-manager store
+17:24:36.635286 run-command.c:929       trace: start_command: git-credential-manager store
+17:24:36.840871 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:36.859122 git.c:476               trace: built-in: git config --null --list
+17:24:37.123562 run-command.c:668       trace: run_command: .git/hooks/pre-push origin https://github.com/manofval0r/valors_hub.git
+17:24:37.123562 run-command.c:929       trace: start_command: .git/hooks/pre-push origin https://github.com/manofval0r/valors_hub.git
+17:24:37.719939 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:37.759065 git.c:773               trace: exec: git-lfs pre-push origin https://github.com/manofval0r/valors_hub.git
+17:24:37.759065 run-command.c:668       trace: run_command: git-lfs pre-push origin https://github.com/manofval0r/valors_hub.git
+17:24:37.759065 run-command.c:929       trace: start_command: git-lfs pre-push origin https://github.com/manofval0r/valors_hub.git
+17:24:38.238907 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'remote' '-v'
+17:24:38.308663 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'remote'
+17:24:38.475640 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'rev-parse' 'HEAD' '--symbolic-full-name' 'HEAD'
+17:24:38.557146 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'rev-parse' '--git-dir' '--show-toplevel'
+17:24:38.640020 trace git-lfs: exec: git 'config' '--includes' '-l'
+17:24:38.726126 trace git-lfs: exec: git 'rev-parse' '--is-bare-repository'
+17:24:38.817120 trace git-lfs: exec: git 'config' '--includes' '-l' '--blob' ':.lfsconfig'
+17:24:38.900807 trace git-lfs: exec: git 'config' '--includes' '-l' '--blob' 'HEAD:.lfsconfig'
+17:24:38.993471 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'rev-parse' '--git-dir'
+17:24:39.080359 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'remote'
+17:24:39.181002 trace git-lfs: pre-push: refs/heads/main 263327e3999493a41e574c82ce0c4128dac182aa refs/heads/main dd92ff84c9056a2376516c7bc81031cdeb785f88
+17:24:39.183681 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'show-ref'
+17:24:39.271249 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'ls-remote' '--heads' '-q' 'origin'
+17:24:40.651464 trace git-lfs: creds: git credential fill ("https", "github.com", "")
+17:24:40.653570 trace git-lfs: exec: git 'credential' 'fill'
+17:24:41.609124 trace git-lfs: Filled credentials for https://github.com/manofval0r/valors_hub.git
+17:24:41.609684 trace git-lfs: HTTP: POST https://github.com/manofval0r/valors_hub.git/info/lfs/locks/verify
+> POST /manofval0r/valors_hub.git/info/lfs/locks/verify HTTP/1.1
+> Host: github.com
+> Accept: application/vnd.git-lfs+json
+> Authorization: Basic * * * * *
+> Content-Length: 34
+> Content-Type: application/vnd.git-lfs+json; charset=utf-8
+> User-Agent: git-lfs/3.6.1 (GitHub; windows amd64; go 1.23.3; git ea47a34b)
+> 
+{"ref":{"name":"refs/heads/main"}}17:24:43.144888 trace git-lfs: HTTP: 200
+
+
+< HTTP/2.0 200 OK
+< Content-Length: 41
+< Content-Type: application/vnd.git-lfs+json
+< Date: Sun, 11 Jan 2026 16:24:44 GMT
+< Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+< X-Frame-Options: DENY
+< X-Github-Request-Id: 7244:1E673E:FB185BD:D02BC24:6963CECB
+< 
+17:24:43.144888 trace git-lfs: creds: git credential approve ("https", "github.com", "")
+17:24:43.151198 trace git-lfs: exec: git 'credential' 'approve'
+17:24:43.832329 trace git-lfs: HTTP: {"ours":[],"theirs":[],"next_cursor":""}
+
+{"ours":[],"theirs":[],"next_cursor":""}
+17:24:43.834045 trace git-lfs: tq: running as batched queue, batch size of 100
+17:24:43.836394 trace git-lfs: run_command: git rev-list --objects --ignore-missing --stdin --
+17:24:43.836394 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'rev-list' '--objects' '--ignore-missing' '--stdin' '--'
+17:24:43.857885 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'cat-file' '--batch-check'
+17:24:43.918736 trace git-lfs: exec: git '-c' 'filter.lfs.smudge=' '-c' 'filter.lfs.clean=' '-c' 'filter.lfs.process=' '-c' 'filter.lfs.required=false' 'rev-parse' '--git-common-dir'
+17:24:44.144818 trace git-lfs: filepathfilter: creating pattern ".git" of type gitignore
+17:24:44.144818 trace git-lfs: filepathfilter: creating pattern "**/.git" of type gitignore
+17:24:44.145371 trace git-lfs: filepathfilter: accepting "tmp"
+17:24:44.194206 run-command.c:668       trace: run_command: git send-pack --stateless-rpc --helper-status --thin --no-progress https://github.com/manofval0r/valors_hub.git/ --stdin
+17:24:44.194206 run-command.c:929       trace: start_command: git send-pack --stateless-rpc --helper-status --thin --no-progress https://github.com/manofval0r/valors_hub.git/ --stdin
+17:24:44.249635 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:44.269364 git.c:476               trace: built-in: git send-pack --stateless-rpc --helper-status --thin --no-progress https://github.com/manofval0r/valors_hub.git/ --stdin
+17:24:44.273464 run-command.c:668       trace: run_command: git pack-objects --all-progress-implied --revs --stdout --thin --delta-base-offset -q
+17:24:44.273464 run-command.c:929       trace: start_command: git pack-objects --all-progress-implied --revs --stdout --thin --delta-base-offset -q
+17:24:44.333052 exec-cmd.c:266          trace: resolved executable dir: C:/Program Files/Git/mingw64/libexec/git-core
+17:24:44.347537 git.c:476               trace: built-in: git pack-objects --all-progress-implied --revs --stdout --thin --delta-base-offset -q
+17:24:52.567848 http.c:902              == Info: Re-using existing connection with host github.com
+17:24:52.567848 http.c:902              == Info: Server auth using Basic with user 'manofval0r'
+17:24:52.569358 http.c:849              => Send header, 0000000374 bytes (0x00000176)
+17:24:52.569358 http.c:861              => Send header: POST /manofval0r/valors_hub.git/git-receive-pack HTTP/1.1
+17:24:52.569358 http.c:861              => Send header: Host: github.com
+17:24:52.569358 http.c:861              => Send header: Authorization: Basic <redacted>
+17:24:52.569358 http.c:861              => Send header: User-Agent: git/2.49.0.windows.1
+17:24:52.569358 http.c:861              => Send header: Accept-Encoding: deflate, gzip, br, zstd
+17:24:52.569358 http.c:861              => Send header: Content-Type: application/x-git-receive-pack-request
+17:24:52.569358 http.c:861              => Send header: Accept: application/x-git-receive-pack-result
+17:24:52.569358 http.c:861              => Send header: Content-Length: 123115464
+17:24:52.569358 http.c:861              => Send header:
+17:25:26.205451 http.c:902              == Info: upload completely sent off: 123115464 bytes
+17:25:30.641829 http.c:849              <= Recv header, 0000000017 bytes (0x00000011)
+17:25:30.641829 http.c:861              <= Recv header: HTTP/1.1 200 OK
+17:25:30.641829 http.c:849              <= Recv header, 0000000026 bytes (0x0000001a)
+17:25:30.641829 http.c:861              <= Recv header: Server: GitHub-Babel/3.0
+17:25:30.641829 http.c:849              <= Recv header, 0000000053 bytes (0x00000035)
+17:25:30.641829 http.c:861              <= Recv header: Content-Type: application/x-git-receive-pack-result
+17:25:30.641829 http.c:849              <= Recv header, 0000000054 bytes (0x00000036)
+17:25:30.641829 http.c:861              <= Recv header: Content-Security-Policy: default-src 'none'; sandbox
+17:25:30.641829 http.c:849              <= Recv header, 0000000040 bytes (0x00000028)
+17:25:30.641829 http.c:861              <= Recv header: expires: Fri, 01 Jan 1980 00:00:00 GMT
+17:25:30.641829 http.c:849              <= Recv header, 0000000018 bytes (0x00000012)
+17:25:30.641829 http.c:861              <= Recv header: pragma: no-cache
+17:25:30.641829 http.c:849              <= Recv header, 0000000053 bytes (0x00000035)
+17:25:30.641829 http.c:861              <= Recv header: Cache-Control: no-cache, max-age=0, must-revalidate
+17:25:30.641829 http.c:849              <= Recv header, 0000000023 bytes (0x00000017)
+17:25:30.641829 http.c:861              <= Recv header: Vary: Accept-Encoding
+17:25:30.641829 http.c:849              <= Recv header, 0000000028 bytes (0x0000001c)
+17:25:30.641829 http.c:861              <= Recv header: Transfer-Encoding: chunked
+17:25:30.641829 http.c:849              <= Recv header, 0000000037 bytes (0x00000025)
+17:25:30.641829 http.c:861              <= Recv header: Date: Sun, 11 Jan 2026 16:25:30 GMT
+17:25:30.641829 http.c:849              <= Recv header, 0000000023 bytes (0x00000017)
+17:25:30.641829 http.c:861              <= Recv header: X-Frame-Options: DENY
+17:25:30.641829 http.c:849              <= Recv header, 0000000073 bytes (0x00000049)
+17:25:30.641829 http.c:861              <= Recv header: Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+17:25:30.641829 http.c:849              <= Recv header, 0000000060 bytes (0x0000003c)
+17:25:30.641829 http.c:861              <= Recv header: X-GitHub-Request-Id: 7240:2B720C:103714E9:D70A678:6963CEC4
+17:25:30.641829 http.c:849              <= Recv header, 0000000002 bytes (0x00000002)
+17:25:30.641829 http.c:861              <= Recv header:
+17:25:30.641829 http.c:902              == Info: Connection #0 to host github.com left intact
+remote: warning: File public/projects/whats-next.mp4 is 74.98 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File public/projects/kloshouse.mp4 is 68.12 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: warning: File public/projects/restaurant.mp4 is 71.51 MB; this is larger than GitHub's recommended maximum file size of 50.00 MB        
+remote: error: Trace: b136a71062857986d92ce7a409c0010d0b1c4e9fd7b17ea7c4f6614436e44436        
+remote: error: See https://gh.io/lfs for more information.        
+remote: error: File public/projects/restaurant.mp4 is 105.28 MB; this exceeds GitHub's file size limit of 100.00 MB        
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+To https://github.com/manofval0r/valors_hub.git
+ ! [remote rejected] main -> main (pre-receive hook declined)
+error: failed to push some refs to 'https://github.com/manofval0r/valors_hub.git'

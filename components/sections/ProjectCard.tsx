@@ -146,14 +146,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                         loop
                                         playsInline
                                         preload="metadata"
-                                        className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                                        className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                                     />
                                 ) : (
                                     <Image
                                         src={project.imageUrl}
                                         alt={project.title}
                                         fill
-                                        className="object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                                        className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
                                         sizes="(max-w-7xl) 50vw, 33vw"
                                     />
                                 )}
