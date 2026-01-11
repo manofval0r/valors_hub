@@ -1,17 +1,68 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import Section from '@/components/ui/Section';
 import Card from '@/components/ui/Card';
-import { projects } from '@/data/projects';
+import { projects, Project } from '@/data/projects';
 import { skillCategories } from '@/data/skills';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
+
+function ProjectThumbnail({ project }: { project: Project }) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const isVisible = useInView(containerRef, { amount: 0.3 });
+
+    useEffect(() => {
+        if (!videoRef.current) return;
+        if (isVisible) {
+            videoRef.current.play().catch(() => { });
+        } else {
+            videoRef.current.pause();
+        }
+    }, [isVisible]);
+
+    return (
+        <div ref={containerRef} className="aspect-[16/10] bg-[#0d1b2a] relative overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
+            <motion.div
+                className="w-full h-full"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7 }}
+            >
+                {project.videoUrl ? (
+                    <video
+                        ref={videoRef}
+                        src={project.videoUrl}
+                        poster={project.imageUrl}
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        className="w-full h-full object-cover object-top opacity-30 group-hover:opacity-100 transition-opacity duration-700"
+                    />
+                ) : (
+                    <Image
+                        src={project.imageUrl}
+                        alt={project.title}
+                        fill
+                        className="object-cover object-top opacity-30 group-hover:opacity-100 transition-opacity duration-700"
+                        sizes="(max-w-md) 100vw, 33vw"
+                    />
+                )}
+                <div className="absolute inset-0 flex items-center justify-center text-[#778da9]/30 uppercase tracking-[0.3em] text-[10px] font-mono group-hover:opacity-0 transition-opacity duration-500 bg-gradient-to-br from-[#778da9]/5 to-transparent">
+                    [ {project.title} ]
+                </div>
+            </motion.div>
+        </div>
+    );
+}
 
 export default function WorkArchive() {
     const [primaryFilter, setPrimaryFilter] = useState('all');
     const [techFilters, setTechFilters] = useState<string[]>([]);
+    // ... (rest of the component remains similar, but using ProjectThumbnail)
 
     const toggleTechFilter = (tech: string) => {
         setTechFilters(prev =>
@@ -100,11 +151,7 @@ export default function WorkArchive() {
                                 >
                                     <Link href={`/work/${project.slug}`}>
                                         <Card hoverable className="group h-full flex flex-col gap-6 p-0 overflow-hidden bg-[#112131]/20 border-[#778da9]/10 hover:border-[#778da9]/30">
-                                            <div className="aspect-[16/10] bg-[#0d1b2a] relative overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-700">
-                                                <div className="absolute inset-0 flex items-center justify-center text-[#778da9]/30 uppercase tracking-[0.3em] text-[10px] font-mono group-hover:scale-105 transition-transform duration-700 bg-gradient-to-br from-[#778da9]/5 to-transparent">
-                                                    [ {project.title} ]
-                                                </div>
-                                            </div>
+                                            <ProjectThumbnail project={project} />
                                             <div className="p-8 pt-2 flex flex-col gap-4">
                                                 <div className="flex flex-col gap-2">
                                                     <span className="text-[#778da9] text-[10px] font-mono uppercase tracking-[0.2em]">{project.category}</span>

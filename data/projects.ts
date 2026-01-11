@@ -15,6 +15,7 @@ export interface Project {
   category: 'full-stack' | 'web' | 'side-project';
   techStack: string[];
   featured: boolean;
+  videoUrl?: string; // Optional video demo URL
   collaborator?: {
     name: string;
     github: string;
@@ -38,6 +39,7 @@ export const projects: Project[] = [
     category: 'full-stack',
     techStack: ['HTML', 'CSS', 'Node.js'],
     featured: true,
+    videoUrl: '/projects/restaurant.mp4',
   },
   {
     id: '2',
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     date: '2025',
     tech: 'React, Vite, Django, Node.js',
     imageUrl: '/projects/whats-next.jpg',
+    videoUrl: '/projects/whats-next.mp4',
     liveLink: 'https://whats-next-1.onrender.com',
     codeLink: 'https://github.com/manofval0r/WHATS-NEXT',
     category: 'web',
@@ -117,6 +120,7 @@ export const projects: Project[] = [
     date: '2025 - 06.2025',
     tech: 'Details confidential.',
     imageUrl: '/projects/kloshouse.png',
+    videoUrl: '/projects/kloshouse.mp4',
     liveLink: 'https://kloshouse.vercel.app',
     codeLink: 'https://github.com/manofval0r/kloshouse',
     category: 'web',

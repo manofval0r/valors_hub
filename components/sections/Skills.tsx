@@ -48,9 +48,9 @@ export default function Skills() {
         const nonCoreNodes = filteredSkills.filter(s => !s.core);
 
         // Adaptive radii for mobile vs desktop
-        const coreRadiusBase = isMobile ? 40 : 60;
-        const orbitalRadiusBase = isMobile ? 180 : 250;
-        const orbitalSpread = isMobile ? 40 : 80;
+        const coreRadiusBase = isMobile ? 100 : 60;
+        const orbitalRadiusBase = isMobile ? 280 : 250;
+        const orbitalSpread = isMobile ? 60 : 80;
 
         // Core Layer (Ring 0)
         coreNodes.forEach((skill, i) => {
@@ -125,7 +125,7 @@ export default function Skills() {
                 {/* Constellation Diagram Wrapper */}
                 <div className="relative w-full aspect-square md:aspect-video bg-[#0d1b2a]/20 border border-[#778da9]/5 rounded-sm overflow-hidden flex items-center justify-center">
                     {/* The Inner Container now scales fluidly via SVG viewBox instead of fixed CSS scale */}
-                    <div className="relative w-full h-full max-w-[800px] max-h-[800px]">
+                    <div className="relative w-full h-full max-w-[800px] max-h-[800px] md:pr-[120px]">
                         <svg
                             viewBox={`0 0 ${DIAGRAM_SIZE} ${DIAGRAM_SIZE}`}
                             className="absolute inset-0 w-full h-full preserve-3d"

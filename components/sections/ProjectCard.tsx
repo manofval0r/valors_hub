@@ -1,7 +1,7 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Project } from '@/data/projects';
@@ -13,6 +13,9 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const isVisible = useInView(containerRef, { amount: 0.3 });
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
@@ -25,16 +28,24 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
     const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.9, 1, 1, 0.95]);
 
+    // Handle video playback
+    useEffect(() => {
+        if (!videoRef.current) return;
+        if (isVisible) {
+            videoRef.current.play().catch(() => { });
+        } else {
+            videoRef.current.pause();
+        }
+    }, [isVisible]);
+
     return (
         <motion.div
             ref={containerRef}
-            className="min-h-[80vh] flex items-center justify-center py-[90px] md:py-20"
+            className="min-h-[80vh] flex items-center justify-center py-[90px] md:py-20 px-5 md:px-0 md:pr-[110px]"
             style={{ opacity, scale }}
         >
             <div className={`w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[40%_60%] gap-12 lg:gap-32 items-center ${isEven ? '' : 'lg:flex-row-reverse'}`}>
-                {/* For odd items on desktop, we swap columns. Using simple flex-row-reverse for simplicity since it's a 2-col layout */}
-
-                {/* Text Details Column (Left on Even, Right on Odd) */}
+                {/* Text Details Column */}
                 <div className={`flex flex-col gap-6 text-left ${isEven ? 'order-1' : 'order-1 lg:order-2'}`}>
                     <motion.span
                         className="text-[#778da9] text-sm uppercase tracking-[0.4em] font-normal"
@@ -103,7 +114,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     </motion.div>
                 </div>
 
-                {/* Mockup Column (Right on Even, Left on Odd) */}
+                {/* Mockup Column */}
                 <motion.div
                     className={`relative w-full aspect-[16/10] ${isEven ? 'order-2' : 'order-2 lg:order-1'}`}
                     style={{ y }}
@@ -119,20 +130,33 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                             <div className="w-2.5 h-2.5 rounded-full bg-[#778da9]/30" />
                         </div>
 
-                        {/* Image / Content */}
+                        {/* Video / Image Content */}
                         <div className="absolute inset-x-8 bottom-0 top-16 bg-[#000]/10 flex items-center justify-center rounded-t-sm overflow-hidden group">
                             <motion.div
                                 className="relative w-full h-full"
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
                             >
-                                <Image
-                                    src={project.imageUrl}
-                                    alt={project.title}
-                                    fill
-                                    className="object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
-                                    sizes="(max-w-7xl) 50vw, 33vw"
-                                />
+                                {project.videoUrl ? (
+                                    <video
+                                        ref={videoRef}
+                                        src={project.videoUrl}
+                                        poster={project.imageUrl}
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                        className="w-full h-full object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={project.imageUrl}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover object-top opacity-60 group-hover:opacity-90 transition-opacity duration-500"
+                                        sizes="(max-w-7xl) 50vw, 33vw"
+                                    />
+                                )}
 
                                 {/* Subtle Overlay Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />

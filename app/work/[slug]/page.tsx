@@ -1,7 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import Section from '@/components/ui/Section';
 import Button from '@/components/ui/Button';
@@ -29,6 +31,19 @@ export default function CaseStudy() {
     const currentIndex = projects.findIndex(p => p.id === project.id);
     const prevProject = projects[currentIndex - 1];
     const nextProject = projects[currentIndex + 1];
+
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const showCaseRef = useRef<HTMLDivElement>(null);
+    const isVisible = useInView(showCaseRef, { amount: 0.3 });
+
+    useEffect(() => {
+        if (!videoRef.current) return;
+        if (isVisible) {
+            videoRef.current.play().catch(() => { });
+        } else {
+            videoRef.current.pause();
+        }
+    }, [isVisible]);
 
     return (
         <main className="min-h-screen bg-[var(--ink-black)]">
@@ -99,9 +114,40 @@ export default function CaseStudy() {
                             </p>
                         </div>
 
-                        {/* Visual Showcase Placeholder */}
-                        <div className="aspect-video bg-[#112131]/20 border border-[#778da9]/10 flex items-center justify-center text-[#778da9]/20 uppercase tracking-[0.4em] text-[10px] font-mono rounded-sm">
-                            [ Visual Showcase ]
+                        {/* Visual Showcase */}
+                        <div
+                            ref={showCaseRef}
+                            className="aspect-video bg-[#112131]/20 border border-[#778da9]/10 relative overflow-hidden rounded-sm group shadow-2xl"
+                        >
+                            <motion.div
+                                className="relative w-full h-full"
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                {project.videoUrl ? (
+                                    <video
+                                        ref={videoRef}
+                                        src={project.videoUrl}
+                                        poster={project.imageUrl}
+                                        muted
+                                        loop
+                                        playsInline
+                                        preload="metadata"
+                                        className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                    />
+                                ) : (
+                                    <Image
+                                        src={project.imageUrl}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                        sizes="(max-w-4xl) 100vw, 50vw"
+                                    />
+                                )}
+
+                                {/* Overlay Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />
+                            </motion.div>
                         </div>
 
                         {/* "What I Learned" Box */}
