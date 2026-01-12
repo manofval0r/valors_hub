@@ -14,9 +14,13 @@ const navItems = [
 
 export default function SideNav() {
     const [activeSection, setActiveSection] = useState('home');
+    const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
+            // Toggle glassmorphism
+            setIsScrolled(window.scrollY > 50);
+
             const sections = navItems.map(item => item.id);
             const scrollPosition = window.scrollY + 200;
 
@@ -33,11 +37,18 @@ export default function SideNav() {
         };
 
         window.addEventListener('scroll', handleScroll);
+        // Trigger once on mount to handle refresh position
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     return (
-        <nav className="fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block">
+        <nav
+            className={`fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block transition-all duration-500 rounded-2xl ${isScrolled
+                    ? 'bg-[#0d1b2a]/40 backdrop-blur-md border border-[#e0e1dd]/5 py-8 pl-4 pr-8 shadow-2xl'
+                    : 'bg-transparent py-4 pl-0 pr-0 border-transparent shadow-none'
+                }`}
+        >
             <LayoutGroup id="sidenav">
                 <ul className="flex flex-col gap-6">
                     {navItems.map((link) => {
