@@ -52,7 +52,7 @@ export const projects: Project[] = [
     tech: 'React, Vite, Django, Node.js',
     imageUrl: '/projects/whats-next.jpg',
     videoUrl: '/projects/whats-next.mp4',
-    liveLink: 'https://whats-next-1.onrender.com',
+    liveLink: 'https://whats-next-ate2.onrender.com',
     codeLink: 'https://github.com/manofval0r/WHATS-NEXT',
     category: 'web',
     techStack: ['React', 'Vite', 'Django', 'Node.js'],

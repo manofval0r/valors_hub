@@ -45,8 +45,8 @@ export default function SideNav() {
     return (
         <nav
             className={`fixed left-8 top-1/2 -translate-y-1/2 z-50 hidden lg:block transition-all duration-500 rounded-2xl ${isScrolled
-                    ? 'bg-[#0d1b2a]/40 backdrop-blur-md border border-[#e0e1dd]/5 py-8 pl-4 pr-8 shadow-2xl'
-                    : 'bg-transparent py-4 pl-0 pr-0 border-transparent shadow-none'
+                ? 'bg-[#0d1b2a]/40 backdrop-blur-md border border-[#e0e1dd]/5 py-8 pl-4 pr-8 shadow-2xl'
+                : 'bg-transparent py-4 pl-0 pr-0 border-transparent shadow-none'
                 }`}
         >
             <LayoutGroup id="sidenav">
