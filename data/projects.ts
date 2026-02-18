@@ -143,4 +143,20 @@ export const projects: Project[] = [
     techStack: [],
     featured: false,
   },
+  {
+    id: '8',
+    slug: 'company-projects',
+    title: 'VoicePatches Consulting Company Website',
+    tagline: 'Corporate website for a consulting firm',
+    description: 'A corporate website for VoicePatches Consulting, showcasing their services, team, and contact information.',
+    client: 'VoicePatches Consulting',
+    date: '2026',
+    tech: 'HTML, CSS, Vanilla JavaScript, NPM',
+    imageUrl: '/projects/voicepatches.png',
+    liveLink: 'http://voicepatches.vercel.app/',
+    codeLink: 'https://github.com/manofval0r/voicepatches',
+    category: 'web',
+    techStack: ['HTML', 'CSS', 'JavaScript'],
+    featured: true,
+  }
 ];
