@@ -48,7 +48,7 @@ export default function CaseStudy() {
     return (
         <main className="min-h-screen bg-[var(--ink-black)]">
             {/* Dynamic Hero */}
-            <section className="relative h-[60vh] flex items-center justify-center overflow-hidden border-b border-[#778da9]/10">
+            <section className="relative h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden border-b border-[#778da9]/10">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#778da9]/5 to-transparent -z-10" />
                 <motion.div
                     className="text-center px-6"
@@ -57,7 +57,7 @@ export default function CaseStudy() {
                     animate="visible"
                 >
                     <motion.h1
-                        className="text-5xl md:text-7xl font-normal text-[#e0e1dd] mb-6"
+                        className="text-4xl md:text-7xl font-normal text-[#e0e1dd] mb-4 md:mb-6"
                         variants={fadeInUp}
                     >
                         {project.title}
@@ -72,8 +72,8 @@ export default function CaseStudy() {
             </section>
 
             <Section id="overview">
-                <div className="grid md:grid-cols-[1fr_2fr] gap-24 items-start">
-                    <div className="flex flex-col gap-10 sticky top-32">
+                <div className="grid md:grid-cols-[1fr_2fr] gap-12 md:gap-24 items-start">
+                    <div className="grid grid-cols-2 gap-6 md:flex md:flex-col md:gap-10 sticky top-32 mb-12 md:mb-0">
                         <div className="flex flex-col gap-2">
                             <span className="text-[#778da9] text-[10px] uppercase font-mono tracking-[0.2em]">Client</span>
                             <span className="text-[#e0e1dd] text-sm">{project.client}</span>
@@ -82,7 +82,7 @@ export default function CaseStudy() {
                             <span className="text-[#778da9] text-[10px] uppercase font-mono tracking-[0.2em]">Timeline</span>
                             <span className="text-[#e0e1dd] text-sm">{project.date}</span>
                         </div>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 col-span-2">
                             <span className="text-[#778da9] text-[10px] uppercase font-mono tracking-[0.2em]">Stack</span>
                             <div className="flex flex-wrap gap-2">
                                 {project.techStack.map(t => (
@@ -92,7 +92,7 @@ export default function CaseStudy() {
                                 ))}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-4 mt-8">
+                        <div className="flex flex-col gap-4 col-span-2">
                             {project.liveLink && (
                                 <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
                                     <Button fullWidth>Live Site</Button>
@@ -106,7 +106,7 @@ export default function CaseStudy() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-20">
+                    <div className="flex flex-col gap-16 md:gap-20">
                         <div className="flex flex-col gap-8">
                             <h2 className="text-2xl text-[#e0e1dd] font-normal">Overview</h2>
                             <p className="text-[#e0e1dd]/70 leading-relaxed text-lg font-light">

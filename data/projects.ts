@@ -158,5 +158,21 @@ export const projects: Project[] = [
     category: 'web',
     techStack: ['HTML', 'CSS', 'JavaScript'],
     featured: true,
+  },
+  {
+    id: '9',
+    slug: 'hashebi-global-services',
+    title: 'Hashebi Global Services Website',
+    tagline: 'Corporate website for a construction & civil engineering firm',
+    description: 'A corporate website for Hashebi Global Services Nigeria Ltd, a construction and civil engineering firm founded in 2007. The site showcases their services — building construction, civil engineering, project management, and consultancy — alongside a filterable project portfolio, company history, and a validated contact form with Web3Forms integration.',
+    client: 'Hashebi Global Services Nigeria Ltd',
+    date: '2026',
+    tech: 'Next.js, TypeScript, Tailwind CSS, Framer Motion, Swiper.js',
+    imageUrl: '/projects/hashebi.png',
+    liveLink: "https://hashebiglobal.com/",
+    codeLink: "",
+    category: 'web',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Swiper.js', 'React Hook Form', 'Zod'],
+    featured: true,
   }
 ];

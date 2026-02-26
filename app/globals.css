@@ -114,6 +114,16 @@
   @apply w-full;
 }
 
+/* Hide scrollbars while preserving scroll */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   *,
