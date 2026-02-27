@@ -83,7 +83,7 @@ export default function WorkArchive() {
     const allTech = Array.from(new Set(projects.flatMap(p => p.techStack)));
 
     return (
-        <main className="min-h-screen pt-32 bg-[var(--ink-black)]">
+        <main className="min-h-screen pt-[5px] bg-[var(--ink-black)]">
             <Section id="work-archive">
                 <motion.div
                     className="flex flex-col gap-12"
@@ -100,24 +100,6 @@ export default function WorkArchive() {
 
                     {/* Filtering System */}
                     <div className="flex flex-col gap-8 py-8 border-y border-[var(--lavender)]/10">
-                        <div className="flex flex-col gap-4">
-                            <span className="text-[var(--lavender)] text-xs uppercase tracking-widest">Project Type</span>
-                            <div className="flex gap-3 overflow-x-auto hide-scrollbar -mx-2 px-2">
-                                {['all', 'full-stack', 'web', 'side-project'].map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setPrimaryFilter(cat)}
-                                        className={`px-5 py-2 border rounded-full text-xs tracking-[0.2em] transition-all duration-300 whitespace-nowrap ${primaryFilter === cat
-                                            ? 'bg-[#e0e1dd] border-[#e0e1dd] text-[#0d1b2a]'
-                                            : 'border-[#778da9]/20 text-[#778da9] hover:border-[#778da9]'
-                                            }`}
-                                    >
-                                        {cat.replace('-', ' ').toUpperCase()}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
                         <div className="flex flex-col gap-4">
                             <span className="text-[var(--lavender)] text-xs uppercase tracking-widest">Tech Stack</span>
                             <div className="flex gap-2 overflow-x-auto hide-scrollbar -mx-2 px-2">

@@ -17,6 +17,14 @@ export default function FeaturedProjects() {
                     index={index}
                 />
             ))}
+            <div className="flex justify-center py-16">
+                <a
+                    href="/work"
+                    className="text-[#778da9] hover:text-[#e0e1dd] uppercase text-[9px] tracking-[0.4em] font-mono transition-colors link-underline"
+                >
+                    View All Projects
+                </a>
+            </div>
         </div>
     );
 }

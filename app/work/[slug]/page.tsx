@@ -1,79 +1,57 @@
-'use client';
-
-import { motion, useInView } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
 import Section from '@/components/ui/Section';
 import Button from '@/components/ui/Button';
+import VideoShowcase from '@/components/ui/VideoShowcase';
 import { projects } from '@/data/projects';
-import { fadeInUp, staggerContainer } from '@/lib/animations';
+import { Metadata } from 'next';
 
-export default function CaseStudy() {
-    const { slug } = useParams();
-    const router = useRouter();
+// Generate static params for all known slugs at build time
+export function generateStaticParams() {
+    return projects.map((p) => ({ slug: p.slug }));
+}
 
+// Dynamic metadata per project
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const project = projects.find(p => p.slug === slug);
+    if (!project) return { title: 'Project Not Found' };
+    return {
+        title: `${project.title} — David Idowu`,
+        description: project.tagline,
+    };
+}
+
+export default async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
     const project = projects.find(p => p.slug === slug);
 
     if (!project) {
-        return (
-            <main className="min-h-screen flex items-center justify-center bg-[var(--ink-black)]">
-                <div className="text-center">
-                    <h1 className="text-4xl text-[var(--alabaster)] mb-8">Project not found</h1>
-                    <Button onClick={() => router.push('/work')}>Back to Archive</Button>
-                </div>
-            </main>
-        );
+        notFound();
     }
 
-    // Find next and previous projects
     const currentIndex = projects.findIndex(p => p.id === project.id);
     const prevProject = projects[currentIndex - 1];
     const nextProject = projects[currentIndex + 1];
-
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const showCaseRef = useRef<HTMLDivElement>(null);
-    const isVisible = useInView(showCaseRef, { amount: 0.3 });
-
-    useEffect(() => {
-        if (!videoRef.current) return;
-        if (isVisible) {
-            videoRef.current.play().catch(() => { });
-        } else {
-            videoRef.current.pause();
-        }
-    }, [isVisible]);
 
     return (
         <main className="min-h-screen bg-[var(--ink-black)]">
             {/* Dynamic Hero */}
             <section className="relative h-[40vh] md:h-[60vh] flex items-center justify-center overflow-hidden border-b border-[#778da9]/10">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#778da9]/5 to-transparent -z-10" />
-                <motion.div
-                    className="text-center px-6"
-                    variants={staggerContainer}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    <motion.h1
-                        className="text-4xl md:text-7xl font-normal text-[#e0e1dd] mb-4 md:mb-6"
-                        variants={fadeInUp}
-                    >
+                <div className="text-center px-6">
+                    <h1 className="text-4xl md:text-7xl font-normal text-[#e0e1dd] mb-4 md:mb-6">
                         {project.title}
-                    </motion.h1>
-                    <motion.p
-                        className="text-[#778da9] uppercase tracking-[0.4em] text-xs font-mono"
-                        variants={fadeInUp}
-                    >
+                    </h1>
+                    <p className="text-[#778da9] uppercase tracking-[0.4em] text-xs font-mono">
                         {project.tagline}
-                    </motion.p>
-                </motion.div>
+                    </p>
+                </div>
             </section>
 
             <Section id="overview">
                 <div className="grid md:grid-cols-[1fr_2fr] gap-12 md:gap-24 items-start">
-                    <div className="grid grid-cols-2 gap-6 md:flex md:flex-col md:gap-10 sticky top-32 mb-12 md:mb-0">
+                    <div className="grid grid-cols-2 gap-6 md:flex md:flex-col md:gap-10 md:sticky md:top-32 mb-12 md:mb-0">
                         <div className="flex flex-col gap-2">
                             <span className="text-[#778da9] text-[10px] uppercase font-mono tracking-[0.2em]">Client</span>
                             <span className="text-[#e0e1dd] text-sm">{project.client}</span>
@@ -114,41 +92,12 @@ export default function CaseStudy() {
                             </p>
                         </div>
 
-                        {/* Visual Showcase */}
-                        <div
-                            ref={showCaseRef}
-                            className="aspect-video bg-[#112131]/20 border border-[#778da9]/10 relative overflow-hidden rounded-sm group shadow-2xl"
-                        >
-                            <motion.div
-                                className="relative w-full h-full"
-                                whileHover={{ scale: 1.02 }}
-                                transition={{ duration: 0.6 }}
-                            >
-                                {project.videoUrl ? (
-                                    <video
-                                        ref={videoRef}
-                                        src={project.videoUrl}
-                                        poster={project.imageUrl}
-                                        muted
-                                        loop
-                                        playsInline
-                                        preload="metadata"
-                                        className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                                    />
-                                ) : (
-                                    <Image
-                                        src={project.imageUrl}
-                                        alt={project.title}
-                                        fill
-                                        className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                                        sizes="(max-w-4xl) 100vw, 50vw"
-                                    />
-                                )}
-
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />
-                            </motion.div>
-                        </div>
+                        {/* Visual Showcase — client island for video autoplay */}
+                        <VideoShowcase
+                            videoUrl={project.videoUrl}
+                            imageUrl={project.imageUrl}
+                            title={project.title}
+                        />
 
                         {/* "What I Learned" Box */}
                         <div className="border-l-[3px] border-[#778da9] pl-10 py-6 bg-[#112131]/10">
