@@ -3,22 +3,28 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
+import { resolveVideoSource } from '@/lib/cloudinary';
 
 interface VideoShowcaseProps {
     videoUrl?: string;
+    videoPublicId?: string;
     imageUrl: string;
     title: string;
 }
 
-export default function VideoShowcase({ videoUrl, imageUrl, title }: VideoShowcaseProps) {
+export default function VideoShowcase({ videoUrl, videoPublicId, imageUrl, title }: VideoShowcaseProps) {
     const videoRef = useRef<HTMLVideoElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const isVisible = useInView(containerRef, { amount: 0.3 });
+    const resolvedVideo = resolveVideoSource({
+        videoPublicId,
+        videoUrl,
+    });
 
     useEffect(() => {
         if (!videoRef.current) return;
         if (isVisible) {
-            videoRef.current.play().catch(() => {});
+            videoRef.current.play().catch(() => { });
         } else {
             videoRef.current.pause();
         }
@@ -34,10 +40,10 @@ export default function VideoShowcase({ videoUrl, imageUrl, title }: VideoShowca
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.6 }}
             >
-                {videoUrl ? (
+                {resolvedVideo ? (
                     <video
                         ref={videoRef}
-                        src={videoUrl}
+                        src={resolvedVideo}
                         poster={imageUrl}
                         muted
                         loop

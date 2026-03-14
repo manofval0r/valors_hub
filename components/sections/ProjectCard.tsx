@@ -5,6 +5,7 @@ import { useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Project } from '@/data/projects';
+import { resolveVideoSource } from '@/lib/cloudinary';
 
 interface ProjectCardProps {
     project: Project;
@@ -15,6 +16,10 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const isVisible = useInView(containerRef, { amount: 0.3 });
+    const resolvedVideo = resolveVideoSource({
+        videoPublicId: project.videoPublicId,
+        videoUrl: project.videoUrl,
+    });
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -137,10 +142,10 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
                             >
-                                {project.videoUrl ? (
+                                {resolvedVideo ? (
                                     <video
                                         ref={videoRef}
-                                        src={project.videoUrl}
+                                        src={resolvedVideo}
                                         poster={project.imageUrl}
                                         muted
                                         loop

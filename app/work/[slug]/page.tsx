@@ -95,6 +95,7 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
                         {/* Visual Showcase — client island for video autoplay */}
                         <VideoShowcase
                             videoUrl={project.videoUrl}
+                            videoPublicId={project.videoPublicId}
                             imageUrl={project.imageUrl}
                             title={project.title}
                         />

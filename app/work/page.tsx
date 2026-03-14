@@ -97,6 +97,7 @@ export default function WorkArchive() {
                                             techStack={project.techStack}
                                             image={project.imageUrl}
                                             video={project.videoUrl}
+                                            videoPublicId={project.videoPublicId}
                                             slug={project.slug}
                                         />
                                     </motion.div>

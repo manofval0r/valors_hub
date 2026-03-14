@@ -5,11 +5,29 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 
+// Seeded pseudo-random — avoids SSR/client hydration mismatch from Math.random()
+function seededRandom(seed: number) {
+    let s = seed;
+    return () => {
+        s = (s * 9301 + 49297) % 233280;
+        return s / 233280;
+    };
+}
+
+const rng = seededRandom(42);
+const NODES = Array.from({ length: 7 }, (_, i) => ({
+    startX: 200 + rng() * 600,
+    startY: 200 + rng() * 600,
+    endOffsetX: (rng() - 0.5) * 300,
+    endOffsetY: (rng() - 0.5) * 300,
+    rotation: rng() * 90,
+    duration: 8 + rng() * 4,
+    i,
+}));
+
 export default function NotFound() {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
-
-    const nodes = Array.from({ length: 7 });
 
     if (!mounted) return null;
 
@@ -19,52 +37,43 @@ export default function NotFound() {
             {/* Broken Constellation Background */}
             <div className="absolute inset-0 z-0 opacity-15 pointer-events-none">
                 <svg viewBox="0 0 1000 1000" className="w-full h-full text-[#778da9]">
-                    {nodes.map((_, i) => {
-                        const startX = 200 + Math.random() * 600;
-                        const startY = 200 + Math.random() * 600;
-                        const endX = startX + (Math.random() - 0.5) * 300;
-                        const endY = startY + (Math.random() - 0.5) * 300;
-
-                        return (
-                            <motion.g key={i}>
-                                {/* Drifting Hexagon */}
-                                <motion.path
-                                    d="M 50 1, 93 25, 93 75, 50 99, 7 75, 7 25 Z"
+                    {NODES.map((node) => (
+                        <motion.g key={node.i}>
+                            <motion.path
+                                d="M 50 1, 93 25, 93 75, 50 99, 7 75, 7 25 Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                fill="none"
+                                initial={{ x: node.startX, y: node.startY, rotate: 0, opacity: 0 }}
+                                animate={{
+                                    x: node.startX + node.endOffsetX,
+                                    y: node.startY + node.endOffsetY,
+                                    rotate: node.rotation,
+                                    opacity: [0, 1, 0.4],
+                                }}
+                                transition={{
+                                    duration: node.duration,
+                                    ease: "easeInOut",
+                                    repeat: Infinity,
+                                    repeatType: "reverse",
+                                }}
+                            />
+                            {node.i < NODES.length - 1 && (
+                                <motion.line
+                                    x1={node.startX} y1={node.startY}
+                                    x2={node.startX + 100} y2={node.startY + 100}
                                     stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    fill="none"
-                                    initial={{ x: startX, y: startY, rotate: 0, opacity: 0 }}
-                                    animate={{
-                                        x: endX,
-                                        y: endY,
-                                        rotate: Math.random() * 90,
-                                        opacity: [0, 1, 0.4]
-                                    }}
+                                    strokeWidth="0.5"
+                                    initial={{ pathLength: 1, opacity: 0.5 }}
+                                    animate={{ pathLength: 0, opacity: 0 }}
                                     transition={{
-                                        duration: 8 + Math.random() * 4,
-                                        ease: "easeInOut",
-                                        repeat: Infinity,
-                                        repeatType: "reverse"
+                                        duration: 3 + node.i * 0.4,
+                                        delay: node.i * 0.2,
                                     }}
                                 />
-                                {/* Breaking Connection Line */}
-                                {i < nodes.length - 1 && (
-                                    <motion.line
-                                        x1={startX} y1={startY}
-                                        x2={startX + 100} y2={startY + 100}
-                                        stroke="currentColor"
-                                        strokeWidth="0.5"
-                                        initial={{ pathLength: 1, opacity: 0.5 }}
-                                        animate={{ pathLength: 0, opacity: 0 }}
-                                        transition={{
-                                            duration: 3 + Math.random() * 2,
-                                            delay: i * 0.2
-                                        }}
-                                    />
-                                )}
-                            </motion.g>
-                        );
-                    })}
+                            )}
+                        </motion.g>
+                    ))}
                 </svg>
             </div>
 

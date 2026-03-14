@@ -23,12 +23,17 @@ export default function Contact() {
         setStatus('submitting');
 
         try {
+            const key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+            if (!key) {
+                setStatus('error');
+                return;
+            }
             // Web3Forms integration
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || '234047df-1adf-44d5-b729-977c1beb4914',
+                    access_key: key,
                     ...data,
                     subject: `New Portfolio Message from ${data.name}`,
                 }),

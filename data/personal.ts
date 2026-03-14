@@ -84,10 +84,62 @@ export const awards = [
   {
     id: '1',
     title: 'Valedictorian',
-    institution: 'Saint James Anglican College',
+    institution: 'College',
     date: '01.2001',
     description: 'Best Graduating Student',
   },
+];
+
+export interface Resume {
+  id: string;
+  role: string;
+  description: string;
+  url: string;
+}
+
+export const resumes: Resume[] = [
+  {
+    id: '1',
+    role: 'Full-Stack Developer',
+    description: 'End-to-end web development — React, Next.js, Node.js',
+    url: '/resumes/Full-Stack Developer.pdf',
+  },
+  {
+    id: '2',
+    role: 'Frontend Developer',
+    description: 'UI/UX focused — React, TypeScript, Tailwind CSS',
+    url: '/resumes/Frontend_Developer.pdf',
+  },
+  {
+    id: '3',
+    role: 'Web Developer',
+    description: 'General web development across the stack',
+    url: '/resumes/Web Developer I.pdf',
+  },
+  {
+    id: '4',
+    role: 'AI Product Engineer', 
+    description: 'Building AI-powered products with a focus on user experience',
+    url: '/resumes/AI Product Engineer.pdf',
+  },
+  {
+    id: '5',
+    role: 'Agentic AI Engineer',
+    description: 'Designing and implementing autonomousplatforms leveraging AI Tools in my workflow and daily achievables',
+    url: '/resumes/Agentic AI Engineer.pdf',
+  },
+  {
+    id: '6',
+    role: 'SWE Intern',
+    description: 'Software engineering internship experience with a focus on web development and AI integration',
+    url: '/resumes/SWE_Intern.pdf',
+  },
+  {
+    id: '7',
+    role: 'Vibe Coder and AI Developer',
+    description: 'Creating engaging web experiences and integrating AI solutions to enhance user interaction',
+    url: '/resumes/Vibe Coder and AI Developer Resume.pdf',
+  }
 ];
 
 // Bio content for "My Story" section

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { resolveVideoSource } from '@/lib/cloudinary';
 
 interface RevealCardProps {
     title: string;
@@ -11,6 +12,7 @@ interface RevealCardProps {
     techStack: string[];
     image: string;
     video?: string;
+    videoPublicId?: string;
     slug: string;
 }
 
@@ -22,11 +24,16 @@ export default function RevealCard({
     techStack,
     image,
     video,
+    videoPublicId,
     slug,
 }: RevealCardProps) {
     const [isRevealed, setIsRevealed] = useState(false);
     const [isNavigating, setIsNavigating] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
+    const resolvedVideo = resolveVideoSource({
+        videoPublicId,
+        videoUrl: video,
+    });
 
     // Play/pause video when revealed
     useEffect(() => {
@@ -169,10 +176,10 @@ export default function RevealCard({
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.05 }}
                         >
-                            {video ? (
+                            {resolvedVideo ? (
                                 <video
                                     ref={videoRef}
-                                    src={video}
+                                    src={resolvedVideo}
                                     poster={image}
                                     muted
                                     loop

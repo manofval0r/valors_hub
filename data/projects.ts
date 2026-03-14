@@ -16,6 +16,7 @@ export interface Project {
   techStack: string[];
   featured: boolean;
   videoUrl?: string; // Optional video demo URL
+  videoPublicId?: string; // Optional Cloudinary public ID for video demo
   collaborator?: {
     name: string;
     github: string;
@@ -40,6 +41,7 @@ export const projects: Project[] = [
     techStack: ['HTML', 'CSS', 'Node.js'],
     featured: true,
     videoUrl: '/projects/restaurant.mp4',
+    videoPublicId: 'restaurant_qmacok',
   },
   {
     id: '2',
@@ -57,6 +59,7 @@ export const projects: Project[] = [
     category: 'web',
     techStack: ['React', 'Vite', 'Django', 'Node.js'],
     featured: true,
+    videoPublicId: 'whats-next_us6wkj',
   },
   {
     id: '3',
@@ -126,6 +129,7 @@ export const projects: Project[] = [
     category: 'web',
     techStack: [],
     featured: true,
+    videoPublicId: 'kloshouse_oemuug',
   },
   {
     id: '7',
