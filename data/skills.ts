@@ -67,6 +67,20 @@ export const skills: Skill[] = [
     connections: ['css', 'react', 'nextjs'],
     core: false,
   },
+  {
+    id: 'wordpress',
+    name: 'WordPress',
+    category: 'frontend',
+    connections: ['html', 'css', 'javascript'],
+    core: false,
+  }, 
+  {
+    id: 'elementor',
+    name: 'Elementor',
+    category: 'frontend',
+    connections: ['wordpress', 'html', 'css', 'php'],
+    core: false,
+  },
   
   // Backend
   {
@@ -106,6 +120,21 @@ export const skills: Skill[] = [
     connections: ['git'],
     core: false,
   },
+  {
+    id: 'postman',
+    name: 'Postman',
+    category: 'tools',
+    connections: ['nodejs', 'django'],
+    core: false,
+  },
+  {
+    id: 'render',
+    name: 'Render',
+    category: 'tools',
+    connections: ['nodejs', 'django'],
+    core: false,
+  },
+  
   
   // AI Tools
   {

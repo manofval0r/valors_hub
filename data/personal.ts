@@ -36,18 +36,43 @@ export const experience = [
       'Currently manage the website.',
     ],
   },
-];
-
-export const education = [
   {
-    id: '1',
-    degree: 'Bachelor\'s Degree in Cybersecurity Science',
-    institution: 'Nigerian University of Technology and Management',
-    location: 'Lagos, Nigeria',
-    duration: '09.2024 - Present',
-    description: 'I\'m studying at a world class university to be a protector of networks.',
+    id: '2',
+    role: 'Web Developer',
+    company: 'Hashebi Construction',
+    location: 'Remote',
+    startDate: '2026',
+    endDate: '2026',
+    details: [
+      'Designed and developed a website for a construction company to showcase their projects and services.',
+      'Implemented a user-friendly interface and optimized the site for performance and SEO.',
+    ],
   },
-];
+  {
+    id: '3',
+    role: 'Web Developer',
+    company: 'WisdomTrust',
+    location: 'Remote',
+    startDate: '2026',
+    endDate: '2026',
+    details: [
+      'Volunteered to create a website for a non-profit organization focused on charity and community development.',
+      'Collaborated with other devs to improve UI/UX across the existing website.',
+    ],
+  },
+]; 
+
+
+// export const education = [
+//   {
+//     id: '1',
+//     degree: 'Bachelor\'s Degree in Cybersecurity Science',
+//     institution: 'Nigerian University of Technology and Management',
+//     location: 'Lagos, Nigeria',
+//     duration: '09.2024 - Present',
+//     description: 'I\'m studying at a world class university to be a protector of networks.',
+//   },
+// ];
 
 export const certifications = [
   {
@@ -80,15 +105,15 @@ export const certifications = [
   },
 ];
 
-export const awards = [
-  {
-    id: '1',
-    title: 'Valedictorian',
-    institution: 'College',
-    date: '01.2001',
-    description: 'Best Graduating Student',
-  },
-];
+// export const awards = [
+//   {
+//     id: '1',
+//     title: 'Valedictorian',
+//     institution: 'College',
+//     date: '01.2001',
+//     description: 'Best Graduating Student',
+//   },
+// ];
 
 export interface Resume {
   id: string;
@@ -168,11 +193,11 @@ export const currentActivities = {
     description: 'Creating an educational platform for my university\'s students using Next.js, TypeScript, and modern web technologies. Focused on building an intuitive learning experience with seamless database integration.',
   },
   reading: {
-    title: 'Refactoring: Improving the Design of Existing Code',
-    description: 'Mastering the art of identifying bad code smells and applying systematic transformations to improve internal structure without changing external behavior.',
+    title: 'The Housemaid by Freida McFadden',
+    description: 'Diving into psychological thrillers to unwind and find inspiration for storytelling in my projects. This book is a gripping read that keeps me on the edge of my seat.',
   },
   learning: {
-    title: 'Advanced JavaScript & System Design',
+    title: 'Advanced JavaScript & Data Algorithms',
     description: 'Deepening my understanding of JavaScript and scalable architecture patterns. Also exploring cybersecurity fundamentals as part of my degree program at a university.',
   },
 };
