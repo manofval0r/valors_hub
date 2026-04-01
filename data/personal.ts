@@ -28,8 +28,8 @@ export const experience = [
     role: 'Web Developer',
     company: 'Sidedish Foods',
     location: 'Kano (Remote)',
-    startDate: '2024',
-    endDate: undefined, // Current position
+    startDate: '2025',
+    endDate: '2026', // Current position
     details: [
       'Created a website for the restaurant so clients can order food, and staff can track orders and monitor their goals.',
       'Helped in deployment of the website using free, sustainable tools.',
@@ -38,7 +38,7 @@ export const experience = [
   },
   {
     id: '2',
-    role: 'Web Developer',
+    role: 'Contract Web Developer',
     company: 'Hashebi Construction',
     location: 'Remote',
     startDate: '2026',
@@ -50,7 +50,7 @@ export const experience = [
   },
   {
     id: '3',
-    role: 'Web Developer',
+    role: 'Web Developer (Volunteer)',
     company: 'WisdomTrust',
     location: 'Remote',
     startDate: '2026',
