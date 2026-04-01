@@ -127,19 +127,19 @@ export const resumes: Resume[] = [
     id: '1',
     role: 'Full-Stack Developer',
     description: 'End-to-end web development — React, Next.js, Node.js',
-    url: '/resumes/Full-Stack Developer.pdf',
+    url: '/resumes/Full Stack Developer.pdf',
   },
   {
     id: '2',
     role: 'Frontend Developer',
     description: 'UI/UX focused — React, TypeScript, Tailwind CSS',
-    url: '/resumes/Frontend_Developer.pdf',
+    url: '/resumes/Frontend Developer.pdf',
   },
   {
     id: '3',
     role: 'Web Developer',
     description: 'General web development across the stack',
-    url: '/resumes/Web Developer I.pdf',
+    url: '/resumes/Web Developer.pdf',
   },
   {
     id: '4',
@@ -164,6 +164,24 @@ export const resumes: Resume[] = [
     role: 'Vibe Coder and AI Developer',
     description: 'Creating engaging web experiences and integrating AI solutions to enhance user interaction',
     url: '/resumes/Vibe Coder and AI Developer Resume.pdf',
+  },
+  {
+    id: '8',
+    role: 'Full-Stack Engineer',
+    description: 'Comprehensive web development expertise with a focus on scalable, maintainable code and modern frameworks',
+    url: '/resumes/Full-Stack Engineer.pdf',
+  },
+  {
+    id: '9',
+    role: 'AI Software and Automation Engineer',
+    description: 'Specializing in AI-driven software solutions and automation to optimize workflows and enhance productivity',
+    url: '/resumes/AI Software and Automation Engineer.pdf',
+  },
+  {
+    id: '10',
+    role: 'Web Designer',
+    description: 'Crafting visually appealing and user-friendly web designs with a focus on responsive design and accessibility',
+    url: '/resumes/Web Designer.pdf',
   }
 ];
 
