@@ -33,7 +33,7 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                     />
 
                     <motion.div
-                        className="fixed bottom-0 left-0 right-0 z-[51] bg-[#0d1b2a]/95 backdrop-blur-xl border-t border-[#778da9]/20 rounded-t-lg max-h-[55vh] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
+                        className="fixed bottom-0 left-0 right-0 z-[51] bg-[#0d1b2a]/95 backdrop-blur-xl border-t border-[#778da9]/20 rounded-t-lg max-h-[85vh] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
                         initial={{ y: '100%' }}
                         animate={{ y: 0 }}
                         exit={{ y: '100%' }}
