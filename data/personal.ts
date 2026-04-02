@@ -2,8 +2,8 @@
 
 export const personalInfo = {
   name: 'David Idowu',
-  title: 'Web Developer/Web Designer',
-  location: 'NUTM Campus, Apapa, Lagos, Nigeria',
+  title: 'Full Stack Web Developer',
+  location: 'Lagos, Nigeria',
   workStatus: ['Open to Remote', 'Open to Hybrid'],
   imageUrl: '/Hero-image.jpg',
 };
@@ -18,14 +18,14 @@ export const contactInfo = {
 };
 
 export const professionalSummary = [
-  'Results-driven full-stack developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, JavaScript, and Node.js.',
-  'Currently developing a sophisticated learning management system utilising Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across computing, data analysis, and cybersecurity sectors.',
+  'Results-driven full stack web developer with proven experience creating end-to-end web solutions from concept to deployment. Successfully designed and implemented a complete restaurant website featuring cart functionality and automated checkout processes using HTML, CSS, JavaScript, and Node.js.',
+  'Currently developing a sophisticated learning management system utilising Next.js, TypeScript, JavaScript, and Java with seamless database integration. Skilled at independent project management and problem-solving with expertise in leveraging AI tools to enhance development efficiency. Seeking opportunities to apply my technical versatility across software development, data analysis, and application security.',
 ];
 
 export const experience = [
   {
     id: '1',
-    role: 'Web Developer',
+    role: 'Full-Stack Web Developer',
     company: 'Sidedish Foods',
     location: 'Kano (Remote)',
     startDate: '2025',
@@ -189,9 +189,9 @@ export const resumes: Resume[] = [
 export const bioContent = {
   heading: 'About Me',
   paragraphs: [
-    'I\'m David Idowu, a web developer and designer based in Lagos, Nigeria. I craft digital experiences that blend functionality with thoughtful design, always keeping the user at the center of every decision.',
-    'My journey into web development started with curiosity and evolved into a passion for building solutions that make a real difference. From automating payroll systems for healthcare workers to creating e-commerce platforms for local businesses, I focus on solving real-world problems through code.',
-    'When I\'m not coding, you\'ll find me exploring new technologies, contributing to open-source projects, or studying cybersecurity at NUTM. I believe in continuous learning and the power of technology to transform lives.',
+    'I\'m David Idowu, a full stack web developer and designer based in Lagos, Nigeria. I craft digital experiences that blend functionality with thoughtful design, always keeping the user at the center of every decision.',
+    'My journey into web development started with curiosity and evolved into a passion for building solutions that make a real difference. From automating payroll systems for healthcare workers to creating e-commerce platforms for local businesses, I focus on solving real-world problems through robust, scalable frameworks.',
+    'When I\'m not coding, you\'ll find me exploring new technologies, contributing to open-source projects, or learning about network and application security. I believe in continuous learning and the power of technology to transform lives.',
   ],
 };
 
@@ -216,6 +216,6 @@ export const currentActivities = {
   },
   learning: {
     title: 'Advanced JavaScript & Data Algorithms',
-    description: 'Deepening my understanding of JavaScript and scalable architecture patterns. Also exploring cybersecurity fundamentals as part of my degree program at a university.',
+    description: 'Deepening my understanding of JavaScript and scalable architecture patterns. Also exploring robust security fundamentals as part of my undergraduate degree program.',
   },
 };

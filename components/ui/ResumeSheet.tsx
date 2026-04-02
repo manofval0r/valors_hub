@@ -33,7 +33,7 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                     />
 
                     <motion.div
-                        className="fixed bottom-0 left-0 right-0 z-[51] bg-[#0d1b2a]/95 backdrop-blur-xl border-t border-[#778da9]/20 rounded-t-lg"
+                        className="fixed bottom-0 left-0 right-0 z-[51] bg-[#0d1b2a]/95 backdrop-blur-xl border-t border-[#778da9]/20 rounded-t-lg max-h-[55vh] flex flex-col shadow-[0_-10px_40px_rgba(0,0,0,0.3)]"
                         initial={{ y: '100%' }}
                         animate={{ y: 0 }}
                         exit={{ y: '100%' }}
@@ -42,8 +42,9 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                         aria-modal="true"
                         aria-label="Select a resume"
                     >
-                        <div className="px-6 py-8 flex flex-col gap-6 max-w-lg mx-auto">
-                            <div className="flex items-center justify-between">
+                        <div className="w-full max-w-lg mx-auto flex flex-col h-full overflow-hidden px-6 pt-8">
+                            {/* Header (Sticky) */}
+                            <div className="flex items-center justify-between shrink-0 mb-6 pb-2 border-b border-[#778da9]/10">
                                 <div>
                                     <h3 className="text-lg text-[#e0e1dd]">Resume</h3>
                                     <p className="text-xs text-[#778da9] font-mono uppercase tracking-widest mt-1">
@@ -62,7 +63,8 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                                 </button>
                             </div>
 
-                            <div className="flex flex-col gap-3">
+                            {/* Scrollable List */}
+                            <div className="flex flex-col gap-3 overflow-y-auto pb-8 pr-2 custom-scrollbar">
                                 {resumes.map((resume, i) => (
                                     <motion.a
                                         key={resume.id}

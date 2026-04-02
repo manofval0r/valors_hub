@@ -99,6 +99,7 @@ export default function WorkArchive() {
                                             video={project.videoUrl}
                                             videoPublicId={project.videoPublicId}
                                             slug={project.slug}
+                                            liveLink={project.liveLink}
                                         />
                                     </motion.div>
                                 ))}

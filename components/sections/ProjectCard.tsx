@@ -99,7 +99,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     </motion.div>
 
                     <motion.div
-                        className="mt-8"
+                        className="mt-8 flex items-center gap-8"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -116,6 +116,19 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 →
                             </motion.span>
                         </Link>
+                        {project.liveLink && (
+                            <a
+                                href={project.liveLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#778da9] hover:text-[#e0e1dd] group flex items-center gap-2 text-base transition-colors"
+                            >
+                                Visit Live Site
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        )}
                     </motion.div>
                 </div>
 

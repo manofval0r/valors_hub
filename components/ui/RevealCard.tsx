@@ -14,6 +14,7 @@ interface RevealCardProps {
     video?: string;
     videoPublicId?: string;
     slug: string;
+    liveLink?: string | null;
 }
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -26,6 +27,7 @@ export default function RevealCard({
     video,
     videoPublicId,
     slug,
+    liveLink,
 }: RevealCardProps) {
     const [isRevealed, setIsRevealed] = useState(false);
     const [isNavigating, setIsNavigating] = useState(false);
@@ -230,17 +232,33 @@ export default function RevealCard({
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.2 }}
+                            className="flex items-center justify-between mt-2 pt-4 border-t border-[#778da9]/10 gap-4"
                         >
                             <Link
                                 href={`/work/${slug}`}
                                 onClick={handleNavigate}
-                                className="flex items-center justify-between text-sm text-[#778da9] hover:text-[#e0e1dd] transition-colors mt-2 py-2"
+                                className="flex items-center gap-2 text-sm text-[#778da9] hover:text-[#e0e1dd] transition-colors"
                             >
-                                <span>Tap to view case study</span>
+                                <span>View case study</span>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </Link>
+
+                            {liveLink && (
+                                <a
+                                    href={liveLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={(e) => e.stopPropagation()}
+                                    className="flex items-center gap-1.5 text-sm text-[#778da9] hover:text-[#e0e1dd] transition-colors"
+                                >
+                                    <span>Live site</span>
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                </a>
+                            )}
                         </motion.div>
                     </motion.div>
                 )}
