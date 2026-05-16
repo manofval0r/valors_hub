@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
-import SideNav from "@/components/navigation/SideNav";
+import TopNav from "@/components/navigation/TopNav";
 import MobileNav from "@/components/navigation/MobileNav";
 import LoadingScreen from "@/components/animations/LoadingScreen";
+import DynamicBackground from "@/components/animations/DynamicBackground";
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -48,8 +49,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={rubik.variable} suppressHydrationWarning>
       <body className="antialiased font-rubik" suppressHydrationWarning>
+        <DynamicBackground />
         <LoadingScreen />
-        <SideNav />
+        <TopNav />
         <MobileNav />
         {children}
       </body>

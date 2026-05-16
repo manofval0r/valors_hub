@@ -82,7 +82,7 @@ export default function RevealCard({
             tabIndex={0}
             aria-expanded={isRevealed}
             aria-label={`View project: ${title}. ${isRevealed ? 'Press Escape to collapse' : 'Tap to preview'}`}
-            className="reveal-card bg-[#0d1b2a] border border-[#778da9]/30 rounded-[2px] p-6 cursor-pointer transition-all duration-300 outline-none focus-visible:outline-2 focus-visible:outline-[#e0e1dd] hover:border-[#778da9]/50 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(119,141,169,0.15)]"
+            className="group reveal-card bg-[#0d1b2a] border border-[#778da9]/30 rounded-[2px] p-6 cursor-pointer transition-all duration-300 outline-none focus-visible:outline-2 focus-visible:outline-[#e0e1dd] hover:border-[#778da9]/60 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(119,141,169,0.2)]"
             onClick={handleCardClick}
             onKeyDown={handleKeyDown}
             animate={isNavigating ? { scale: 0.98, opacity: 0.95 } : { scale: 1, opacity: 1 }}
