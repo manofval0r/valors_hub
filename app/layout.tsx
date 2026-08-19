@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import TopNav from "@/components/navigation/TopNav";
 import MobileNav from "@/components/navigation/MobileNav";
 import LoadingScreen from "@/components/animations/LoadingScreen";
@@ -51,6 +52,7 @@ export default function RootLayout({
       <body className="antialiased font-rubik" suppressHydrationWarning>
         <DynamicBackground />
         <LoadingScreen />
+        <Analytics />
         <TopNav />
         <MobileNav />
         {children}

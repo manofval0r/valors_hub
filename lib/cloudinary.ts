@@ -33,5 +33,8 @@ export function resolveVideoSource(params: {
   videoPublicId?: string;
   videoUrl?: string;
 }): string | undefined {
+  if (params.videoUrl && /^https?:\/\//i.test(params.videoUrl)) {
+    return params.videoUrl;
+  }
   return getCloudinaryVideoUrl(params.videoPublicId) || params.videoUrl;
 }

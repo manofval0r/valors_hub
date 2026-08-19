@@ -11,17 +11,21 @@ export default function Skills() {
     const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
     const [isMobile, setIsMobile] = useState(false);
 
-    // Filter skills based on category (desktop constellation)
+    // Filter skills based on category or 'core'
     const filteredSkills = useMemo(() =>
-        skills.filter(s => filter === 'all' || s.category === filter),
+        skills.filter(s => filter === 'all' || (filter === 'core' ? s.core : s.category === filter)),
         [filter]);
 
-    // Group skills by category for the mobile "Tech Stream" view
+    // Group skills by category for mobile view
     const skillsByCategory = useMemo(() => {
         const grouped: Record<string, typeof skills> = {};
         skillCategories.forEach(cat => {
             if (cat.id !== 'all') {
-                grouped[cat.id] = skills.filter(s => s.category === cat.id);
+                if (cat.id === 'core') {
+                    grouped[cat.id] = skills.filter(s => s.core);
+                } else {
+                    grouped[cat.id] = skills.filter(s => s.category === cat.id);
+                }
             }
         });
         return grouped;
@@ -39,7 +43,6 @@ export default function Skills() {
     const DIAGRAM_SIZE = 800;
     const CENTER = DIAGRAM_SIZE / 2;
 
-    // Deterministic random for organic feel
     const seedRandom = (seed: string) => {
         let hash = 0;
         for (let i = 0; i < seed.length; i++) {
@@ -51,7 +54,6 @@ export default function Skills() {
         };
     };
 
-    // Skip heavy position calculation on mobile for performance
     const nodePositions = useMemo(() => {
         if (isMobile) return {};
 
@@ -59,9 +61,9 @@ export default function Skills() {
         const coreNodes = filteredSkills.filter(s => s.core);
         const nonCoreNodes = filteredSkills.filter(s => !s.core);
 
-        const coreRadiusBase = 60;
-        const orbitalRadiusBase = 250;
-        const orbitalSpread = 80;
+        const coreRadiusBase = 70;
+        const orbitalRadiusBase = 260;
+        const orbitalSpread = 70;
 
         // Core Layer (Ring 0)
         coreNodes.forEach((skill, i) => {
@@ -90,51 +92,76 @@ export default function Skills() {
         return positions;
     }, [filteredSkills, CENTER, isMobile]);
 
-    // Helper to get text lines for better wrapping
     const getWrappedText = (name: string) => {
-        if (name.length <= 8) return [name];
-        const parts = name.split(/(?=[&])|\s/);
-        if (parts.length > 1) return parts;
-        if (name.length > 10) return [name.slice(0, name.length / 2), name.slice(name.length / 2)];
-        return [name];
+        if (name.length <= 9) return [name];
+        const parts = name.split(/(?=[&/(])|\s/);
+        if (parts.length > 1) return parts.slice(0, 2);
+        return [name.slice(0, 10)];
     };
+
+    const dailyCoreSkills = useMemo(() => skills.filter(s => s.core), []);
 
     return (
         <Section id="skills" background="default">
             <div className="flex flex-col gap-10 md:gap-12 items-start w-full">
                 <motion.div
-                    className="flex flex-col gap-4"
+                    className="flex flex-col gap-3 max-w-2xl"
                     variants={fadeInUp}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
                 >
-                    <h2 className="text-4xl md:text-5xl font-normal text-[#e0e1dd]">
-                        Skills
+                    <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#52b788]" />
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#52b788]">
+                            Technical Taxonomy
+                        </span>
+                    </div>
+                    <h2 className="text-3xl md:text-5xl font-light text-[#e0e1dd] tracking-tight">
+                        Core Competencies & Stack
                     </h2>
-                    <p className="text-[#778da9] text-xs md:text-sm uppercase tracking-[0.3em] font-mono leading-relaxed max-w-lg">
-                        <span className="hidden md:inline">
-                            A dynamic constellation of my technical ecosystem. Hover nodes to see synergies.
-                        </span>
-                        <span className="md:hidden">
-                            My technical toolkit, streamed by domain.
-                        </span>
+                    <p className="text-[#778da9] text-xs md:text-sm font-mono leading-relaxed">
+                        A structured breakdown of my daily production stack, security architecture, cloud infrastructure, and AI engineering workflows.
                     </p>
                 </motion.div>
 
-                {/* ——— DESKTOP VIEW: Constellation ——— */}
+                {/* ── ATS / Recruiter 5-Second Fast Scan Bar ── */}
+                <motion.div
+                    className="w-full p-4 md:p-5 border border-[#52b788]/30 bg-[#52b788]/5 rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-4"
+                    variants={fadeInUp}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                >
+                    <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#52b788]">
+                        <span>★ Daily Production Core</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                        {dailyCoreSkills.map((s) => (
+                            <span
+                                key={s.id}
+                                className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider bg-[#0d1b2a] text-[#e0e1dd] border border-[#52b788]/40 rounded-sm"
+                            >
+                                {s.name}
+                            </span>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* ——— DESKTOP VIEW: Constellation & Filters ——— */}
                 <div className="hidden md:flex flex-col w-full gap-8">
                     {/* Filter System */}
-                    <div className="flex flex-wrap justify-start gap-3 w-full">
+                    <div className="flex flex-wrap justify-start gap-2.5 w-full">
                         {skillCategories.map((cat) => (
                             <button
                                 key={cat.id}
                                 onClick={() => setFilter(cat.id)}
                                 aria-label={`Filter skills by ${cat.label}`}
-                                className={`px-5 py-2 border transition-all duration-300 rounded-full text-[10px] uppercase font-mono tracking-widest ${filter === cat.id
-                                    ? 'bg-[#e0e1dd] border-[#e0e1dd] text-[#0d1b2a]'
-                                    : 'bg-transparent border-[#778da9]/20 text-[#778da9] hover:border-[#778da9]/50'
-                                    }`}
+                                className={`px-4 py-1.5 border transition-all duration-300 rounded-sm text-[10px] uppercase font-mono tracking-widest cursor-pointer ${
+                                    filter === cat.id
+                                        ? 'bg-[#e0e1dd] border-[#e0e1dd] text-[#0d1b2a] font-medium'
+                                        : 'bg-transparent border-[#778da9]/20 text-[#778da9] hover:border-[#778da9]/50 hover:text-[#e0e1dd]'
+                                }`}
                             >
                                 {cat.label}
                             </button>
@@ -142,7 +169,7 @@ export default function Skills() {
                     </div>
 
                     {/* Constellation Diagram */}
-                    <div className="relative w-full aspect-video bg-[#0d1b2a]/20 border border-[#778da9]/5 rounded-sm overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full aspect-video bg-[#0d1b2a]/30 border border-[#778da9]/15 rounded-sm overflow-hidden flex items-center justify-center">
                         <div className="relative w-full h-full max-w-[800px] max-h-[800px]">
                             <svg
                                 viewBox={`0 0 ${DIAGRAM_SIZE} ${DIAGRAM_SIZE}`}
@@ -159,7 +186,6 @@ export default function Skills() {
                                             if (!endPos) return null;
 
                                             const isHighlighted = hoveredSkill === skill.id || hoveredSkill === connId;
-
                                             const cpX = (startPos.x + endPos.x) / 2 + (CENTER - (startPos.x + endPos.x) / 2) * 0.1;
                                             const cpY = (startPos.y + endPos.y) / 2 + (CENTER - (startPos.y + endPos.y) / 2) * 0.1;
 
@@ -167,12 +193,12 @@ export default function Skills() {
                                                 <motion.path
                                                     key={`${skill.id}-${connId}`}
                                                     d={`M ${startPos.x} ${startPos.y} Q ${cpX} ${cpY} ${endPos.x} ${endPos.y}`}
-                                                    stroke={isHighlighted ? "#e0e1dd" : "#778da9"}
+                                                    stroke={isHighlighted ? "#52b788" : "#778da9"}
                                                     strokeWidth={isHighlighted ? "1.5" : "0.5"}
                                                     fill="none"
-                                                    opacity={isHighlighted ? 0.6 : 0.15}
+                                                    opacity={isHighlighted ? 0.8 : 0.15}
                                                     initial={{ pathLength: 0, opacity: 0 }}
-                                                    animate={{ pathLength: 1, opacity: isHighlighted ? 0.6 : 0.15 }}
+                                                    animate={{ pathLength: 1, opacity: isHighlighted ? 0.8 : 0.15 }}
                                                     exit={{ opacity: 0 }}
                                                     transition={{ duration: 0.8 }}
                                                 />
@@ -189,7 +215,7 @@ export default function Skills() {
                                     if (!pos) return null;
 
                                     const isCore = skill.core;
-                                    const size = isCore ? 85 : 65;
+                                    const size = isCore ? 85 : 68;
                                     const isHovered = hoveredSkill === skill.id;
                                     const isConnected = hoveredSkill && (skill.connections.includes(hoveredSkill) || skills.find(s => s.id === hoveredSkill)?.connections.includes(skill.id));
                                     const isActive = !hoveredSkill || isHovered || isConnected;
@@ -221,29 +247,24 @@ export default function Skills() {
                                         >
                                             {isHovered && (
                                                 <motion.div
-                                                    className="absolute inset-0 bg-[#e0e1dd]/20 blur-2xl rounded-full"
+                                                    className="absolute inset-0 bg-[#52b788]/20 blur-2xl rounded-full"
                                                     layoutId="skill-glow"
                                                 />
                                             )}
-                                            <div className={`w-full h-full flex items-center justify-center relative transition-colors duration-300 ${isActive ? 'text-[#e0e1dd]' : 'text-[#778da9]/40'}`}>
+                                            <div className={`w-full h-full flex items-center justify-center relative transition-colors duration-300 ${isActive ? (isCore ? 'text-[#52b788]' : 'text-[#e0e1dd]') : 'text-[#778da9]/40'}`}>
                                                 <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full drop-shadow-sm overflow-visible">
                                                     <motion.polygon
                                                         points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25"
-                                                        fill={isHovered ? "rgba(224, 225, 221, 0.05)" : "transparent"}
+                                                        fill={isHovered ? "rgba(82, 183, 136, 0.1)" : "rgba(13, 27, 42, 0.6)"}
                                                         stroke="currentColor"
-                                                        strokeWidth={isCore ? "2.5" : "1.5"}
-                                                        animate={isCore ? {
-                                                            strokeWidth: [2.5, 3.5, 2.5],
-                                                            opacity: [1, 0.8, 1]
-                                                        } : {}}
-                                                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                                        strokeWidth={isCore ? "2" : "1"}
                                                     />
                                                 </svg>
                                                 <div className="flex flex-col items-center justify-center z-10 px-1 text-center select-none">
                                                     {textLines.map((line, idx) => (
                                                         <span
                                                             key={idx}
-                                                            className={`${isCore ? 'text-[10px]' : 'text-[8.5px]'} uppercase font-mono tracking-tighter leading-[1.1] ${isHovered ? 'text-[#e0e1dd] font-bold' : 'text-inherit'}`}
+                                                            className={`${isCore ? 'text-[9.5px] font-medium' : 'text-[8.5px]'} uppercase font-mono tracking-tighter leading-[1.1] ${isHovered ? 'text-[#e0e1dd] font-bold' : 'text-inherit'}`}
                                                         >
                                                             {line}
                                                         </span>
@@ -260,42 +281,34 @@ export default function Skills() {
 
                 {/* ——— MOBILE VIEW: Tech Stream ——— */}
                 <div className="block md:hidden w-full relative pl-4 border-l border-dashed border-[#778da9]/20">
-                    <div className="flex flex-col gap-12">
+                    <div className="flex flex-col gap-10">
                         {skillCategories.filter(cat => cat.id !== 'all').map((category, index) => (
                             <motion.div
                                 key={category.id}
                                 className="relative"
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: -15 }}
                                 whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ duration: 0.4, delay: index * 0.08 }}
                             >
-                                {/* Timeline node */}
-                                <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#0d1b2a] border border-[#e0e1dd] z-10" />
+                                <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-[#0d1b2a] border border-[#52b788] z-10" />
 
-                                <h3 className="text-lg text-[#e0e1dd] font-light mb-4 flex items-center gap-3">
+                                <h3 className="text-base text-[#e0e1dd] font-mono uppercase tracking-wider mb-3 flex items-center gap-2">
                                     {category.label}
                                 </h3>
 
-                                <div className="flex flex-wrap gap-2">
-                                    {skillsByCategory[category.id]?.map((skill, sIdx) => (
-                                        <motion.div
+                                <div className="flex flex-wrap gap-1.5">
+                                    {skillsByCategory[category.id]?.map((skill) => (
+                                        <div
                                             key={skill.id}
-                                            initial={{ opacity: 0, y: 10 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{
-                                                duration: 0.3,
-                                                delay: index * 0.1 + sIdx * 0.05
-                                            }}
-                                            className={`px-3 py-1.5 rounded text-xs font-mono border ${
+                                            className={`px-2.5 py-1 rounded-sm text-xs font-mono border ${
                                                 skill.core
-                                                    ? 'bg-[#e0e1dd]/10 border-[#e0e1dd]/30 text-[#e0e1dd]'
-                                                    : 'bg-transparent border-[#778da9]/20 text-[#778da9]'
+                                                    ? 'bg-[#52b788]/10 border-[#52b788]/40 text-[#52b788]'
+                                                    : 'bg-[#0d1b2a]/40 border-[#778da9]/20 text-[#778da9]'
                                             }`}
                                         >
                                             {skill.name}
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
                             </motion.div>

@@ -202,7 +202,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                             <span className="text-[#778da9]/40 text-[10px] font-mono">{project.date}</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-[#e0e1dd] leading-[0.95] tracking-tight mb-6">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-[#e0e1dd] leading-none md:leading-tight tracking-tight mb-6">
                             {project.title}
                         </h1>
                         <p className="text-[#778da9] text-base md:text-lg font-light leading-relaxed max-w-xl">

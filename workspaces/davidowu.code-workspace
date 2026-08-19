@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "davidowu",
+			"path": ".."
+		},
+		{
+			"name": "docs",
+			"path": "../../docs"
+		}
+	],
+	"settings": {}
+}

@@ -9,12 +9,12 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",  // unsafe-eval required by Next.js dev mode
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://va.vercel-scripts.com",  // unsafe-eval required by Next.js dev mode, va.vercel-scripts.com for Vercel Web Analytics
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
       "img-src 'self' data: blob: https:",
       "media-src 'self' https:",
-      "connect-src 'self' https://api.web3forms.com https://api.cloudinary.com https://res.cloudinary.com",
+      "connect-src 'self' https://api.web3forms.com https://api.cloudinary.com https://res.cloudinary.com https://va.vercel-scripts.com https://vitals.vercel-insights.com",
       "frame-ancestors 'none'",
     ].join('; '),
   },

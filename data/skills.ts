@@ -3,202 +3,250 @@
 export interface Skill {
   id: string;
   name: string;
-  category: 'frontend' | 'backend' | 'tools' | 'ai';
+  category: 'frontend' | 'backend' | 'security' | 'cloud' | 'ai';
   logo?: string;
   connections: string[]; // IDs of connected skills
-  core: boolean; // Is this a core skill?
+  core: boolean; // Is this in the daily production core stack?
+  tier?: 'core' | 'secondary';
 }
 
 export const skills: Skill[] = [
-  // Frontend - Core
-  {
-    id: 'html',
-    name: 'HTML & HTML5',
-    category: 'frontend',
-    connections: ['css', 'javascript'],
-    core: true,
-  },
-  {
-    id: 'css',
-    name: 'CSS',
-    category: 'frontend',
-    connections: ['html', 'javascript', 'tailwind'],
-    core: true,
-  },
-  {
-    id: 'javascript',
-    name: 'JavaScript',
-    category: 'frontend',
-    connections: ['html', 'css', 'react', 'nodejs', 'typescript'],
-    core: true,
-  },
-  {
-    id: 'react',
-    name: 'React.Js',
-    category: 'frontend',
-    connections: ['javascript', 'nextjs', 'typescript', 'tailwind'],
-    core: true,
-  },
-  {
-    id: 'vitejs',
-    name: 'Vite.js',
-    category: 'frontend',
-    connections: ['react', 'javascript', 'typescript'],
-    core: true,
-  },
-  {
-    id: 'nextjs',
-    name: 'Next.js',
-    category: 'frontend',
-    connections: ['react', 'typescript', 'vercel', 'tailwind'],
-    core: true,
-  },
+  // ─── Daily Production Core (Frontend & Mobile) ───
   {
     id: 'typescript',
     name: 'TypeScript',
     category: 'frontend',
-    connections: ['javascript', 'react', 'nextjs', 'nodejs'],
-    core: false,
+    connections: ['javascript', 'react', 'nextjs', 'nodejs', 'react-native'],
+    core: true,
+  },
+  {
+    id: 'react',
+    name: 'React.js',
+    category: 'frontend',
+    connections: ['typescript', 'javascript', 'nextjs', 'tailwind', 'react-native'],
+    core: true,
+  },
+  {
+    id: 'nextjs',
+    name: 'Next.js (App Router)',
+    category: 'frontend',
+    connections: ['react', 'typescript', 'supabase', 'tailwind', 'vercel'],
+    core: true,
+  },
+  {
+    id: 'react-native',
+    name: 'React Native (Expo SDK 54)',
+    category: 'frontend',
+    connections: ['react', 'typescript', 'supabase'],
+    core: true,
   },
   {
     id: 'tailwind',
     name: 'Tailwind CSS',
     category: 'frontend',
-    connections: ['css', 'react', 'nextjs'],
-    core: false,
+    connections: ['react', 'nextjs', 'css'],
+    core: true,
   },
   {
-    id: 'wordpress',
-    name: 'WordPress',
+    id: 'javascript',
+    name: 'JavaScript (ES6+)',
     category: 'frontend',
-    connections: ['html', 'css', 'javascript'],
-    core: false,
-  }, 
-  {
-    id: 'elementor',
-    name: 'Elementor',
-    category: 'frontend',
-    connections: ['wordpress', 'html', 'css', 'php'],
-    core: false,
+    connections: ['typescript', 'react', 'nodejs', 'html'],
+    core: true,
   },
-  
-  // Backend
+
+  // ─── Daily Production Core (Backend & Data) ───
   {
-    id: 'nodejs',
-    name: 'Node.js',
+    id: 'python',
+    name: 'Python',
     category: 'backend',
-    connections: ['javascript', 'typescript', 'postgresql'],
-    core: false,
+    connections: ['django', 'celery', 'redis', 'postgresql'],
+    core: true,
   },
   {
     id: 'django',
-    name: 'Django',
+    name: 'Django & DRF',
     category: 'backend',
-    connections: ['postgresql'],
+    connections: ['python', 'postgresql', 'celery', 'redis'],
+    core: true,
+  },
+  {
+    id: 'nodejs',
+    name: 'Node.js & Express',
+    category: 'backend',
+    connections: ['javascript', 'typescript', 'postgresql', 'supabase'],
+    core: true,
+  },
+  {
+    id: 'postgresql',
+    name: 'PostgreSQL',
+    category: 'backend',
+    connections: ['supabase', 'django', 'nodejs', 'sql'],
+    core: true,
+  },
+  {
+    id: 'supabase',
+    name: 'Supabase (RLS & DB)',
+    category: 'backend',
+    connections: ['postgresql', 'nextjs', 'react-native', 'deno-edge'],
+    core: true,
+  },
+
+  // ─── Security & Systems ───
+  {
+    id: 'supabase-rls',
+    name: 'Row Level Security (RLS)',
+    category: 'security',
+    connections: ['supabase', 'postgresql'],
+    core: true,
+  },
+  {
+    id: 'jwt-auth',
+    name: 'JWT & OAuth 2.0',
+    category: 'security',
+    connections: ['nodejs', 'django', 'nextjs'],
+    core: true,
+  },
+  {
+    id: 'rate-limiting',
+    name: 'Tiered Rate Limiting',
+    category: 'security',
+    connections: ['nodejs', 'django', 'redis'],
     core: false,
   },
-  
-  // Tools & Workflow
   {
-    id: 'git',
-    name: 'Git',
-    category: 'tools',
-    connections: ['vercel', 'github'],
+    id: 'helmet-csp',
+    name: 'Helmet.js & CSP',
+    category: 'security',
+    connections: ['nodejs', 'nextjs'],
     core: false,
+  },
+  {
+    id: 'deno-edge',
+    name: 'Deno Edge Functions',
+    category: 'security',
+    connections: ['supabase', 'typescript'],
+    core: false,
+  },
+
+  // ─── Cloud & Data Infrastructure ───
+  {
+    id: 'redis',
+    name: 'Redis',
+    category: 'cloud',
+    connections: ['celery', 'django', 'python'],
+    core: true,
+  },
+  {
+    id: 'celery',
+    name: 'Celery Task Queues',
+    category: 'cloud',
+    connections: ['redis', 'django', 'python'],
+    core: true,
   },
   {
     id: 'vercel',
-    name: 'Vercel',
-    category: 'tools',
+    name: 'Vercel Edge Deploy',
+    category: 'cloud',
     connections: ['nextjs', 'git'],
     core: false,
   },
   {
-    id: 'github',
-    name: 'GitHub',
-    category: 'tools',
-    connections: ['git'],
-    core: false,
-  },
-  {
-    id: 'postman',
-    name: 'Postman',
-    category: 'tools',
-    connections: ['nodejs', 'django'],
-    core: false,
-  },
-  {
     id: 'render',
-    name: 'Render',
-    category: 'tools',
+    name: 'Render Cloud',
+    category: 'cloud',
     connections: ['nodejs', 'django'],
     core: false,
   },
-  
-  
-  // AI Tools
   {
-    id: 'claude',
-    name: 'Claude',
-    category: 'ai',
-    connections: ['nextjs', 'nodejs'],
+    id: 'docker',
+    name: 'Docker (Familiar)',
+    category: 'cloud',
+    connections: ['postgresql', 'redis'],
     core: false,
+  },
+
+  // ─── AI Workflows & Tooling ───
+  {
+    id: 'gemini-api',
+    name: 'Gemini API & LLMs',
+    category: 'ai',
+    connections: ['python', 'django', 'nextjs'],
+    core: true,
+  },
+  {
+    id: 'claude-code',
+    name: 'Claude Code & Agentic Workflows',
+    category: 'ai',
+    connections: ['git', 'nextjs', 'python'],
+    core: true,
   },
   {
     id: 'github-copilot',
-    name: 'GitHub Copilot',
+    name: 'GitHub Copilot Prompting',
     category: 'ai',
-    connections: ['django', 'nodejs', 'react', 'typescript', 'html', 'tailwind', 'javascript', 'nextjs', 'microsoft-copilot'],
+    connections: ['typescript', 'python'],
     core: false,
   },
   {
-    id: 'gemini-cli',
-    name: 'Gemini CLI',
+    id: 'posthog',
+    name: 'PostHog Analytics',
     category: 'ai',
-    connections: ['google-ai-studio', 'gemini', 'nextjs', 'javascript', 'typescript', 'django', 'html'],
+    connections: ['nextjs', 'django'],
     core: false,
   },
   {
-    id: 'stitch',
-    name: 'Stitch',
+    id: 'sentry',
+    name: 'Sentry Telemetry',
     category: 'ai',
-    connections: ['google-ai-studio', 'gemini'],
+    connections: ['nodejs', 'react-native'],
     core: false,
   },
   {
-    id: 'google-ai-studio',
-    name: 'Google AI Studio',
+    id: 'git',
+    name: 'Git & GitHub',
     category: 'ai',
-    connections: ['gemini', 'gemini-cli', 'nextjs', 'javascript', 'tailwind', 'html'],
+    connections: ['vercel', 'render'],
+    core: true,
+  },
+
+  // ─── Secondary Languages & Tools ───
+  {
+    id: 'c-lang',
+    name: 'C Language',
+    category: 'backend',
+    connections: ['python'],
     core: false,
   },
   {
-    id: 'canva-ai',
-    name: 'Canva AI',
-    category: 'ai',
-    connections: ['css', 'html'],
+    id: 'sql',
+    name: 'SQL (Triggers & Functions)',
+    category: 'backend',
+    connections: ['postgresql'],
     core: false,
   },
   {
-    id: 'gemini',
-    name: 'Gemini',
-    category: 'ai',
-    connections: ['google-ai-studio', 'react', 'nextjs', 'javascript', 'typescript', 'django', 'html'],
+    id: 'gsap',
+    name: 'GSAP Animations',
+    category: 'frontend',
+    connections: ['javascript', 'html'],
     core: false,
   },
   {
-    id: 'microsoft-copilot',
-    name: 'Microsoft Copilot',
-    category: 'ai',
-    connections: ['django', 'nodejs', 'react', 'typescript', 'nextjs', 'javascript', 'tailwind', 'html', 'github-copilot'],
+    id: 'html',
+    name: 'HTML5 & CSS3',
+    category: 'frontend',
+    connections: ['javascript', 'tailwind'],
     core: false,
   },
 ];
 
 export const skillCategories = [
-  { id: 'all', label: 'All' },
-  { id: 'frontend', label: 'Frontend' },
-  { id: 'backend', label: 'Backend' },
-  { id: 'tools', label: 'Tools & Workflow' },
-  { id: 'ai', label: 'AI Ecosystem' },
+  { id: 'all', label: 'All Stack' },
+  { id: 'core', label: '★ Daily Core' },
+  { id: 'frontend', label: 'Frontend & Mobile' },
+  { id: 'backend', label: 'Backend & Data' },
+  { id: 'security', label: 'Security & Systems' },
+  { id: 'cloud', label: 'Cloud & Queues' },
+  { id: 'ai', label: 'AI & Tooling' },
 ];

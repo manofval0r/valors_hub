@@ -80,11 +80,11 @@ export default function BreathingSmile() {
                     className="absolute top-[45%] left-0 w-full h-[100px]"
                 >
                     <motion.path
+                        d="M 25 50 Q 50 30 75 50"
                         stroke="#e0e1dd"
                         strokeWidth="3"
                         strokeLinecap="round"
                         fill="none"
-                        initial={{ d: "M 25 50 Q 50 30 75 50" }}
                         animate={{
                             d: [
                                 "M 25 50 Q 50 30 75 50", // Start at Smile

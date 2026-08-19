@@ -1,325 +1,374 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
-import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from 'framer-motion';
+import { useState, useMemo, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { projects } from '@/data/projects';
+import Image from 'next/image';
+import { projects, Project } from '@/data/projects';
 import { resolveVideoSource } from '@/lib/cloudinary';
 
-// One accent per slide — intentional, not random
-const SLIDE_ACCENTS = [
-    { bg: '#030d18', accent: '#52b788', glow: 'rgba(82,183,136,0.12)' },     // Koji     — teal
-    { bg: '#0d0a18', accent: '#a78bfa', glow: 'rgba(167,139,250,0.12)' },    // Amber    — violet
-    { bg: '#110d04', accent: '#fb923c', glow: 'rgba(251,146,60,0.12)' },     // BudgetFit— amber
-    { bg: '#04100d', accent: '#34d399', glow: 'rgba(52,211,153,0.12)' },     // Restaurant— emerald
-    { bg: '#080418', accent: '#818cf8', glow: 'rgba(129,140,248,0.12)' },    // What's Next— indigo
-    { bg: '#100408', accent: '#f472b6', glow: 'rgba(244,114,182,0.12)' },    // Junxtion — pink
-    { bg: '#04080f', accent: '#38bdf8', glow: 'rgba(56,189,248,0.12)' },     // Midwife  — sky
-    { bg: '#0c0e04', accent: '#a3e635', glow: 'rgba(163,230,53,0.12)' },     // Solar    — lime
-    { bg: '#100812', accent: '#e879f9', glow: 'rgba(232,121,249,0.12)' },    // Klo's    — fuchsia
-    { bg: '#030810', accent: '#67e8f9', glow: 'rgba(103,232,249,0.12)' },    // Client Portfolios — cyan
-    { bg: '#0a0604', accent: '#fdba74', glow: 'rgba(253,186,116,0.12)' },    // VoicePatches — orange
-    { bg: '#050c0a', accent: '#6ee7b7', glow: 'rgba(110,231,183,0.12)' },    // Hashebi  — mint
-];
+const CATEGORIES = [
+    { id: 'all', label: 'All' },
+    { id: 'full-stack', label: 'Full Stack' },
+    { id: 'web', label: 'Web' },
+    { id: 'side-project', label: 'Side Projects' },
+] as const;
 
-// Category display labels
-const CATEGORY_LABELS: Record<string, string> = {
-    'full-stack': 'Full Stack',
-    'web': 'Web',
-    'side-project': 'Side Project',
-};
+export default function WorkPage() {
+    const [selectedCategory, setSelectedCategory] = useState<string>('all');
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [hoveredProjectId, setHoveredProjectId] = useState<string>(projects[0]?.id || '10');
+    const videoRef = useRef<HTMLVideoElement>(null);
 
-export default function WorkArchive() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [isTransitioning, setIsTransitioning] = useState(false);
+    // Filter projects by category and search query
+    const filteredProjects = useMemo(() => {
+        return projects.filter((p) => {
+            const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
+            const query = searchQuery.toLowerCase().trim();
+            const matchesSearch =
+                !query ||
+                p.title.toLowerCase().includes(query) ||
+                p.tagline.toLowerCase().includes(query) ||
+                p.techStack.some((t) => t.toLowerCase().includes(query)) ||
+                p.client.toLowerCase().includes(query);
+            return matchesCat && matchesSearch;
+        });
+    }, [selectedCategory, searchQuery]);
 
-    // Spring-animated slide index for smooth in-between states
-    const slideProgress = useMotionValue(0);
-    const smoothProgress = useSpring(slideProgress, { stiffness: 80, damping: 20 });
+    // Active project for the desktop sticky preview dock
+    const activeProject: Project = useMemo(() => {
+        const found = filteredProjects.find((p) => p.id === hoveredProjectId);
+        return found || filteredProjects[0] || projects[0];
+    }, [hoveredProjectId, filteredProjects]);
 
-    const total = projects.length;
-
-    const navigateTo = useCallback((idx: number) => {
-        const clamped = Math.max(0, Math.min(total - 1, idx));
-        if (clamped === activeIndex || isTransitioning) return;
-        setIsTransitioning(true);
-        setActiveIndex(clamped);
-        slideProgress.set(clamped);
-        setTimeout(() => setIsTransitioning(false), 600);
-    }, [activeIndex, isTransitioning, total, slideProgress]);
-
-    // Scroll hijack — wheel maps to slide navigation
-    useEffect(() => {
-        let accum = 0;
-        let lastTime = 0;
-        const THRESHOLD = 80;
-        const COOLDOWN = 500; // ms
-
-        const onWheel = (e: WheelEvent) => {
-            // Only hijack if the page hasn't scrolled past the reel
-            if (!containerRef.current) return;
-            const rect = containerRef.current.getBoundingClientRect();
-            if (rect.top > 60 || rect.bottom < window.innerHeight * 0.5) return;
-
-            e.preventDefault();
-            const now = Date.now();
-            if (now - lastTime < COOLDOWN) return;
-
-            accum += e.deltaY;
-            if (Math.abs(accum) > THRESHOLD) {
-                const dir = accum > 0 ? 1 : -1;
-                accum = 0;
-                lastTime = now;
-                setActiveIndex(prev => {
-                    const next = Math.max(0, Math.min(total - 1, prev + dir));
-                    slideProgress.set(next);
-                    return next;
-                });
-            }
-        };
-
-        window.addEventListener('wheel', onWheel, { passive: false });
-        return () => window.removeEventListener('wheel', onWheel);
-    }, [total, slideProgress]);
-
-    // Arrow key navigation
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigateTo(activeIndex + 1);
-            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigateTo(activeIndex - 1);
-        };
-        window.addEventListener('keydown', onKey);
-        return () => window.removeEventListener('keydown', onKey);
-    }, [activeIndex, navigateTo]);
-
-    // Touch swipe
-    const touchStart = useRef(0);
-    const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
-    const onTouchEnd = (e: React.TouchEvent) => {
-        const delta = touchStart.current - e.changedTouches[0].clientX;
-        if (Math.abs(delta) > 50) navigateTo(activeIndex + (delta > 0 ? 1 : -1));
-    };
-
-    const project = projects[activeIndex];
-    const accent = SLIDE_ACCENTS[activeIndex % SLIDE_ACCENTS.length];
-    const hasVideo = !!(project.videoUrl || project.videoPublicId);
+    const activeVideoSrc = resolveVideoSource({
+        videoPublicId: activeProject?.videoPublicId,
+        videoUrl: activeProject?.videoUrl,
+    });
 
     return (
-        <main className="min-h-screen bg-[#030910] select-none">
-            {/* ── Fixed slide title in top-left ── */}
-            <div className="fixed top-24 left-8 md:left-14 z-30 pointer-events-none">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={activeIndex}
-                        initial={{ opacity: 0, y: 12 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -12 }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                        <p className="text-[10px] font-mono uppercase tracking-[0.35em] mb-2" style={{ color: accent.accent }}>
-                            {String(activeIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-                        </p>
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-light text-[#e0e1dd] leading-[1.1] tracking-tight max-w-[600px]">
-                            {project.title}
+        <main className="min-h-screen bg-[#030910] text-[#e0e1dd] pt-24 pb-20 px-4 md:px-8 lg:px-16 selection:bg-[#52b788]/20 selection:text-[#52b788]">
+            {/* ── Page Header ── */}
+            <div className="max-w-7xl mx-auto mb-10 md:mb-14">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-[#778da9]/15">
+                    <div>
+                        <div className="flex items-center gap-3 mb-2">
+                            <span className="w-2 h-2 rounded-full bg-[#52b788] animate-pulse" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#52b788]">
+                                Engineering Archive
+                            </span>
+                        </div>
+                        <h1 className="text-3xl md:text-5xl font-light tracking-tight text-[#e0e1dd]">
+                            All Projects
                         </h1>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
+                        <p className="text-xs md:text-sm text-[#778da9] font-mono mt-2 tracking-wide max-w-xl">
+                            A catalog of 16 full-stack platforms, client systems, and experimental prototypes.
+                        </p>
+                    </div>
 
-            {/* ── Vertical slide counter / dots on right ── */}
-            <div className="fixed right-6 md:right-10 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-3 items-center">
-                {projects.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => navigateTo(i)}
-                        className="w-1 rounded-full transition-all duration-300 cursor-pointer"
-                        style={{
-                            height: i === activeIndex ? 28 : 8,
-                            background: i === activeIndex ? accent.accent : 'rgba(119,141,169,0.3)',
-                        }}
-                        aria-label={`Go to project ${i + 1}`}
-                    />
-                ))}
-            </div>
+                    {/* Constellation CTA button */}
+                    <Link
+                        href="/constellation"
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-[#778da9]/20 hover:border-[#52b788]/50 hover:bg-[#52b788]/5 text-[11px] font-mono uppercase tracking-widest text-[#778da9] hover:text-[#52b788] transition-all rounded-sm w-fit"
+                    >
+                        <span>Project Constellation</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M7 17L17 7M17 7H7M17 7v10" />
+                        </svg>
+                    </Link>
+                </div>
 
-            {/* ── Main reel ── */}
-            <div
-                ref={containerRef}
-                className="fixed inset-0 overflow-hidden"
-                onTouchStart={onTouchStart}
-                onTouchEnd={onTouchEnd}
-            >
-                {projects.map((p, i) => {
-                    const ac = SLIDE_ACCENTS[i % SLIDE_ACCENTS.length];
-                    const isActive = i === activeIndex;
-                    const isPrev = i < activeIndex;
+                {/* ── Filters & Search Toolbar ── */}
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mt-6">
+                    {/* Category Filter Pills */}
+                    <div className="flex flex-wrap items-center gap-2">
+                        {CATEGORIES.map((cat) => {
+                            const count =
+                                cat.id === 'all'
+                                    ? projects.length
+                                    : projects.filter((p) => p.category === cat.id).length;
+                            const isActive = selectedCategory === cat.id;
 
-                    return (
-                        <motion.div
-                            key={p.id}
-                            className="absolute inset-0 will-change-transform"
-                            animate={{
-                                x: isPrev ? '-100%' : isActive ? '0%' : '100%',
-                                opacity: isActive ? 1 : 0.4,
-                            }}
-                            transition={{ duration: 0.65, ease: [0.76, 0, 0.24, 1] }}
-                            style={{ background: ac.bg }}
-                        >
-                            {/* Radial ambient glow */}
-                            <div
-                                className="absolute inset-0 pointer-events-none"
-                                style={{ background: `radial-gradient(ellipse 70% 60% at 65% 55%, ${ac.glow}, transparent 70%)` }}
-                            />
-
-                            {/* Dot matrix grid */}
-                            <div className="absolute inset-0 pointer-events-none opacity-[0.08]"
-                                style={{ backgroundImage: 'radial-gradient(#e0e1dd 0.7px, transparent 0.7px)', backgroundSize: '36px 36px' }} />
-
-                            {/* Content layout — two-column on desktop */}
-                            <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-8 md:px-20 lg:px-32 pt-28 pb-20">
-
-                                {/* ── Left: meta info ── */}
-                                <motion.div
-                                    className="flex flex-col gap-6 w-full md:w-[420px] flex-shrink-0"
-                                    animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : 30 }}
-                                    transition={{ duration: 0.5, delay: isActive ? 0.2 : 0, ease: [0.22, 1, 0.36, 1] }}
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setSelectedCategory(cat.id)}
+                                    className={`px-3.5 py-1.5 rounded-sm text-[10px] font-mono uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+                                        isActive
+                                            ? 'bg-[#e0e1dd] text-[#030910] font-medium shadow-sm'
+                                            : 'bg-[#0d1b2a]/60 text-[#778da9] border border-[#778da9]/20 hover:border-[#778da9]/40 hover:text-[#e0e1dd]'
+                                    }`}
                                 >
-                                    {/* Category badge */}
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-2 h-2 rounded-full" style={{ background: ac.accent }} />
-                                        <span className="text-[10px] font-mono uppercase tracking-[0.3em]" style={{ color: ac.accent }}>
-                                            {CATEGORY_LABELS[p.category] || p.category}
-                                        </span>
-                                        <span className="text-[#778da9]/40 text-[10px] font-mono">{p.date}</span>
+                                    <span>{cat.label}</span>
+                                    <span
+                                        className={`text-[9px] px-1.5 py-0.2 rounded-full ${
+                                            isActive
+                                                ? 'bg-[#030910]/20 text-[#030910]'
+                                                : 'bg-[#778da9]/10 text-[#778da9]'
+                                        }`}
+                                    >
+                                        {count}
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    {/* Search Input */}
+                    <div className="relative min-w-[220px] sm:max-w-xs">
+                        <input
+                            type="text"
+                            placeholder="Filter by tech or keyword..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full bg-[#0d1b2a]/40 border border-[#778da9]/20 rounded-sm px-3.5 py-1.5 text-xs text-[#e0e1dd] placeholder-[#778da9]/50 font-mono focus:outline-none focus:border-[#52b788]/60 transition-colors"
+                        />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#778da9] hover:text-[#e0e1dd] text-xs font-mono"
+                            >
+                                ✕
+                            </button>
+                        )}
+                    </div>
+                </div>
+            </div>
+
+            {/* ── Main Layout: Split Desktop / Stacked Mobile ── */}
+            <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                {/* ── Left Column: Projects Index List (lg:col-span-7) ── */}
+                <div className="lg:col-span-7 flex flex-col gap-4">
+                    {filteredProjects.length === 0 ? (
+                        <div className="p-12 border border-dashed border-[#778da9]/20 rounded-sm text-center">
+                            <p className="text-sm font-mono text-[#778da9] uppercase tracking-widest">
+                                No projects match your criteria.
+                            </p>
+                            <button
+                                onClick={() => {
+                                    setSelectedCategory('all');
+                                    setSearchQuery('');
+                                }}
+                                className="mt-4 text-xs font-mono text-[#52b788] underline tracking-wider"
+                            >
+                                Clear filters
+                            </button>
+                        </div>
+                    ) : (
+                        filteredProjects.map((project, index) => {
+                            const isSelected = activeProject?.id === project.id;
+                            const projectNum = String(index + 1).padStart(2, '0');
+
+                            return (
+                                <div
+                                    key={project.id}
+                                    onMouseEnter={() => setHoveredProjectId(project.id)}
+                                    className={`group relative p-5 md:p-6 border transition-all duration-300 rounded-sm ${
+                                        isSelected
+                                            ? 'bg-[#0d1b2a]/80 border-[#52b788]/40 shadow-[0_4px_24px_rgba(0,0,0,0.4)]'
+                                            : 'bg-[#0d1b2a]/30 border-[#778da9]/15 hover:border-[#778da9]/40 hover:bg-[#0d1b2a]/50'
+                                    }`}
+                                >
+                                    {/* Active Left Indicator Bar */}
+                                    <div
+                                        className={`absolute left-0 top-0 bottom-0 w-[2px] transition-colors duration-300 ${
+                                            isSelected ? 'bg-[#52b788]' : 'bg-transparent'
+                                        }`}
+                                    />
+
+                                    {/* Mobile Media Preview (Visible only on mobile screens < lg) */}
+                                    <div className="block lg:hidden mb-4 rounded-sm overflow-hidden border border-[#778da9]/20 aspect-[16/9] relative bg-black/40">
+                                        {resolveVideoSource({ videoPublicId: project.videoPublicId, videoUrl: project.videoUrl }) ? (
+                                            <video
+                                                src={resolveVideoSource({ videoPublicId: project.videoPublicId, videoUrl: project.videoUrl })}
+                                                poster={project.imageUrl}
+                                                muted
+                                                loop
+                                                playsInline
+                                                autoPlay
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <Image
+                                                src={project.imageUrl}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover"
+                                                sizes="(max-width: 1024px) 100vw, 50vw"
+                                            />
+                                        )}
                                     </div>
 
-                                    {/* Tagline */}
-                                    <p className="text-[#778da9] text-sm md:text-base font-light leading-relaxed max-w-sm">
-                                        {p.tagline}
+                                    {/* Header Row: Index & Category */}
+                                    <div className="flex items-center justify-between gap-4 mb-2">
+                                        <div className="flex items-center gap-3">
+                                            <span className="text-xs font-mono text-[#778da9]/70 tracking-widest">
+                                                #{projectNum}
+                                            </span>
+                                            <span className="text-[9px] font-mono uppercase tracking-[0.2em] px-2 py-0.5 border border-[#778da9]/20 text-[#778da9] rounded-sm">
+                                                {project.category === 'full-stack'
+                                                    ? 'Full Stack'
+                                                    : project.category === 'side-project'
+                                                    ? 'Side Project'
+                                                    : 'Web'}
+                                            </span>
+                                        </div>
+                                        <span className="text-[10px] font-mono text-[#778da9]/50 tracking-wider">
+                                            {project.date}
+                                        </span>
+                                    </div>
+
+                                    {/* Title & Tagline */}
+                                    <Link href={`/work/${project.slug}`} className="block group-hover:text-[#52b788] transition-colors">
+                                        <h2 className="text-lg md:text-xl font-normal text-[#e0e1dd] group-hover:text-[#52b788] transition-colors flex items-center justify-between">
+                                            <span>{project.title}</span>
+                                            <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity text-[#52b788]">
+                                                →
+                                            </span>
+                                        </h2>
+                                    </Link>
+                                    <p className="text-xs text-[#778da9] font-mono mt-1 mb-4 leading-relaxed">
+                                        {project.tagline}
                                     </p>
 
-                                    {/* Description */}
-                                    <p className="text-[#e0e1dd]/50 text-xs leading-relaxed max-w-sm line-clamp-4 md:line-clamp-5">
-                                        {p.description}
-                                    </p>
-
-                                    {/* Tech stack */}
-                                    {p.techStack.length > 0 && (
-                                        <div className="flex flex-wrap gap-2">
-                                            {p.techStack.slice(0, 5).map(t => (
+                                    {/* Tech Stack Pills */}
+                                    {project.techStack && project.techStack.length > 0 && (
+                                        <div className="flex flex-wrap gap-1.5 mb-4">
+                                            {project.techStack.map((tech) => (
                                                 <span
-                                                    key={t}
-                                                    className="text-[9px] px-2.5 py-1 font-mono uppercase tracking-widest border"
-                                                    style={{ borderColor: `${ac.accent}30`, color: ac.accent, background: `${ac.accent}08` }}
+                                                    key={tech}
+                                                    className="text-[9px] font-mono px-2 py-0.5 bg-[#030910]/40 text-[#778da9] border border-[#778da9]/15 rounded-sm"
                                                 >
-                                                    {t}
+                                                    {tech}
                                                 </span>
                                             ))}
                                         </div>
                                     )}
 
-                                    {/* CTAs */}
-                                    <div className="flex items-center gap-4 pt-2">
+                                    {/* Action Links */}
+                                    <div className="flex items-center gap-4 pt-2 border-t border-[#778da9]/10 text-xs font-mono">
                                         <Link
-                                            href={`/work/${p.slug}`}
-                                            className="group flex items-center gap-2 text-xs font-mono uppercase tracking-widest border px-5 py-2.5 transition-all duration-300"
-                                            style={{ borderColor: ac.accent, color: ac.accent }}
+                                            href={`/work/${project.slug}`}
+                                            className="text-[#e0e1dd] hover:text-[#52b788] transition-colors flex items-center gap-1.5 uppercase tracking-wider text-[10px]"
                                         >
-                                            Case Study
-                                            <svg className="group-hover:translate-x-1 transition-transform" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                                <path d="M5 12h14M12 5l7 7-7 7" />
-                                            </svg>
+                                            <span>Case Study</span>
+                                            <span>→</span>
                                         </Link>
-                                        {p.liveLink && (
+                                        {project.liveLink && (
                                             <a
-                                                href={p.liveLink}
+                                                href={project.liveLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-[10px] font-mono uppercase tracking-widest text-[#778da9] hover:text-[#e0e1dd] transition-colors"
+                                                className="text-[#778da9] hover:text-[#e0e1dd] transition-colors uppercase tracking-wider text-[10px]"
                                             >
-                                                Live ↗
+                                                Live Site ↗
                                             </a>
                                         )}
-                                        {p.collaborator && (
-                                            <span className="text-[9px] font-mono text-[#778da9]/50 uppercase tracking-widest">
-                                                w/ {p.collaborator.name}
-                                            </span>
+                                        {project.codeLink && (
+                                            <a
+                                                href={project.codeLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-[#778da9] hover:text-[#e0e1dd] transition-colors uppercase tracking-wider text-[10px]"
+                                            >
+                                                Code ↗
+                                            </a>
                                         )}
                                     </div>
-                                </motion.div>
+                                </div>
+                            );
+                        })
+                    )}
+                </div>
 
-                                {/* ── Right: visual ── */}
+                {/* ── Right Column: Sticky Visual Dock (Desktop only lg:col-span-5) ── */}
+                <div className="hidden lg:block lg:col-span-5 sticky top-28">
+                    <div className="bg-[#0d1b2a]/80 backdrop-blur-xl border border-[#778da9]/20 rounded-sm p-6 shadow-2xl overflow-hidden relative">
+                        {/* Ambient glow */}
+                        <div className="absolute -top-20 -right-20 w-48 h-48 bg-[#52b788]/10 rounded-full blur-3xl pointer-events-none" />
+
+                        {/* Top Coordinate Header */}
+                        <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#778da9]/15 text-[9px] font-mono uppercase tracking-[0.25em] text-[#778da9]">
+                            <span>PREVIEW DOCK</span>
+                            <span className="text-[#52b788]">ACTIVE</span>
+                        </div>
+
+                        {/* Video / Image Screen */}
+                        <div className="relative aspect-[16/10] rounded-sm overflow-hidden border border-[#778da9]/20 bg-black/60 mb-5">
+                            <AnimatePresence mode="wait">
                                 <motion.div
-                                    className="relative flex-1 w-full md:w-auto h-[40vh] md:h-[65vh] max-h-[700px]"
-                                    animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.96 }}
-                                    transition={{ duration: 0.6, delay: isActive ? 0.15 : 0, ease: [0.22, 1, 0.36, 1] }}
+                                    key={activeProject.id}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.98 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="w-full h-full relative"
                                 >
-                                    {/* Glow halo behind media */}
-                                    <div
-                                        className="absolute -inset-6 pointer-events-none rounded-sm blur-3xl opacity-40"
-                                        style={{ background: ac.glow }}
-                                    />
-
-                                    {/* Media container */}
-                                    <div className="relative w-full h-full border overflow-hidden" style={{ borderColor: `${ac.accent}20` }}>
-                                        {hasVideo ? (
-                                            <video
-                                                key={p.id}
-                                                src={resolveVideoSource({ videoPublicId: p.videoPublicId, videoUrl: p.videoUrl })}
-                                                className="w-full h-full object-cover"
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                            />
-                                        ) : (
-                                            <img
-                                                src={p.imageUrl}
-                                                alt={p.title}
-                                                className="w-full h-full object-cover"
-                                            />
-                                        )}
-
-                                        {/* Glass overlay — subtle label bottom-left */}
-                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-5">
-                                            <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">
-                                                {p.client}
-                                            </span>
-                                        </div>
-                                    </div>
-
-                                    {/* Corner accent lines */}
-                                    <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 pointer-events-none" style={{ borderColor: ac.accent }} />
-                                    <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 pointer-events-none" style={{ borderColor: ac.accent }} />
+                                    {activeVideoSrc ? (
+                                        <video
+                                            ref={videoRef}
+                                            key={activeVideoSrc}
+                                            src={activeVideoSrc}
+                                            poster={activeProject.imageUrl}
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <Image
+                                            src={activeProject.imageUrl}
+                                            alt={activeProject.title}
+                                            fill
+                                            className="object-cover"
+                                            sizes="40vw"
+                                        />
+                                    )}
                                 </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Active Project Meta */}
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between">
+                                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#52b788]">
+                                    {activeProject.client}
+                                </span>
+                                <span className="text-[10px] font-mono text-[#778da9]">
+                                    {activeProject.date}
+                                </span>
                             </div>
-                        </motion.div>
-                    );
-                })}
-            </div>
 
-            {/* ── Bottom: prev/next arrows + scroll hint ── */}
-            <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
-                <button
-                    onClick={() => navigateTo(activeIndex - 1)}
-                    disabled={activeIndex === 0}
-                    className="w-10 h-10 border border-[#778da9]/20 flex items-center justify-center text-[#778da9] hover:text-[#e0e1dd] hover:border-[#778da9]/60 disabled:opacity-20 transition-all cursor-pointer"
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
-                </button>
+                            <h3 className="text-xl font-normal text-[#e0e1dd] leading-snug">
+                                {activeProject.title}
+                            </h3>
 
-                <span className="text-[#778da9]/40 text-[10px] font-mono uppercase tracking-widest hidden md:block">
-                    Scroll or arrow keys to navigate
-                </span>
+                            <p className="text-xs text-[#778da9] font-mono leading-relaxed line-clamp-3">
+                                {activeProject.description}
+                            </p>
 
-                <button
-                    onClick={() => navigateTo(activeIndex + 1)}
-                    disabled={activeIndex === total - 1}
-                    className="w-10 h-10 border border-[#778da9]/20 flex items-center justify-center text-[#778da9] hover:text-[#e0e1dd] hover:border-[#778da9]/60 disabled:opacity-20 transition-all cursor-pointer"
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                </button>
+                            <div className="pt-4 mt-2 border-t border-[#778da9]/15 flex items-center justify-between gap-4">
+                                <Link
+                                    href={`/work/${activeProject.slug}`}
+                                    className="flex-1 py-2.5 bg-[#e0e1dd] hover:bg-white text-[#030910] text-center text-xs font-mono uppercase tracking-widest font-medium transition-colors rounded-sm"
+                                >
+                                    Explore Case Study →
+                                </Link>
+                                {activeProject.liveLink && (
+                                    <a
+                                        href={activeProject.liveLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2.5 border border-[#778da9]/30 hover:border-[#e0e1dd] text-[#778da9] hover:text-[#e0e1dd] text-xs font-mono uppercase tracking-widest transition-colors rounded-sm"
+                                    >
+                                        Live ↗
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     );
