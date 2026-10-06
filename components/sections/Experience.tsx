@@ -12,7 +12,7 @@ export default function Experience() {
             <div className="flex flex-col gap-16">
                 {/* ── Section Header ── */}
                 <motion.div
-                    className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#778da9]/15"
+                    className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[var(--rule)]/15"
                     variants={fadeInUp}
                     initial="hidden"
                     whileInView="visible"
@@ -20,16 +20,16 @@ export default function Experience() {
                 >
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <span className="w-2 h-2 rounded-full bg-[#52b788]" />
-                            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#52b788]">
+                            <span className="w-2 h-2 rounded-full bg-[var(--ink-strong)]" />
+                            <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--ink-strong)]">
                                 Track Record & Education
                             </span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-light text-[#e0e1dd] tracking-tight">
+                        <h2 className="text-3xl md:text-5xl font-light text-[var(--ink-strong)] tracking-tight">
                             Experience & Verified Impact
                         </h2>
                     </div>
-                    <span className="text-xs font-mono text-[#778da9] uppercase tracking-widest">
+                    <span className="text-xs font-mono text-[var(--ink-faint)] uppercase tracking-widest">
                         5 Shipped Roles · 8 Codebases
                     </span>
                 </motion.div>
@@ -45,12 +45,12 @@ export default function Experience() {
                         viewport={{ once: true }}
                     >
                         <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-normal text-[#e0e1dd] font-mono uppercase tracking-wider flex items-center gap-2">
+                            <h3 className="text-xl font-normal text-[var(--ink-strong)] font-mono uppercase tracking-wider flex items-center gap-2">
                                 <span>// Work Experience</span>
                             </h3>
                         </div>
 
-                        <div className="flex flex-col gap-10 relative border-l border-[#778da9]/20 pl-6 md:pl-8 ml-2">
+                        <div className="flex flex-col gap-10 relative border-l border-[var(--rule)]/20 pl-6 md:pl-8 ml-2">
                             {experience.map((exp) => (
                                 <motion.div
                                     key={exp.id}
@@ -58,38 +58,38 @@ export default function Experience() {
                                     variants={fadeInUp}
                                 >
                                     {/* Timeline Node */}
-                                    <div className="absolute -left-[31px] md:-left-[39px] top-2 w-[8px] h-[8px] bg-[#0d1b2a] border border-[#52b788] rotate-45 group-hover:bg-[#52b788] transition-colors" />
+                                    <div className="absolute -left-[31px] md:-left-[39px] top-2 w-[8px] h-[8px] bg-[var(--ground)] border border-[var(--rule-strong)] rotate-45 group-hover:bg-[var(--ink-strong)] transition-colors" />
 
                                     <div className="flex flex-col gap-1.5">
                                         <div className="flex flex-wrap items-center justify-between gap-2">
-                                            <span className="text-[#52b788] text-[11px] font-mono tracking-widest uppercase">
+                                            <span className="text-[var(--ink-strong)] text-[11px] font-mono tracking-widest uppercase">
                                                 {exp.startDate} — {exp.endDate}
                                             </span>
-                                            <span className="text-[10px] font-mono text-[#778da9]/60 uppercase tracking-widest">
+                                            <span className="text-[10px] font-mono text-[var(--ink-faint)]/60 uppercase tracking-widest">
                                                 {exp.location}
                                             </span>
                                         </div>
 
-                                        <h4 className="text-xl md:text-2xl text-[#e0e1dd] font-normal leading-snug">
+                                        <h4 className="text-xl md:text-2xl text-[var(--ink-strong)] font-normal leading-snug">
                                             {exp.role}
                                         </h4>
 
-                                        <span className="text-sm font-mono text-[#778da9]">
+                                        <span className="text-sm font-mono text-[var(--ink-faint)]">
                                             {exp.company}
                                         </span>
 
                                         {/* Impact Highlight Badge */}
                                         {exp.impactHighlight && (
-                                            <div className="mt-2 p-2.5 bg-[#52b788]/5 border-l-2 border-[#52b788] text-[11px] font-mono text-[#52b788]/90 leading-relaxed">
-                                                <span className="font-semibold uppercase tracking-wider text-[#52b788]">Key Outcome: </span>
+                                            <div className="mt-2 p-2.5 bg-[var(--ground-2)] border-l-2 border-[var(--rule-strong)] text-[11px] font-mono text-[var(--ink-strong)]/90 leading-relaxed">
+                                                <span className="font-semibold uppercase tracking-wider text-[var(--ink-strong)]">Key Outcome: </span>
                                                 {exp.impactHighlight}
                                             </div>
                                         )}
 
                                         <ul className="mt-3 flex flex-col gap-2.5">
                                             {exp.details.map((detail, i) => (
-                                                <li key={i} className="text-[#e0e1dd]/75 text-xs md:text-sm leading-relaxed flex items-start gap-2.5 font-light">
-                                                    <span className="text-[#52b788] mt-1.5 font-mono text-[10px]">▹</span>
+                                                <li key={i} className="text-[var(--ink-strong)]/75 text-xs md:text-sm leading-relaxed flex items-start gap-2.5 font-light">
+                                                    <span className="text-[var(--ink-strong)] mt-1.5 font-mono text-[10px]">▹</span>
                                                     <span>{detail}</span>
                                                 </li>
                                             ))}
@@ -110,7 +110,7 @@ export default function Experience() {
                             whileInView="visible"
                             viewport={{ once: true }}
                         >
-                            <h3 className="text-xl font-normal text-[#e0e1dd] font-mono uppercase tracking-wider flex items-center gap-2">
+                            <h3 className="text-xl font-normal text-[var(--ink-strong)] font-mono uppercase tracking-wider flex items-center gap-2">
                                 <span>// Architectural Milestones</span>
                             </h3>
 
@@ -119,26 +119,26 @@ export default function Experience() {
                                     <motion.div
                                         key={ach.id}
                                         variants={fadeInUp}
-                                        className="p-4 border border-[#778da9]/20 bg-[#0d1b2a]/50 hover:border-[#52b788]/40 transition-colors rounded-sm flex flex-col gap-2"
+                                        className="p-4 border border-[var(--rule)]/20 bg-[var(--ground)]/50 hover:border-[var(--rule-strong)]/40 transition-colors rounded-sm flex flex-col gap-2"
                                     >
                                         <div className="flex items-center justify-between">
-                                            <span className="text-[10px] font-mono px-2 py-0.5 bg-[#52b788]/10 text-[#52b788] border border-[#52b788]/30 rounded-sm uppercase tracking-wider">
+                                            <span className="text-[10px] font-mono px-2 py-0.5 bg-[var(--ground-2)] text-[var(--ink-strong)] border border-[var(--rule-strong)]/30 rounded-sm uppercase tracking-wider">
                                                 {ach.metric}
                                             </span>
-                                            <span className="text-[9px] font-mono text-[#778da9]/70 uppercase tracking-widest">
+                                            <span className="text-[9px] font-mono text-[var(--ink-faint)]/70 uppercase tracking-widest">
                                                 {ach.tag}
                                             </span>
                                         </div>
 
-                                        <h5 className="text-sm font-normal text-[#e0e1dd]">
+                                        <h5 className="text-sm font-normal text-[var(--ink-strong)]">
                                             {ach.title}
                                         </h5>
 
-                                        <span className="text-[11px] font-mono text-[#778da9]">
+                                        <span className="text-[11px] font-mono text-[var(--ink-faint)]">
                                             {ach.subtitle}
                                         </span>
 
-                                        <p className="text-xs text-[#e0e1dd]/70 font-light leading-relaxed mt-1">
+                                        <p className="text-xs text-[var(--ink-strong)]/70 font-light leading-relaxed mt-1">
                                             {ach.impact}
                                         </p>
                                     </motion.div>
@@ -148,13 +148,13 @@ export default function Experience() {
 
                         {/* ── Education Section ── */}
                         <motion.div
-                            className="flex flex-col gap-4 pt-4 border-t border-[#778da9]/15"
+                            className="flex flex-col gap-4 pt-4 border-t border-[var(--rule)]/15"
                             variants={staggerContainer}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                         >
-                            <h3 className="text-lg font-normal text-[#e0e1dd] font-mono uppercase tracking-wider">
+                            <h3 className="text-lg font-normal text-[var(--ink-strong)] font-mono uppercase tracking-wider">
                                 // Education
                             </h3>
 
@@ -162,25 +162,25 @@ export default function Experience() {
                                 <motion.div
                                     key={edu.id}
                                     variants={fadeInUp}
-                                    className="p-5 border border-[#778da9]/20 bg-[#0d1b2a]/40 rounded-sm flex flex-col gap-2"
+                                    className="p-5 border border-[var(--rule)]/20 bg-[var(--ground)]/40 rounded-sm flex flex-col gap-2"
                                 >
-                                    <div className="flex justify-between items-center text-[10px] font-mono text-[#52b788]">
+                                    <div className="flex justify-between items-center text-[10px] font-mono text-[var(--ink-strong)]">
                                         <span>{edu.duration}</span>
-                                        <span className="text-[#778da9]">{edu.location}</span>
+                                        <span className="text-[var(--ink-faint)]">{edu.location}</span>
                                     </div>
-                                    <h4 className="text-base text-[#e0e1dd] font-normal leading-snug">
+                                    <h4 className="text-base text-[var(--ink-strong)] font-normal leading-snug">
                                         {edu.degree}
                                     </h4>
-                                    <span className="text-xs font-mono text-[#778da9]">
+                                    <span className="text-xs font-mono text-[var(--ink-faint)]">
                                         {edu.institution}
                                     </span>
-                                    <p className="text-xs text-[#e0e1dd]/70 font-light leading-relaxed mt-1">
+                                    <p className="text-xs text-[var(--ink-strong)]/70 font-light leading-relaxed mt-1">
                                         {edu.description}
                                     </p>
 
                                     <div className="flex flex-wrap gap-1.5 mt-2">
                                         {edu.focus.map((f) => (
-                                            <span key={f} className="text-[9px] font-mono px-2 py-0.5 bg-[#030910]/40 text-[#778da9] border border-[#778da9]/15 rounded-sm">
+                                            <span key={f} className="text-[9px] font-mono px-2 py-0.5 bg-[var(--ground-2)] text-[var(--ink-faint)] border border-[var(--rule)]/15 rounded-sm">
                                                 {f}
                                             </span>
                                         ))}
@@ -191,13 +191,13 @@ export default function Experience() {
 
                         {/* ── Credentials & Certifications ── */}
                         <motion.div
-                            className="flex flex-col gap-4 pt-4 border-t border-[#778da9]/15"
+                            className="flex flex-col gap-4 pt-4 border-t border-[var(--rule)]/15"
                             variants={staggerContainer}
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true }}
                         >
-                            <h3 className="text-lg font-normal text-[#e0e1dd] font-mono uppercase tracking-wider">
+                            <h3 className="text-lg font-normal text-[var(--ink-strong)] font-mono uppercase tracking-wider">
                                 // Credentials & AI Certifications
                             </h3>
 
@@ -209,18 +209,18 @@ export default function Experience() {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         variants={fadeInUp}
-                                        className="p-3.5 border border-[#778da9]/15 bg-[#0d1b2a]/30 hover:border-[#e0e1dd]/40 hover:bg-[#0d1b2a]/60 transition-all rounded-sm flex flex-col justify-between group"
+                                        className="p-3.5 border border-[var(--rule)]/15 bg-[var(--ground)]/30 hover:border-[var(--rule-strong)] hover:bg-[var(--ground)]/60 transition-all rounded-sm flex flex-col justify-between group"
                                     >
                                         <div className="flex flex-col gap-1">
                                             <div className="flex justify-between items-center">
-                                                <span className="text-[9px] font-mono text-[#52b788]">{cert.date}</span>
-                                                <span className="text-[10px] text-[#778da9] group-hover:text-[#e0e1dd] transition-colors">↗</span>
+                                                <span className="text-[9px] font-mono text-[var(--ink-strong)]">{cert.date}</span>
+                                                <span className="text-[10px] text-[var(--ink-faint)] group-hover:text-[var(--ink-strong)] transition-colors">↗</span>
                                             </div>
-                                            <h5 className="text-xs text-[#e0e1dd] leading-snug group-hover:text-[#52b788] transition-colors">
+                                            <h5 className="text-xs text-[var(--ink-strong)] leading-snug group-hover:text-[var(--ink-strong)] transition-colors">
                                                 {cert.name}
                                             </h5>
                                         </div>
-                                        <span className="text-[9px] font-mono text-[#778da9]/60 mt-2 uppercase tracking-wider">
+                                        <span className="text-[9px] font-mono text-[var(--ink-faint)]/60 mt-2 uppercase tracking-wider">
                                             {cert.issuer}
                                         </span>
                                     </motion.a>

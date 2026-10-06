@@ -5,18 +5,19 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { trackEvent } from '@/lib/analytics';
 
-// ─── Node definitions — 16 projects in a 3-ring orbital layout ───
+// ─── Node definitions — 17 projects in a 3-ring orbital layout ───
 // Ring 0 (centre): flagship full-stack projects
 // Ring 1 (inner):  substantial client + personal work
 // Ring 2 (outer):  side-projects and experimental builds
 const CONSTELLATION_NODES = [
     // Ring 0 — Flagship
-    { slug: 'koji-ai-chief-of-staff',         title: 'Koji',              tagline: 'AI Chief of Staff for Student Devs',         tech: ['React Native', 'Supabase', 'Node.js', 'LLMs'],                      ring: 0, angle: 0,    category: 'full-stack' },
+    { slug: 'koji-ai-chief-of-staff',         title: 'Koji',              tagline: 'AI Chief of Staff for Student Devs',         tech: ['React Native', 'Supabase', 'Node.js', 'LLMs'],                      ring: 0, angle: 0,    category: 'side-project' },
     { slug: 'amber',                           title: 'Amber',             tagline: 'Geospatial Mental Health Platform',          tech: ['Next.js', 'Supabase', 'Mapbox', 'TypeScript'],                     ring: 0, angle: 90,   category: 'full-stack' },
     { slug: 'budgetfit',                       title: 'BudgetFit',         tagline: 'Desktop Financial Tracker',                 tech: ['JavaFX', 'Java', 'SQLite', 'Maven'],                                ring: 0, angle: 180,  category: 'full-stack' },
-    { slug: 'whats-next',                      title: "What's Next",       tagline: 'AI-Powered Career Roadmap Generator',       tech: ['Django', 'React', 'Celery', 'Redis', 'LLMs'],                      ring: 0, angle: 270,  category: 'full-stack' },
+    { slug: 'whats-next',                      title: "What's Next",       tagline: 'AI-Powered Career Roadmap Generator',       tech: ['Django', 'React', 'Celery', 'Redis', 'LLMs'],                      ring: 0, angle: 270,  category: 'side-project' },
 
     // Ring 1 — Substantial work
+    { slug: 'ontrack',                           title: 'OnTrack',           tagline: 'Conversational AI Accountability Tracker',  tech: ['React', 'React Native', 'Django', 'Supabase', 'Nemotron AI'], ring: 1, angle: 337,  category: 'full-stack' },
     { slug: 'recengine',                       title: 'recEngine',         tagline: 'LangGraph Recommendation Agent',            tech: ['Python', 'FastAPI', 'LangGraph', 'Vector DB'],                     ring: 1, angle: 0,    category: 'full-stack' },
     { slug: 'the-junxtion-platform',           title: 'The Junxtion',      tagline: 'University Learning Platform',              tech: ['Next.js', 'TypeScript', 'Java', 'PostgreSQL'],                     ring: 1, angle: 45,   category: 'full-stack' },
     { slug: 'restaurant-website',              title: 'Sidedish Foods',    tagline: 'Restaurant Website with Order Flow',        tech: ['HTML', 'CSS', 'JavaScript', 'Node.js'],                            ring: 1, angle: 90,   category: 'web' },
@@ -33,35 +34,18 @@ const CONSTELLATION_NODES = [
     { slug: 'smthn-gd',                        title: 'SMTHN.GD',          tagline: 'Local AI Assistant Ecosystem',              tech: ['Python', 'Conda', 'PyTorch', 'DeepSeek'],                          ring: 2, angle: 292,  category: 'side-project' },
 ];
 
-// Tech → accent color for filter tags
-const TECH_COLORS: Record<string, string> = {
-    'Next.js':             '#52b788',
-    'React Native':        '#61dafb',
-    'LLMs':                '#a78bfa',
-    'LangGraph':           '#a78bfa',
-    'Supabase':            '#3ecf8e',
-    'TypeScript':          '#3178c6',
-    'Python':              '#f7c948',
-    'Framer Motion':       '#e879f9',
-    'Node.js':             '#8cc84b',
-    'HTML':                '#e34f26',
-    'Google Apps Script':  '#4285f4',
-    'Java':                '#f89820',
-    'JavaFX':              '#f89820',
-};
-
-// Category accent colours
-const CATEGORY_ACCENT: Record<string, string> = {
-    'full-stack': '#52b788',
-    'web':        '#38bdf8',
-    'side-project': '#fb923c',
+// Monochrome — density encodes match, never hue.
+const CATEGORY_INK: Record<string, string> = {
+    'full-stack': 'var(--ink-strong)',
+    'web': 'var(--ink-soft)',
+    'side-project': 'var(--ink-faint)',
 };
 
 // Technologies to show in the filter bar (union from above)
 const FILTER_TECHS = [
     'Next.js', 'Supabase', 'TypeScript', 'LLMs', 'Python',
-    'React Native', 'Node.js', 'Framer Motion', 'Google Apps Script',
-    'Java', 'HTML',
+    'React', 'React Native', 'Django', 'Node.js', 'Framer Motion',
+    'Google Apps Script', 'Java', 'HTML',
 ];
 
 // Ring radii
@@ -189,16 +173,10 @@ export default function GlobalConstellation() {
             <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
-                    opacity: 0.06,
-                    backgroundImage: 'radial-gradient(#778da9 0.8px, transparent 0.8px)',
+                    opacity: 0.5,
+                    backgroundImage: 'radial-gradient(var(--ground-dot) 1px, transparent 1px)',
                     backgroundSize: '36px 36px',
                 }}
-            />
-
-            {/* Radial glow at centre */}
-            <div
-                className="absolute inset-0 pointer-events-none"
-                style={{ background: 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(82,183,136,0.06), transparent 70%)' }}
             />
 
             {/* ── SVG layer: ring circles + edges ── */}
@@ -207,12 +185,6 @@ export default function GlobalConstellation() {
                 width={dimensions.w}
                 height={dimensions.h}
             >
-                <defs>
-                    <filter id="glow-edge">
-                        <feGaussianBlur stdDeviation="2.5" result="blur" />
-                        <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                    </filter>
-                </defs>
 
                 {/* Ring guide circles */}
                 {[1, 2].map(ring => (
@@ -221,10 +193,10 @@ export default function GlobalConstellation() {
                         cx={cx} cy={cy}
                         r={RING_RADII[ring]}
                         fill="none"
-                        stroke="#778da9"
+                        stroke="var(--ink-strong)"
                         strokeWidth="0.5"
                         strokeDasharray="4 8"
-                        opacity="0.15"
+                        opacity="0.18"
                     />
                 ))}
 
@@ -233,16 +205,14 @@ export default function GlobalConstellation() {
                     const sp = nodePositions[edge.source];
                     const tp = nodePositions[edge.target];
                     const active = isEdgeActive(edge);
-                    const accent = TECH_COLORS[edge.tech] || '#778da9';
                     return (
                         <line
                             key={i}
                             x1={sp.x} y1={sp.y}
                             x2={tp.x} y2={tp.y}
-                            stroke={active ? accent : '#778da9'}
-                            strokeWidth={active ? 1.2 : 0.5}
-                            opacity={active ? (activeFilter ? 0.65 : 0.2) : 0.05}
-                            filter={active && activeFilter ? 'url(#glow-edge)' : undefined}
+                            stroke="var(--ink-strong)"
+                            strokeWidth={active ? 1 : 0.6}
+                            opacity={active ? (activeFilter ? 0.6 : 0.18) : 0.05}
                             style={{ transition: 'opacity 0.4s ease, stroke-width 0.3s ease' }}
                         />
                     );
@@ -253,7 +223,7 @@ export default function GlobalConstellation() {
             {CONSTELLATION_NODES.map((node, idx) => {
                 const pos = nodePositions[idx];
                 const active = isNodeActive(idx);
-                const accent = CATEGORY_ACCENT[node.category];
+                const accent = CATEGORY_INK[node.category] ?? 'var(--ink-strong)';
                 const isHovered = tooltip?.nodeIdx === idx;
 
                 return (
@@ -273,10 +243,10 @@ export default function GlobalConstellation() {
                         }}
                         aria-label={node.title}
                     >
-                        {/* Outer pulse ring on hover */}
+                        {/* Outer ring on hover */}
                         <span
-                            className="absolute rounded-full -inset-3 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-40 transition-all duration-300"
-                            style={{ background: accent }}
+                            className="absolute rounded-full -inset-3 scale-75 group-hover:scale-100 opacity-0 group-hover:opacity-100 transition-all duration-300 border"
+                            style={{ borderColor: 'var(--ink-strong)' }}
                         />
                         {/* Node dot */}
                         <span
@@ -284,8 +254,8 @@ export default function GlobalConstellation() {
                             style={{
                                 width: NODE_R * 2,
                                 height: NODE_R * 2,
-                                background: isHovered ? accent : `${accent}99`,
-                                boxShadow: isHovered ? `0 0 16px ${accent}80` : 'none',
+                                background: 'var(--ink-strong)',
+                                opacity: isHovered ? 1 : 0.75,
                             }}
                         />
                     </Link>
@@ -297,7 +267,7 @@ export default function GlobalConstellation() {
                 {tooltip !== null && (() => {
                     const node = CONSTELLATION_NODES[tooltip.nodeIdx];
                     const pos = nodePositions[tooltip.nodeIdx];
-                    const accent = CATEGORY_ACCENT[node.category];
+                    const accent = 'var(--ink-strong)';
                     // Keep tooltip on screen
                     const toRight = pos.x < dimensions.w * 0.65;
                     const toBottom = pos.y < dimensions.h * 0.65;
@@ -316,25 +286,25 @@ export default function GlobalConstellation() {
                             }}
                         >
                             <div
-                                className="bg-[#0d1b2a]/95 backdrop-blur-xl border p-3"
-                                style={{ borderColor: `${accent}40` }}
+                                className="backdrop-blur-xl border p-3"
+                                style={{ borderColor: 'var(--rule-strong)', background: 'color-mix(in srgb, var(--ground) 94%, transparent)' }}
                             >
                                 <div className="flex items-center gap-2 mb-1.5">
                                     <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: accent }} />
-                                    <span className="text-[9px] font-mono uppercase tracking-[0.2em]" style={{ color: accent }}>
+                                    <span className="text-[9px] font-mono uppercase tracking-[0.2em]" style={{ color: 'var(--ink-soft)' }}>
                                         {node.category === 'full-stack' ? 'Full Stack' : node.category === 'side-project' ? 'Side Project' : 'Web'}
                                     </span>
                                 </div>
-                                <h4 className="text-[#e0e1dd] text-sm font-mono font-medium leading-tight mb-1">{node.title}</h4>
-                                <p className="text-[#778da9] text-[11px] leading-snug">{node.tagline}</p>
+                                <h4 className="text-sm font-mono font-medium leading-tight mb-1" style={{ color: 'var(--ink-strong)' }}>{node.title}</h4>
+                                <p className="text-[11px] leading-snug" style={{ color: 'var(--ink-faint)' }}>{node.tagline}</p>
                                 <div className="flex flex-wrap gap-1 mt-2">
                                     {node.tech.slice(0, 3).map(t => (
-                                        <span key={t} className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border border-[#778da9]/20 text-[#778da9]/70">
+                                        <span key={t} className="text-[8px] font-mono uppercase tracking-widest px-1.5 py-0.5 border" style={{ borderColor: 'var(--rule)', color: 'var(--ink-faint)' }}>
                                             {t}
                                         </span>
                                     ))}
                                 </div>
-                                <p className="text-[#52b788]/50 text-[9px] font-mono mt-2 uppercase tracking-widest">Click to view case study →</p>
+                                <p className="text-[9px] font-mono mt-2 uppercase tracking-widest" style={{ color: 'var(--ink-faint)' }}>Click to view case study</p>
                             </div>
                         </motion.div>
                     );
@@ -345,17 +315,17 @@ export default function GlobalConstellation() {
             <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex flex-wrap justify-center gap-2 max-w-[700px] px-4">
                 {FILTER_TECHS.map(tech => {
                     const active = activeFilter === tech;
-                    const color = TECH_COLORS[tech] || '#778da9';
                     return (
                         <button
                             key={tech}
                             onClick={() => handleFilterClick(tech)}
-                            className="px-3 py-1.5 text-[9px] font-mono uppercase tracking-widest border transition-all duration-250 cursor-pointer"
+                            aria-pressed={active}
+                            className="weight-hover px-3 py-1.5 text-[9px] font-mono uppercase tracking-widest border transition-colors cursor-pointer rounded-[2px]"
                             style={{
-                                borderColor: active ? color : 'rgba(119,141,169,0.2)',
-                                color: active ? color : '#778da9',
-                                background: active ? `${color}12` : 'transparent',
-                                boxShadow: active ? `0 0 12px ${color}30` : 'none',
+                                borderColor: active ? 'var(--ink-strong)' : 'var(--rule)',
+                                color: active ? 'var(--accent-ink)' : 'var(--ink-faint)',
+                                background: active ? 'var(--ink-strong)' : 'transparent',
+                                fontWeight: active ? 700 : 400,
                             }}
                         >
                             {tech}
@@ -365,30 +335,30 @@ export default function GlobalConstellation() {
                 {activeFilter && (
                     <button
                         onClick={() => setActiveFilter(null)}
-                        className="px-3 py-1.5 text-[9px] font-mono uppercase tracking-widest border border-[#778da9]/20 text-[#778da9]/50 hover:text-[#778da9] hover:border-[#778da9]/40 transition-all duration-200 cursor-pointer"
+                        className="px-3 py-1.5 text-[9px] font-mono uppercase tracking-widest border transition-colors cursor-pointer rounded-[2px]"
+                        style={{ borderColor: 'var(--rule)', color: 'var(--ink-faint)' }}
                     >
-                        Clear ✕
-                    </button>
+                        Clear</button>
                 )}
             </div>
 
-            {/* ── Legend ── */}
-            <div className="absolute top-6 right-6 z-30 flex flex-col gap-2">
-                {Object.entries(CATEGORY_ACCENT).map(([cat, color]) => (
+            {/* Legend: docked left so the world toggle keeps the right rail */}
+            <div className="absolute top-6 left-6 z-30 flex flex-col gap-2 px-3 py-2.5 border rounded-[2px] backdrop-blur-md" style={{ borderColor: 'var(--rule)', background: 'color-mix(in srgb, var(--ground) 85%, transparent)' }}>
+                {Object.entries(CATEGORY_INK).map(([cat, color]) => (
                     <div key={cat} className="flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
-                        <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#778da9]/60">
+                        <span className="text-[9px] font-mono uppercase tracking-[0.2em]" style={{ color: 'var(--ink-faint)' }}>
                             {cat === 'full-stack' ? 'Full Stack' : cat === 'side-project' ? 'Side Project' : 'Web'}
                         </span>
                     </div>
                 ))}
             </div>
 
-            {/* ── Instructions hint ── */}
-            <div className="absolute bottom-24 right-6 z-30 hidden md:flex flex-col gap-1 items-end">
-                <span className="text-[9px] font-mono text-[#778da9]/30 uppercase tracking-widest">Hover → inspect</span>
-                <span className="text-[9px] font-mono text-[#778da9]/30 uppercase tracking-widest">Click → case study</span>
-                <span className="text-[9px] font-mono text-[#778da9]/30 uppercase tracking-widest">Filter → highlight connections</span>
+            {/* Instructions hint */}
+            <div className="absolute bottom-24 left-6 z-30 hidden md:flex flex-col gap-1 items-start">
+                <span className="text-[9px] font-mono uppercase tracking-widest" style={{ color: 'var(--ink-faint)' }}>Hover to inspect</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest" style={{ color: 'var(--ink-faint)' }}>Click for case study</span>
+                <span className="text-[9px] font-mono uppercase tracking-widest" style={{ color: 'var(--ink-faint)' }}>Filter highlights connections</span>
             </div>
                 </>
             )}

@@ -53,7 +53,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                 {/* Text Details Column */}
                 <div className={`flex flex-col gap-6 text-left ${isEven ? 'order-1' : 'order-1 lg:order-2'}`}>
                     <motion.span
-                        className="text-[#778da9] text-sm uppercase tracking-[0.4em] font-normal"
+                        className="text-[var(--ink-faint)] text-sm uppercase tracking-[0.4em] font-normal"
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -62,7 +62,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     </motion.span>
 
                     <motion.h3
-                        className="text-4xl md:text-[40px] font-normal text-[#e0e1dd] leading-tight"
+                        className="text-4xl md:text-[40px] font-normal text-[var(--ink-strong)] leading-tight"
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -72,7 +72,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     </motion.h3>
 
                     <motion.p
-                        className="text-lg text-[#e0e1dd]/80 leading-relaxed max-w-xl"
+                        className="text-lg text-[var(--ink-strong)]/80 leading-relaxed max-w-xl"
                         initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
@@ -91,7 +91,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                         {project.techStack.map((tech) => (
                             <span
                                 key={tech}
-                                className="px-3 py-1 border border-[#e0e1dd]/20 rounded-full text-xs text-[#778da9] tracking-wider"
+                                className="px-3 py-1 border border-[var(--rule-strong)] rounded-full text-xs text-[var(--ink-faint)] tracking-wider"
                             >
                                 {tech}
                             </span>
@@ -107,7 +107,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     >
                         <Link
                             href={`/work/${project.slug}`}
-                            className="text-[#e0e1dd] group flex items-center gap-2 text-lg link-underline relative w-fit"
+                            className="text-[var(--ink-strong)] group flex items-center gap-2 text-lg link-underline relative w-fit"
                         >
                             View Case Study
                             <motion.span
@@ -121,10 +121,10 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                 href={project.liveLink}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-[#778da9] hover:text-[#e0e1dd] group flex items-center gap-2 text-base transition-colors"
+                                className="text-[var(--ink-faint)] hover:text-[var(--ink-strong)] group flex items-center gap-2 text-base transition-colors"
                             >
                                 Visit Live Site
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line>
                                 </svg>
                             </a>
@@ -132,27 +132,34 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                     </motion.div>
                 </div>
 
-                {/* Mockup Column */}
+                {/* Mockup Column: fitted frame, no bezel padding */}
                 <motion.div
                     className={`relative w-full aspect-[16/10] ${isEven ? 'order-2' : 'order-2 lg:order-1'}`}
-                    style={{ y }}
+                    style={{ y, perspective: 1200 }}
                 >
                     {/* Browser Mockup Frame */}
-                    <div
-                        className="w-full h-full border border-[#778da9]/20 rounded-lg overflow-hidden bg-[#0d1b2a] shadow-2xl relative transition-transform duration-500 hover:scale-[1.02]"
+                    <motion.div
+                        className="w-full h-full border rounded-[3px] overflow-hidden relative"
+                        style={{
+                            borderColor: 'var(--rule-strong)',
+                            background: 'var(--ground)',
+                            boxShadow: '0 24px 80px -24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.25)',
+                        }}
+                        whileHover={{ rotateX: 1.5, rotateY: isEven ? -1.5 : 1.5, scale: 1.01 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                     >
                         {/* Browser Top Bar */}
-                        <div className="h-8 bg-[#1a3a5a]/20 border-b border-[#778da9]/10 flex items-center px-4 gap-2">
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#778da9]/30" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#778da9]/30" />
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#778da9]/30" />
+                        <div className="h-8 bg-[var(--ground-2)] border-b flex items-center px-4 gap-2" style={{ borderColor: 'var(--rule)' }}>
+                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--ink-faint)]" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--ink-faint)]" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[var(--ink-faint)]" />
                         </div>
 
-                        {/* Video / Image Content */}
-                        <div className="absolute inset-x-8 bottom-0 top-16 bg-[#000]/10 flex items-center justify-center rounded-t-sm overflow-hidden group">
+                        {/* Video / Image Content: flush fit, no side padding */}
+                        <div className="absolute inset-x-0 bottom-0 top-8 bg-[#000]/10 flex items-center justify-center overflow-hidden group">
                             <motion.div
                                 className="relative w-full h-full"
-                                whileHover={{ scale: 1.05 }}
+                                whileHover={{ scale: 1.04 }}
                                 transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
                             >
                                 {resolvedVideo ? (
@@ -164,35 +171,21 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
                                         loop
                                         playsInline
                                         preload="metadata"
-                                        className="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                        className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                                     />
                                 ) : (
                                     <Image
                                         src={project.imageUrl}
                                         alt={project.title}
                                         fill
-                                        className="object-cover object-top opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                                        className="object-cover object-top opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                                         sizes="(max-w-7xl) 50vw, 33vw"
                                     />
                                 )}
-
-                                {/* Subtle Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />
                             </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* Decorative Depth Glow */}
-                    <motion.div
-                        className="absolute inset-10 -z-10 bg-[#778da9]/5 blur-[100px] rounded-full"
-                        animate={{
-                            opacity: [0.3, 0.5, 0.3],
-                        }}
-                        transition={{
-                            duration: 5,
-                            repeat: Infinity,
-                        }}
-                    />
                 </motion.div>
             </div>
         </motion.div>

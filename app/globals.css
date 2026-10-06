@@ -1,133 +1,196 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink-black: #0d1b2a;
-  --color-alabaster: #e0e1dd;
-  --color-lavender: #778da9;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono2: "Martian Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --font-rubik: "Rubik", sans-serif;
+  --font-size-hero: clamp(3.2rem, 8vw, 7rem);
+  --font-size-h1: 3rem;
+  --font-size-h2: 2.75rem;
+  --font-size-h3: 1.875rem;
+  --font-size-lg: 1.0625rem;
+  --font-size-base: 0.9375rem;
+  --font-size-sm: 0.8125rem;
+  --font-size-xs: 0.75rem;
+  --font-size-micro: 0.6875rem;
 
-  /* Typography Scale */
-  --font-size-hero: 4rem; /* 64px */
-  --font-size-h1: 3rem;   /* 48px */
-  --font-size-h2: 2.5rem; /* 40px */
-  --font-size-h3: 2rem;   /* 32px */
-  --font-size-lg: 1.25rem; /* 20px */
-  --font-size-base: 1rem;  /* 16px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-xs: 0.75rem;  /* 12px */
+  --ease-plate: cubic-bezier(.22,1,.36,1);
 }
 
 @layer base {
   :root {
-    --ink-black: #0d1b2a;
-    --alabaster: #e0e1dd;
-    --lavender: #778da9;
+    --ease: cubic-bezier(.22,1,.36,1);
+    --d-micro: 120ms;
+    --d-state: 220ms;
+    --d-enter: 420ms;
+    --gutter: clamp(1.25rem, 4vw, 5.5rem);
   }
 
-  * {
-    @apply border-lavender/30;
-    font-weight: 400 !important; /* Enforce single weight */
+  /* INK world — default dark */
+  html[data-world="ink"] {
+    --ground: #0B0B0C;
+    --ground-2: #141416;
+    --ground-3: #1C1C1F;
+    --ground-dot: rgba(252,252,251,.06);
+    --ink-strong: #FCFCFB;
+    --ink-body: #E4E4E6;
+    --ink-soft: #A6A6AB;
+    --ink-faint: #8A8A90;
+    --rule: rgba(252,252,251,.12);
+    --rule-strong: rgba(252,252,251,.22);
+    --rule-fn: rgba(252,252,251,.42);
+    --accent: #FCFCFB;
+    --accent-ink: #0B0B0C;
+    color-scheme: dark;
+  }
+
+  /* PAPER world — inverted sheet */
+  html[data-world="paper"] {
+    --ground: #FFFFFF;
+    --ground-2: #F2F2F0;
+    --ground-3: #E7E7E4;
+    --ground-dot: rgba(11,11,12,.055);
+    --ink-strong: #0B0B0C;
+    --ink-body: #2E2E32;
+    --ink-soft: #55555B;
+    --ink-faint: #6C6C72;
+    --rule: rgba(11,11,12,.10);
+    --rule-strong: rgba(11,11,12,.20);
+    --rule-fn: rgba(11,11,12,.46);
+    --accent: #0B0B0C;
+    --accent-ink: #FFFFFF;
+    color-scheme: light;
+  }
+
+  /* ABYSS world: deep blue glass. Frosted nav surfaces read here. */
+  html[data-world="abyss"] {
+    --ground: #081120;
+    --ground-2: #0C1A30;
+    --ground-3: #12263F;
+    --ground-dot: rgba(147,197,253,.09);
+    --ink-strong: #F1F6FF;
+    --ink-body: #C9D8EE;
+    --ink-soft: #9DB4D0;
+    --ink-faint: #7C93B0;
+    --rule: rgba(147,197,253,.14);
+    --rule-strong: rgba(147,197,253,.28);
+    --rule-fn: rgba(147,197,253,.48);
+    --accent: #DCEBFF;
+    --accent-ink: #081120;
+    color-scheme: dark;
   }
 
   html {
-    @apply bg-ink-black text-alabaster antialiased;
-    font-family: var(--font-rubik), sans-serif;
     scroll-behavior: smooth;
     height: -webkit-fill-available;
   }
 
   body {
-    @apply bg-ink-black text-alabaster/90;
-    background-image: 
-      radial-gradient(circle at 2px 2px, rgba(119, 141, 169, 0.05) 1px, transparent 0);
+    background-color: var(--ground);
+    color: var(--ink-body);
+    background-image: radial-gradient(circle at 1px 1px, var(--ground-dot) 1px, transparent 0);
     background-size: 40px 40px;
     overflow-x: hidden;
     min-height: 100vh;
     min-height: -webkit-fill-available;
     line-height: 1.6;
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    transition: background-color var(--d-state) var(--ease), color var(--d-state) var(--ease);
   }
 
   h1, .hero-heading {
-    @apply text-alabaster leading-[1.2];
-    font-size: var(--font-size-h1);
-    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+    color: var(--ink-strong);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 620;
   }
 
   h2 {
-    @apply text-alabaster leading-[1.2];
-    font-size: var(--font-size-h2);
-    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+    color: var(--ink-strong);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 560;
   }
 
   h3 {
-    @apply text-alabaster leading-[1.2];
-    font-size: var(--font-size-h3);
-    letter-spacing: -0.05em; /* Equivalent to tracking-tighter */
+    color: var(--ink-strong);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-weight: 500;
   }
 
   p {
-    @apply text-alabaster/90 leading-[1.6-1.8];
+    color: var(--ink-body);
+    line-height: 1.6;
+    max-width: 62ch;
   }
 
-  a {
-    @apply transition-colors duration-200;
+  a { transition: color var(--d-micro) var(--ease); }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ink-strong);
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--ground); }
+::-webkit-scrollbar-thumb { background: var(--rule-strong); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--rule-fn); }
 
-::-webkit-scrollbar-track {
-  background: var(--ink-black);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--lavender);
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--alabaster);
-}
-
-/* Selection styles */
-::selection {
-  background-color: var(--lavender);
-  color: var(--ink-black);
-}
-
-/* Micro-interaction: Link Underline Slide-In */
-.link-underline {
-  @apply relative no-underline;
-}
-
+.link-underline { position: relative; text-decoration: none; }
 .link-underline::after {
   content: '';
-  @apply absolute left-0 bottom-[-2px] w-0 h-[1px] bg-alabaster transition-[width] duration-200 ease-out;
+  position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 1px;
+  background: var(--ink-strong);
+  transition: width 200ms ease-out;
+}
+.link-underline:hover::after { width: 100%; }
+
+/* Weight-on-approach: the minimal hover — no colour change */
+.weight-hover {
+  font-variation-settings: 'wght' 340, 'wdth' 96;
+  transition: font-variation-settings var(--d-state) var(--ease);
+}
+.weight-hover:hover, .weight-hover:focus-visible {
+  font-variation-settings: 'wght' 620, 'wdth' 100;
 }
 
-.link-underline:hover::after {
-  @apply w-full;
-}
+/* Baseline draw for rules */
+.baseline-draw { transform-origin: left center; }
 
-/* Hide scrollbars while preserving scroll */
-.hide-scrollbar {
+/* Halftone screen lift for media */
+.halftone {
+  --pitch: 7px;
+  --hole: 2.7px;
+  position: relative;
+}
+.halftone::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at center, var(--ground) var(--hole), transparent calc(var(--hole) + 0.5px));
+  background-size: var(--pitch) var(--pitch);
+  opacity: 1;
+  transition: opacity var(--d-enter) var(--ease);
+  pointer-events: none;
+}
+.halftone:hover::after, .halftone:focus-within::after { opacity: 0; }
+
+.hide-scrollbar, .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.hide-scrollbar::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar { display: none; }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

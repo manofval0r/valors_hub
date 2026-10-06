@@ -64,27 +64,10 @@ export default function RevealCard({
         setIsNavigating(true);
     }, []);
 
-    const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            if (!isRevealed) {
-                setIsRevealed(true);
-            }
-        }
-        if (e.key === 'Escape' && isRevealed) {
-            setIsRevealed(false);
-        }
-    }, [isRevealed]);
-
     return (
         <motion.div
-            role="button"
-            tabIndex={0}
-            aria-expanded={isRevealed}
-            aria-label={`View project: ${title}. ${isRevealed ? 'Press Escape to collapse' : 'Tap to preview'}`}
-            className="group reveal-card bg-[#0d1b2a] border border-[#778da9]/30 rounded-[2px] p-6 cursor-pointer transition-all duration-300 outline-none focus-visible:outline-2 focus-visible:outline-[#e0e1dd] hover:border-[#778da9]/60 hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(119,141,169,0.2)]"
+            className="group reveal-card bg-[var(--ground)] border border-[var(--rule-strong)] rounded-[2px] p-6 transition-all duration-300 hover:border-[var(--rule-fn)] hover:-translate-y-1"
             onClick={handleCardClick}
-            onKeyDown={handleKeyDown}
             animate={isNavigating ? { scale: 0.98, opacity: 0.95 } : { scale: 1, opacity: 1 }}
             whileTap={!isRevealed ? { scale: 0.98 } : undefined}
             transition={{ duration: 0.15 }}
@@ -100,30 +83,35 @@ export default function RevealCard({
                         transition={{ duration: 0.15, ease: EASE_OUT }}
                     >
                         {/* Title */}
-                        <h3 className="text-2xl md:text-[28px] text-[#e0e1dd] leading-[1.2] mb-3">
+                        <h3 className="text-2xl md:text-[28px] text-[var(--ink-strong)] leading-[1.2] mb-3">
                             {title}
                         </h3>
 
                         {/* Tagline */}
-                        <p className="text-base text-[#e0e1dd]/80 leading-[1.5] max-w-[90%] mb-8">
+                        <p className="text-base text-[var(--ink-body)] leading-[1.5] max-w-[90%] mb-8">
                             {tagline}
                         </p>
 
                         {/* Preview Hint */}
-                        <div className="w-full h-[120px] bg-[#e0e1dd]/[0.02] border border-dashed border-[#778da9]/20 rounded-[2px] flex flex-col items-center justify-center gap-2 mb-6">
-                            <span className="text-sm text-[#778da9]/70">Tap to preview</span>
+                        <button
+                            type="button"
+                            onClick={handleCardClick}
+                            aria-label={`Preview project: ${title}`}
+                            className="w-full h-[120px] bg-[var(--ground-2)] border border-dashed border-[var(--rule-strong)] rounded-[2px] flex flex-col items-center justify-center gap-2 mb-6 cursor-pointer"
+                        >
+                            <span className="text-sm text-[var(--ink-faint)]">Tap to preview</span>
                             <motion.svg
                                 width="16"
                                 height="16"
                                 viewBox="0 0 16 16"
                                 fill="none"
-                                className="text-[#778da9]"
+                                className="text-[var(--ink-faint)]"
                                 animate={{ y: [0, 3, 0] }}
                                 transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
                             >
                                 <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </motion.svg>
-                        </div>
+                        </button>
 
                         {/* Tech Stack Tags */}
                         {techStack.length > 0 && (
@@ -131,7 +119,7 @@ export default function RevealCard({
                                 {techStack.map((tech) => (
                                     <span
                                         key={tech}
-                                        className="text-xs text-[#778da9] border border-[#e0e1dd]/20 px-3 py-1.5 rounded-[2px] whitespace-nowrap font-mono"
+                                        className="text-xs text-[var(--ink-faint)] border border-[var(--rule-strong)] px-3 py-1.5 rounded-[2px] whitespace-nowrap font-mono"
                                     >
                                         {tech}
                                     </span>
@@ -150,20 +138,14 @@ export default function RevealCard({
                     >
                         {/* Title row with collapse arrow */}
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xl text-[#e0e1dd] leading-[1.2]">
+                            <h3 className="text-xl text-[var(--ink-strong)] leading-[1.2]">
                                 {title}
                             </h3>
                             <button
                                 type="button"
                                 onClick={handleToggle}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        handleToggle(e);
-                                    }
-                                }}
                                 aria-label="Collapse preview"
-                                className="p-2 text-[#778da9] hover:text-[#e0e1dd] transition-colors rounded-sm"
+                                className="p-2 text-[var(--ink-faint)] hover:text-[var(--ink-strong)] transition-colors rounded-[2px]"
                             >
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                     <path d="M8 13V3M4 7l4-4 4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -205,7 +187,7 @@ export default function RevealCard({
 
                         {/* Tagline below image */}
                         <motion.p
-                            className="text-base text-[#e0e1dd]/80 leading-[1.5] mb-4"
+                            className="text-base text-[var(--ink-body)] leading-[1.5] mb-4"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.15, duration: 0.25 }}
@@ -219,7 +201,7 @@ export default function RevealCard({
                                 {techStack.map((tech) => (
                                     <span
                                         key={tech}
-                                        className="text-xs text-[#778da9] border border-[#e0e1dd]/20 px-3 py-1.5 rounded-[2px] whitespace-nowrap font-mono"
+                                        className="text-xs text-[var(--ink-faint)] border border-[var(--rule-strong)] px-3 py-1.5 rounded-[2px] whitespace-nowrap font-mono"
                                     >
                                         {tech}
                                     </span>
@@ -232,12 +214,12 @@ export default function RevealCard({
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.25, duration: 0.2 }}
-                            className="flex items-center justify-between mt-2 pt-4 border-t border-[#778da9]/10 gap-4"
+                            className="flex items-center justify-between mt-2 pt-4 border-t border-[var(--rule)] gap-4"
                         >
                             <Link
                                 href={`/work/${slug}`}
                                 onClick={handleNavigate}
-                                className="flex items-center gap-2 text-sm text-[#778da9] hover:text-[#e0e1dd] transition-colors"
+                                className="flex items-center gap-2 text-sm text-[var(--ink-faint)] hover:text-[var(--ink-strong)] transition-colors"
                             >
                                 <span>View case study</span>
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -251,7 +233,7 @@ export default function RevealCard({
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     onClick={(e) => e.stopPropagation()}
-                                    className="flex items-center gap-1.5 text-sm text-[#778da9] hover:text-[#e0e1dd] transition-colors"
+                                    className="flex items-center gap-1.5 text-sm text-[var(--ink-faint)] hover:text-[var(--ink-strong)] transition-colors"
                                 >
                                     <span>Live site</span>
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

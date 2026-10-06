@@ -18,12 +18,12 @@ export default function Button({
     className = '',
     ...props
 }: ButtonProps) {
-    const baseStyles = "font-normal transition-all duration-200 rounded-sm inline-flex items-center justify-center";
+    const baseStyles = "font-normal transition-all duration-200 rounded-[2px] inline-flex items-center justify-center";
 
     const variants = {
-        primary: "bg-transparent border border-[var(--alabaster)] text-[var(--alabaster)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--lavender)]/20",
-        secondary: "text-[var(--lavender)] hover:text-[var(--alabaster)] relative group",
-        ghost: "text-[var(--alabaster)] hover:bg-[var(--alabaster)]/10"
+        primary: "bg-transparent border border-[var(--rule-strong)] text-[var(--ink-strong)] hover:-translate-y-0.5 hover:border-[var(--rule-fn)]",
+        secondary: "text-[var(--ink-soft)] hover:text-[var(--ink-strong)] relative group",
+        ghost: "text-[var(--ink-strong)] hover:bg-[var(--ground-2)]"
     };
 
     const sizes = {
@@ -45,7 +45,7 @@ export default function Button({
         >
             {children}
             {variant === 'secondary' && (
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--alabaster)] group-hover:w-full transition-all duration-200" />
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--ink-strong)] group-hover:w-full transition-all duration-200" />
             )}
         </motion.button>
     );

@@ -9,7 +9,7 @@ const GlobalConstellation = dynamic(
         ssr: false,
         loading: () => (
             <div className="flex items-center justify-center w-full h-full">
-                <span className="text-[#778da9] text-[10px] font-mono uppercase tracking-widest animate-pulse">
+                <span className="text-[var(--ink-faint)] text-[10px] font-mono uppercase tracking-widest">
                     Loading constellation...
                 </span>
             </div>

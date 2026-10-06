@@ -32,7 +32,7 @@ export default function LoadingScreen() {
 
     return (
         <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0d1b2a]/95 backdrop-blur-sm"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--ground)]"
             initial={{ opacity: 1 }}
             animate={{ opacity: 0 }}
             transition={{ delay: 1.0, duration: 0.2 }}
@@ -49,7 +49,7 @@ export default function LoadingScreen() {
                 {/* 2. Lines grow sequentially (0.5s total) */}
                 <motion.line
                     x1="50" y1="80" x2="50" y2="80"
-                    stroke="#e0e1dd" strokeWidth="3" strokeLinecap="round"
+                    stroke="var(--ink-strong)" strokeWidth="3" strokeLinecap="round"
                     initial={{ x2: 50, opacity: 0 }}
                     animate={{ x2: 150, opacity: 1 }}
                     transition={{
@@ -59,7 +59,7 @@ export default function LoadingScreen() {
                 />
                 <motion.line
                     x1="50" y1="100" x2="50" y2="100"
-                    stroke="#e0e1dd" strokeWidth="3" strokeLinecap="round"
+                    stroke="var(--ink-strong)" strokeWidth="3" strokeLinecap="round"
                     initial={{ x2: 50, opacity: 0 }}
                     animate={{ x2: 150, opacity: 1 }}
                     transition={{
@@ -69,7 +69,7 @@ export default function LoadingScreen() {
                 />
                 <motion.line
                     x1="50" y1="120" x2="50" y2="120"
-                    stroke="#e0e1dd" strokeWidth="3" strokeLinecap="round"
+                    stroke="var(--ink-strong)" strokeWidth="3" strokeLinecap="round"
                     initial={{ x2: 50, opacity: 0 }}
                     animate={{ x2: 150, opacity: 1 }}
                     transition={{
@@ -82,7 +82,7 @@ export default function LoadingScreen() {
                 {/* Transition starts at ~0.8s */}
                 <motion.path
                     d="M 70 95 L 95 120 L 135 75"
-                    stroke="#e0e1dd" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
+                    stroke="var(--ink-strong)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"
                     fill="none"
                     initial={{ pathLength: 0, opacity: 0 }}
                     animate={{ pathLength: 1, opacity: 1 }}
@@ -91,7 +91,7 @@ export default function LoadingScreen() {
 
                 <motion.line
                     x1="60" y1="145" x2="60" y2="145"
-                    stroke="#e0e1dd" strokeWidth="2" strokeLinecap="round"
+                    stroke="var(--ink-strong)" strokeWidth="2" strokeLinecap="round"
                     initial={{ x2: 60, opacity: 0 }}
                     animate={{ x2: 140, opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.8 }}

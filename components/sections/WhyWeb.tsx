@@ -27,22 +27,22 @@ export default function WhyWeb() {
                         ease: "linear"
                     }}
                 >
-                    <div className="text-[#778da9]">function buildTheFuture() &#123;</div>
-                    <div className="pl-4 text-[#e0e1dd]">return passion + code;</div>
-                    <div className="text-[#778da9]">&#125;</div>
+                    <div className="text-[var(--ink-faint)]">function buildTheFuture() &#123;</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">return passion + code;</div>
+                    <div className="text-[var(--ink-faint)]">&#125;</div>
                     <div className="h-8" />
-                    <div className="text-[#778da9]">const impact = skills</div>
-                    <div className="pl-4 text-[#e0e1dd]">.filter(s =&gt; s.useful)</div>
-                    <div className="pl-4 text-[#e0e1dd]">.map(s =&gt; s.apply());</div>
+                    <div className="text-[var(--ink-faint)]">const impact = skills</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">.filter(s =&gt; s.useful)</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">.map(s =&gt; s.apply());</div>
                     <div className="h-12" />
                     {/* Duplicate for seamless loop */}
-                    <div className="text-[#778da9]">function buildTheFuture() &#123;</div>
-                    <div className="pl-4 text-[#e0e1dd]">return passion + code;</div>
-                    <div className="text-[#778da9]">&#125;</div>
+                    <div className="text-[var(--ink-faint)]">function buildTheFuture() &#123;</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">return passion + code;</div>
+                    <div className="text-[var(--ink-faint)]">&#125;</div>
                     <div className="h-8" />
-                    <div className="text-[#778da9]">const impact = skills</div>
-                    <div className="pl-4 text-[#e0e1dd]">.filter(s =&gt; s.useful)</div>
-                    <div className="pl-4 text-[#e0e1dd]">.map(s =&gt; s.apply());</div>
+                    <div className="text-[var(--ink-faint)]">const impact = skills</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">.filter(s =&gt; s.useful)</div>
+                    <div className="pl-4 text-[var(--ink-strong)]">.map(s =&gt; s.apply());</div>
                 </motion.div>
             </div>
 
@@ -54,13 +54,13 @@ export default function WhyWeb() {
                 viewport={{ once: true }}
             >
                 <motion.h2
-                    className="text-4xl md:text-5xl font-normal text-[#e0e1dd]"
+                    className="text-4xl md:text-5xl font-normal text-[var(--ink-strong)]"
                     variants={fadeInUp}
                 >
                     {whyWebContent.heading}
                 </motion.h2>
 
-                <div className="flex flex-col gap-6 text-[#e0e1dd]/80 leading-relaxed text-lg">
+                <div className="flex flex-col gap-6 text-[var(--ink-strong)]/80 leading-relaxed text-lg">
                     {whyWebContent.paragraphs.map((para, index) => (
                         <motion.p key={index} variants={fadeInUp}>
                             {para}

@@ -7,8 +7,8 @@ export const personalInfo = {
   workStatus: ['Open to Remote', 'Open to Hybrid'],
   imageUrl: '/Hero-image.jpg',
   metrics: [
-    { label: 'Shipped Codebases', value: '8' },
-    { label: 'Production Commits', value: '330+' },
+    { label: 'Shipped Codebases', value: '17' },
+    { label: 'Production Commits', value: '600+' },
     { label: 'Work Status', value: 'Open to Remote / Hybrid' },
   ],
 };
@@ -24,8 +24,8 @@ export const contactInfo = {
 
 export const professionalSummary = [
   'Full-stack software engineer and Cybersecurity Science scholar with production experience across React/Next.js, React Native, Django, Node.js, and Supabase/PostgreSQL.',
-  'Sole contributor across 8 shipped or in-progress codebases and 330+ commits since November 2025, spanning e-commerce, marketplace, fintech-adjacent, and AI-integrated products.',
-  'Builds security-conscious systems by default — JWT and OAuth-based auth, Row Level Security, rate limiting, and audit-friendly financial ledgers — while using AI-assisted workflows (Claude Code, GitHub Copilot) deliberately, with full architectural ownership and manual review.',
+  'Sole contributor across 17 shipped or in-progress codebases and 600+ commits across 25 repositories, spanning e-commerce, marketplace, fintech-adjacent, and AI-integrated products.',
+  'Builds security-conscious systems by default: JWT and OAuth auth, Row Level Security, rate limiting, and audit-friendly financial ledgers. Uses AI-assisted workflows (Claude Code, GitHub Copilot) with full architectural ownership and manual review.',
 ];
 
 export interface ExperienceItem {
@@ -90,7 +90,7 @@ export const experience: ExperienceItem[] = [
     endDate: 'Feb 2026',
     impactHighlight: 'Delivered end-to-end Next.js portal solo within a fixed contract window with zero runtime dependencies on Vercel.',
     details: [
-      'Owned a production website end-to-end in Next.js, TypeScript, and TailwindCSS — requirements, architecture, UI build, and Vercel deployment, solo, within a fixed contract window.',
+      'Owned a production website end to end in Next.js, TypeScript, and TailwindCSS: requirements, architecture, UI build, and Vercel deployment, solo, within a fixed contract window.',
       'Managed all client communication, revision cycles, and handoff documentation independently.',
     ],
   },
@@ -211,10 +211,10 @@ export const achievements: AchievementItem[] = [
   },
   {
     id: '3',
-    metric: '330+ Commits',
-    title: 'Sole Contributor Across 8 Active Codebases',
+    metric: '600+ Commits',
+    title: 'Sole Contributor Across 17 Active Codebases',
     subtitle: 'Multi-Repo Engineering Discipline',
-    impact: 'Authored 330+ commits and maintained ~1,167 tracked files as sole developer across mobile (Expo), full-stack web (Next.js/Django), and security-hardened backend systems from Nov 2025 to present.',
+    impact: 'Authored 600+ commits across 25 repositories as sole developer across mobile (Expo), full-stack web (Next.js/Django), and security-hardened backend systems.',
     tag: 'Architecture',
   },
   {
@@ -239,14 +239,14 @@ export const resumes: Resume[] = [
   {
     id: '1',
     role: 'Software Engineer (Primary)',
-    description: 'Comprehensive software engineering — Full-stack, mobile, security & AI systems',
+    description: 'Comprehensive software engineering: full-stack, mobile, security and AI systems',
     url: '/resumes/SWE_David_Idowu.pdf',
     isPrimary: true,
   },
   {
     id: '2',
     role: 'Full-Stack Developer',
-    description: 'Production web systems — React, Next.js, Django, Node.js, PostgreSQL',
+    description: 'Production web systems: React, Next.js, Django, Node.js, PostgreSQL',
     url: '/resumes/Full Stack Developer.pdf',
   },
   {
@@ -258,13 +258,13 @@ export const resumes: Resume[] = [
   {
     id: '4',
     role: 'Mobile Developer',
-    description: 'Cross-platform mobile apps — React Native, Expo SDK 54, Reanimated, Supabase',
+    description: 'Cross-platform mobile apps: React Native, Expo SDK 54, Reanimated, Supabase',
     url: '/resumes/Mobile Developer.pdf',
   },
   {
     id: '5',
     role: 'Web Developer',
-    description: 'High-performance responsive web applications — TypeScript, Tailwind CSS, Next.js',
+    description: 'Responsive web applications: TypeScript, Tailwind CSS, Next.js',
     url: '/resumes/Web Developer.pdf',
   },
   {
@@ -286,8 +286,8 @@ export const bioContent = {
   heading: 'About Me',
   paragraphs: [
     'I\'m David Idowu, a Full-Stack Software Engineer and Cybersecurity Science scholar at NUTM. I build secure, high-performance systems across React/Next.js, React Native, Django, and Node.js with database and cloud persistence in Supabase and PostgreSQL.',
-    'As the sole contributor across 8 shipped or in-progress codebases and 330+ commits since November 2025, I focus on solving complex architectural challenges: designing race-condition-safe financial ledgers in integer cents, hardening REST APIs with tiered rate-limiting and RLS, and scaling asynchronous LLM pipelines with Celery and Redis.',
-    'I leverage modern AI-assisted engineering workflows (Claude Code, GitHub Copilot) deliberately—maintaining complete architectural ownership, manual code review, and strict security-by-default standards across every line of code I deploy.',
+    'As the sole contributor across 17 shipped or in-progress codebases and 600+ commits, I focus on complex architectural challenges: race-condition-safe financial ledgers in integer cents, hardened REST APIs with tiered rate limiting and RLS, and async LLM pipelines with Celery and Redis.',
+    'I use AI-assisted engineering workflows (Claude Code, GitHub Copilot) with full architectural ownership, manual code review, and security by default.',
   ],
 };
 
@@ -295,7 +295,7 @@ export const bioContent = {
 export const whyWebContent = {
   heading: 'Engineering Philosophy',
   paragraphs: [
-    'Software engineering is at its best when security, performance, and user intuition converge. Building systems with intentional constraints—immutable ledgers, strict Row Level Security, and asynchronous background queues—ensures products remain reliable under scale.',
+    'Secure systems hold up when constraints are intentional: immutable ledgers, strict Row Level Security, and async background queues keep products reliable at scale.',
     'I thrive at the intersection of full-stack product execution and security science: taking ambitious product ideas from empty repositories to resilient, recruiter-ready production deployments.',
   ],
 };

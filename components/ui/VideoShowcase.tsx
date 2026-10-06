@@ -33,7 +33,7 @@ export default function VideoShowcase({ videoUrl, videoPublicId, imageUrl, title
     return (
         <div
             ref={containerRef}
-            className="aspect-video bg-[#112131]/20 border border-[#778da9]/10 relative overflow-hidden rounded-sm group shadow-2xl"
+            className="aspect-video bg-[var(--ground-2)] border border-[var(--rule)] relative overflow-hidden rounded-[2px] group"
         >
             <motion.div
                 className="relative w-full h-full"
@@ -60,7 +60,6 @@ export default function VideoShowcase({ videoUrl, videoPublicId, imageUrl, title
                         sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a]/40 to-transparent pointer-events-none" />
             </motion.div>
         </div>
     );

@@ -10,13 +10,11 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[var(--ink-black)] pt-16 lg:pt-0">
+    <main className="min-h-screen pt-16 lg:pt-0" style={{ background: 'var(--ground)' }}>
       <Hero />
-      <div id="my-story">
-        <Bio />
-        <WhyWeb />
-        <Skills />
-      </div>
+      <Bio />
+      <WhyWeb />
+      <Skills />
       <FeaturedProjects />
       <Experience />
       <WhatImUpTo />

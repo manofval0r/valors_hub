@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import { Bricolage_Grotesque, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import TopNav from "@/components/navigation/TopNav";
 import MobileNav from "@/components/navigation/MobileNav";
 import LoadingScreen from "@/components/animations/LoadingScreen";
-import DynamicBackground from "@/components/animations/DynamicBackground";
+import DotField from "@/components/animations/DotField";
+import WorldToggle from "@/components/ui/WorldToggle";
 
-const rubik = Rubik({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['400'],
+  variable: '--font-display',
   display: 'swap',
-  variable: '--font-rubik',
+});
+
+const martian = Martian_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono2',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -25,14 +31,7 @@ export const metadata: Metadata = {
     url: 'https://davidowu.vercel.app',
     siteName: 'David Idowu',
     type: 'website',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'David Idowu — Web Developer Portfolio',
-      },
-    ],
+    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'David Idowu — Web Developer Portfolio' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -42,20 +41,21 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={rubik.variable} suppressHydrationWarning>
-      <body className="antialiased font-rubik" suppressHydrationWarning>
-        <DynamicBackground />
-        <LoadingScreen />
-        <Analytics />
-        <TopNav />
-        <MobileNav />
-        {children}
+    <html lang="en" data-world="ink" className={`${bricolage.variable} ${martian.variable}`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
+        <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+          <DotField density={34} />
+        </div>
+        <div className="relative z-10">
+          <LoadingScreen />
+          <Analytics />
+          <TopNav />
+          <MobileNav />
+          <WorldToggle />
+          {children}
+        </div>
       </body>
     </html>
   );

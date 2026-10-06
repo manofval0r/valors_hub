@@ -48,6 +48,60 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: '17',
+    slug: 'ontrack',
+    title: 'OnTrack',
+    tagline: 'Say Your Goal. Get Your Tracker.',
+    description: 'A conversational accountability workspace powered by AI. State a goal by voice or text and get an intelligent, tailored tracker in seconds: counters for numerical metrics, checklists for sequential steps, and manual logs for qualitative focus. NVIDIA Nemotron conducts proactive check-ins, tracks velocity pace, and scores a final verdict at deadline.',
+    client: 'Team Build (Mobile Lead + AI)',
+    date: 'Sep 2026',
+    tech: 'React, React Native, Django, Supabase, Nemotron AI',
+    imageUrl: '/projects/ontrack.png',
+    liveLink: null,
+    codeLink: 'https://github.com/manofval0r/ontrack',
+    category: 'full-stack',
+    techStack: ['React', 'React Native', 'Django', 'Supabase', 'Nemotron AI'],
+    featured: true,
+    journey: [
+      { date: 'Sep 2026', phase: 'Concept & Architecture', description: 'Scoped a chat-first goal tracker for an 11-hour team sprint: Django REST backend on Supabase shared across React web and Expo mobile.' },
+      { date: 'Sep 2026', phase: 'Core Build', description: 'Shipped goal parsing, dynamic tracker formats, check-ins, verdicts, streaks, and voice input with TTS read-outs across both clients.' },
+      { date: 'Sep 2026', phase: 'Hardening', description: 'Locked down Supabase with deny-by-default RLS, owner-scoped policies, and dual Render deployments to isolate web and mobile traffic.' },
+    ],
+    mindMap: {
+      nodes: [
+        { id: 'o-start', type: 'hub', label: 'OnTrack Core', description: 'Conversational accountability tracker. Voice or text in, tailored tracker out.', x: 1200, y: 1100 },
+        { id: 'o-ai', type: 'hub', label: 'Nemotron Intelligence', x: 600, y: 800 },
+        { id: 'o-parse', type: 'task', label: 'Goal Parsing', description: 'Intent extraction turns natural speech into commitment, target, and deadline.', x: 400, y: 550 },
+        { id: 'o-check', type: 'task', label: 'Proactive Check-ins', description: 'AI prompts on pace and velocity, answered in chat.', x: 650, y: 500 },
+        { id: 'o-verdict', type: 'task', label: 'Verdicts & Streaks', description: 'Deadline scoring with history, streaks, and TTS read-out.', x: 400, y: 350 },
+        { id: 'o-clients', type: 'hub', label: 'Dual Clients', x: 1800, y: 800 },
+        { id: 'o-web', type: 'task', label: 'React Web', description: 'Landing, dashboard, tracker views, and settings on Vite.', x: 1650, y: 550 },
+        { id: 'o-mobile', type: 'task', label: 'Expo Mobile', description: 'Work-block overlay, timers, and close-app warnings.', x: 1950, y: 550 },
+        { id: 'o-voice', type: 'task', label: 'Voice In & Out', description: 'ASR goal creation and TTS verdict playback.', x: 1800, y: 350 },
+        { id: 'o-data', type: 'hub', label: 'Backend & Trust', x: 1200, y: 500 },
+        { id: 'o-rls', type: 'task', label: 'RLS Deny by Default', description: 'Owner-scoped Supabase policies across all tables.', x: 1000, y: 280 },
+        { id: 'o-dual', type: 'task', label: 'Dual Render Deploy', description: 'Same Django codebase deployed twice to isolate web and mobile.', x: 1400, y: 280 },
+        { id: 'p-whatsnext', type: 'project', label: "What's Next", description: 'Shares Django roadmap-engine patterns and async task design.', x: 500, y: 150, link: 'whats-next' },
+        { id: 'p-koji', type: 'project', label: 'Koji', description: 'Shares Supabase RLS discipline and Expo mobile architecture.', x: 1900, y: 150, link: 'koji-ai-chief-of-staff' }
+      ],
+      edges: [
+        { source: 'o-start', target: 'o-ai' },
+        { source: 'o-start', target: 'o-clients' },
+        { source: 'o-start', target: 'o-data' },
+        { source: 'o-ai', target: 'o-parse' },
+        { source: 'o-ai', target: 'o-check' },
+        { source: 'o-ai', target: 'o-verdict' },
+        { source: 'o-clients', target: 'o-web' },
+        { source: 'o-clients', target: 'o-mobile' },
+        { source: 'o-clients', target: 'o-voice' },
+        { source: 'o-data', target: 'o-rls' },
+        { source: 'o-data', target: 'o-dual' },
+        { source: 'o-parse', target: 'p-whatsnext', label: 'Roadmap Patterns', animated: true },
+        { source: 'o-rls', target: 'p-koji', label: 'RLS Discipline', animated: true }
+      ]
+    }
+  },
+  {
     id: '10',
     slug: 'koji-ai-chief-of-staff',
     title: 'Koji: AI Chief of Staff',
@@ -59,7 +113,7 @@ export const projects: Project[] = [
     imageUrl: '/projects/placeholder.jpg',
     liveLink: null,
     codeLink: null,
-    category: 'full-stack',
+    category: 'side-project',
     techStack: ['React Native', 'Supabase', 'Node.js', 'LLMs'],
     featured: true,
     mindMap: {
@@ -307,7 +361,7 @@ export const projects: Project[] = [
     videoUrl: 'https://res.cloudinary.com/dv4vlphsy/video/upload/v1/whats-next_us6wkj.mp4',
     liveLink: 'https://whats-next-ate2.onrender.com',
     codeLink: 'https://github.com/manofval0r/WHATS-NEXT',
-    category: 'web',
+    category: 'side-project',
     techStack: ['React', 'Vite', 'Django', 'Node.js'],
     featured: true,
     videoPublicId: 'whats-next_us6wkj',
@@ -542,7 +596,7 @@ export const projects: Project[] = [
     slug: 'hashebi-global-services',
     title: 'Hashebi Global Services Website',
     tagline: 'Corporate website for a construction & civil engineering firm',
-    description: 'A corporate website for Hashebi Global Services Nigeria Ltd, a construction and civil engineering firm founded in 2007. The site showcases their services — building construction, civil engineering, project management, and consultancy — alongside a filterable project portfolio, company history, and a validated contact form with Web3Forms integration.',
+    description: 'A corporate website for Hashebi Global Services Nigeria Ltd, a construction and civil engineering firm founded in 2007. The site covers services (building construction, civil engineering, project management, consultancy) with a filterable project portfolio, company history, and a validated contact form.',
     client: 'Hashebi Global Services Nigeria Ltd',
     date: '2026',
     tech: 'Next.js, TypeScript, Tailwind CSS, Framer Motion, Swiper.js',

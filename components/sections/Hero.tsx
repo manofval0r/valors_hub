@@ -1,140 +1,143 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import BreathingSmile from '../animations/BreathingSmile';
+import DotField from '../animations/DotField';
 import { personalInfo } from '@/data/personal';
 import ResumeSheet from '../ui/ResumeSheet';
 import Link from 'next/link';
+import { plotterLine, staggerContainer } from '@/lib/animations';
 
 export default function Hero() {
-    const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [0, 350], [1, 0]);
-    const [resumeOpen, setResumeOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const [plateHot, setPlateHot] = useState(false);
 
-    return (
-        <motion.section
-            id="home"
-            className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16 px-6 select-none"
-            style={{ opacity }}
+  return (
+    <motion.section
+      id="home"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-28 pb-16 px-6 select-none"
+      style={{ borderBottom: '1px solid var(--rule)' }}
+      variants={staggerContainer}
+      initial="hidden"
+      animate="visible"
+      onMouseEnter={() => setPlateHot(true)}
+      onMouseLeave={() => setPlateHot(false)}
+    >
+      <div className="absolute inset-y-0 right-0 w-full md:w-[46%] overflow-hidden" aria-hidden="true">
+        <DotField density={24} hoverBoost={plateHot} />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, var(--ground) 0%, transparent 28%)' }} />
+      </div>
+
+      <div className="absolute top-[22%] right-[6%] md:right-[8%] z-0 pointer-events-none opacity-90">
+        <div className="absolute -inset-8 rounded-full" style={{ border: '1px solid var(--rule)' }} aria-hidden="true" />
+        <span className="absolute -top-2 left-1/2 -translate-x-1/2 font-mono uppercase px-2" style={{ fontSize: 9, letterSpacing: '0.2em', color: 'var(--ink-faint)', background: 'var(--ground)' }}>
+          study 001
+        </span>
+        <BreathingSmile />
+      </div>
+
+      <div className="flex flex-col items-start md:items-center z-10 max-w-4xl text-left md:text-center w-full">
+        <motion.div className="flex flex-wrap items-center md:justify-center gap-2 mb-6" variants={staggerContainer} initial="hidden" animate="visible">
+          {[
+            { dot: true, text: '17 Projects' },
+            { dot: false, text: '600+ Commits' },
+            { dot: true, text: 'Open to Remote / Hybrid' },
+          ].map((b) => (
+            <div key={b.text} className="flex items-center gap-2 px-3 py-1 rounded-full border" style={{ borderColor: 'var(--rule-strong)', background: 'color-mix(in srgb, var(--ground) 70%, transparent)' }}>
+              {b.dot && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'var(--ink-strong)' }} />}
+              <span className="text-[10px] font-mono uppercase" style={{ letterSpacing: '0.14em', color: 'var(--ink-soft)' }}>{b.text}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        <h1 className="overflow-hidden text-4xl sm:text-6xl md:text-[68px] leading-[1.05]" style={{ letterSpacing: '-0.03em', color: 'var(--ink-strong)' }}>
+          <motion.span className="block" variants={plotterLine} custom={0}>{personalInfo.name}</motion.span>
+        </h1>
+
+        <div className="overflow-hidden mt-4">
+          <motion.h2
+            className="text-xs sm:text-sm md:text-base font-mono uppercase"
+            style={{ letterSpacing: '0.2em', color: 'var(--ink-soft)' }}
+            variants={plotterLine} custom={1}
+          >
+            {personalInfo.title}
+          </motion.h2>
+        </div>
+
+        <motion.p
+          className="text-sm sm:text-base md:text-lg max-w-2xl mt-6 leading-relaxed"
+          style={{ color: 'var(--ink-body)' }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.42, delay: 0.32 }}
         >
-            {/* Background Animation */}
-            <div className="absolute top-1/4 right-[8%] -z-10 pointer-events-none opacity-60 md:opacity-100">
-                <BreathingSmile />
+          Building secure full-stack systems across <span style={{ color: 'var(--ink-strong)', fontWeight: 560 }}>React/Next.js, React Native, Django, and Node.js</span> with security by default: Row Level Security, JWT and OAuth auth, rate limiting, race-condition-safe financial ledgers.
+        </motion.p>
+
+        <motion.div
+          className="flex flex-wrap items-center md:justify-center gap-3 mt-10"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.42, delay: 0.42 }}
+        >
+          <Link
+            href="/work"
+            className="px-6 py-2.5 rounded-[2px] text-xs font-mono uppercase transition-colors"
+            style={{ letterSpacing: '0.14em', background: 'var(--ink-strong)', color: 'var(--accent-ink)', fontWeight: 600 }}
+          >
+            View Projects (17)
+          </Link>
+          <a
+            href="/resumes/SWE_David_Idowu.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2.5 rounded-[2px] border text-xs font-mono uppercase flex items-center gap-2 transition-colors"
+            style={{ letterSpacing: '0.14em', borderColor: 'var(--rule-fn)', color: 'var(--ink-strong)' }}
+          >
+            <span>Download CV (PDF)</span>
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M8 3v8M4 8l4 4 4-4M3 13h10" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <button
+            onClick={() => setResumeOpen(true)}
+            className="weight-hover px-5 py-2.5 rounded-[2px] border text-xs font-mono uppercase cursor-pointer transition-colors"
+            style={{ letterSpacing: '0.14em', borderColor: 'var(--rule)', color: 'var(--ink-faint)' }}
+          >
+            Role Resumes (7)
+          </button>
+        </motion.div>
+
+        <motion.div
+          className="mt-10 w-full max-w-2xl grid grid-cols-3 border-t"
+          style={{ borderColor: 'var(--rule-strong)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.42 }}
+          aria-label="Fast-signal ledger"
+        >
+          {[
+            ['17', 'projects'],
+            ['600+', 'commits'],
+            ['07', 'role CVs'],
+          ].map(([n, l]) => (
+            <div key={l} className="py-3 pr-4 border-r last:border-r-0 pl-4 first:pl-0" style={{ borderColor: 'var(--rule)' }}>
+              <div className="font-mono text-lg" style={{ color: 'var(--ink-strong)', fontWeight: 600 }}>{n}</div>
+              <div className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.16em', color: 'var(--ink-faint)' }}>{l}</div>
             </div>
+          ))}
+        </motion.div>
+      </div>
 
-            <div className="flex flex-col items-center z-10 max-w-4xl text-center">
-                {/* 1. Metric Badges Strip (Recruiter Fast-Signal) */}
-                <motion.div
-                    className="flex flex-wrap items-center justify-center gap-2 md:gap-3 mb-6"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                >
-                    <div className="flex items-center gap-2 px-3 py-1 bg-[#0d1b2a]/60 border border-[#778da9]/20 rounded-full">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#52b788] animate-pulse" />
-                        <span className="text-[10px] font-mono text-[#e0e1dd] uppercase tracking-wider">
-                            8 Shipped Codebases
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-1 bg-[#0d1b2a]/60 border border-[#778da9]/20 rounded-full">
-                        <span className="text-[10px] font-mono text-[#778da9] uppercase tracking-wider">
-                            330+ Commits
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-2 px-3 py-1 bg-[#52b788]/10 border border-[#52b788]/30 rounded-full">
-                        <span className="text-[10px] font-mono text-[#52b788] uppercase tracking-wider">
-                            Open to Remote / Hybrid
-                        </span>
-                    </div>
-                </motion.div>
+      <motion.div className="mt-14 flex flex-col items-center gap-2 z-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1, duration: 0.6 }}>
+        <span className="font-mono uppercase" style={{ fontSize: 9, letterSpacing: '0.3em', color: 'var(--ink-faint)' }}>Scroll to Explore</span>
+        <div className="w-5 h-8 rounded-full flex justify-center p-1 border" style={{ borderColor: 'var(--rule-strong)' }}>
+          <motion.div className="w-1 h-1.5 rounded-full" style={{ background: 'var(--ink-strong)' }} animate={{ y: [0, 8, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }} />
+        </div>
+      </motion.div>
 
-                {/* 2. Name */}
-                <motion.h1
-                    className="text-4xl sm:text-6xl md:text-[68px] font-normal text-[#e0e1dd] tracking-tight leading-[1.08]"
-                    initial={{ opacity: 0, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    {personalInfo.name}
-                </motion.h1>
-
-                {/* 3. Job Title & Domain */}
-                <motion.h2
-                    className="text-xs sm:text-sm md:text-base font-mono text-[#52b788] mt-4 tracking-[0.2em] uppercase"
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                >
-                    {personalInfo.title}
-                </motion.h2>
-
-                {/* 4. Subtext / Value Prop */}
-                <motion.p
-                    className="text-sm sm:text-base md:text-lg text-[#e0e1dd]/80 max-w-2xl mt-6 leading-relaxed font-light"
-                    initial={{ opacity: 0, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                >
-                    Building secure, full-stack systems across <span className="text-[#e0e1dd] font-normal">React/Next.js, React Native, Django, and Node.js</span> with security-by-default — Row Level Security, JWT/OAuth auth, rate limiting, and race-condition-safe financial ledgers.
-                </motion.p>
-
-                {/* 5. CTAs: Direct 1-Click Resume + Projects + Role Resumes */}
-                <motion.div
-                    className="flex flex-wrap items-center justify-center gap-3 mt-10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                >
-                    <Link
-                        href="/work"
-                        className="px-6 py-2.5 bg-[#e0e1dd] text-[#0d1b2a] rounded-sm font-medium hover:bg-white transition-colors text-xs font-mono uppercase tracking-widest"
-                    >
-                        View Projects (16)
-                    </Link>
-
-                    {/* Direct 1-Click Primary Resume Download/View */}
-                    <a
-                        href="/resumes/SWE_David_Idowu.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-2.5 bg-[#52b788]/15 border border-[#52b788]/40 text-[#52b788] hover:bg-[#52b788]/25 hover:border-[#52b788]/70 rounded-sm transition-all text-xs font-mono uppercase tracking-widest flex items-center gap-2"
-                    >
-                        <span>Download CV (PDF)</span>
-                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                            <path d="M8 3v8M4 8l4 4 4-4M3 13h10" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </a>
-
-                    {/* Secondary Role Resumes Selector */}
-                    <button
-                        onClick={() => setResumeOpen(true)}
-                        className="px-5 py-2.5 border border-[#778da9]/30 text-[#778da9] hover:text-[#e0e1dd] hover:border-[#778da9]/60 hover:bg-[#778da9]/5 rounded-sm transition-all text-xs font-mono uppercase tracking-widest cursor-pointer"
-                    >
-                        Role Resumes (7) ▾
-                    </button>
-                </motion.div>
-            </div>
-
-            {/* 6. Scroll Indicator */}
-            <motion.div
-                className="mt-16 flex flex-col items-center gap-2"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-            >
-                <span className="text-[#778da9]/60 text-[9px] font-mono uppercase tracking-[0.3em]">Scroll to Explore</span>
-                <div className="w-5 h-8 border border-[#778da9]/30 rounded-full flex justify-center p-1">
-                    <motion.div
-                        className="w-1 h-1.5 bg-[#52b788] rounded-full"
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                </div>
-            </motion.div>
-
-            {/* Resume Overlay */}
-            <ResumeSheet isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
-        </motion.section>
-    );
+      <ResumeSheet isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
+    </motion.section>
+  );
 }

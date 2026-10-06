@@ -17,33 +17,33 @@ export default function Bio() {
             >
                 {/* Left Column: Architectural Profile Card */}
                 <motion.div
-                    className="flex flex-col gap-4 border border-[#778da9]/20 bg-[#0d1b2a]/40 p-6 rounded-sm"
+                    className="flex flex-col gap-4 border border-[var(--rule)]/20 bg-[var(--ground)]/40 p-6 rounded-sm"
                     variants={fadeInUp}
                 >
-                    <div className="flex items-center justify-between pb-3 border-b border-[#778da9]/15">
-                        <span className="text-[10px] font-mono text-[#52b788] uppercase tracking-widest">
+                    <div className="flex items-center justify-between pb-3 border-b border-[var(--rule)]/15">
+                        <span className="text-[10px] font-mono text-[var(--ink-strong)] uppercase tracking-widest">
                             PROFILE // 01
                         </span>
-                        <span className="w-2 h-2 rounded-full bg-[#52b788]" />
+                        <span className="w-2 h-2 rounded-full bg-[var(--ink-strong)]" />
                     </div>
 
                     <div className="flex flex-col gap-1">
-                        <span className="text-base text-[#e0e1dd] font-normal">{personalInfo.name}</span>
-                        <span className="text-xs text-[#778da9] font-mono leading-snug">{personalInfo.title}</span>
+                        <span className="text-base text-[var(--ink-strong)] font-normal">{personalInfo.name}</span>
+                        <span className="text-xs text-[var(--ink-faint)] font-mono leading-snug">{personalInfo.title}</span>
                     </div>
 
-                    <div className="flex flex-col gap-2 pt-3 border-t border-[#778da9]/10 text-xs font-mono">
-                        <div className="flex justify-between text-[#778da9]">
+                    <div className="flex flex-col gap-2 pt-3 border-t border-[var(--rule)]/10 text-xs font-mono">
+                        <div className="flex justify-between text-[var(--ink-faint)]">
                             <span>Status:</span>
-                            <span className="text-[#52b788]">Active / Available</span>
+                            <span className="text-[var(--ink-strong)]">Active / Available</span>
                         </div>
-                        <div className="flex justify-between text-[#778da9]">
+                        <div className="flex justify-between text-[var(--ink-faint)]">
                             <span>Focus:</span>
-                            <span className="text-[#e0e1dd]">Security & Full-Stack</span>
+                            <span className="text-[var(--ink-strong)]">Security & Full-Stack</span>
                         </div>
-                        <div className="flex justify-between text-[#778da9]">
+                        <div className="flex justify-between text-[var(--ink-faint)]">
                             <span>Education:</span>
-                            <span className="text-[#e0e1dd]">NUTM Scholar</span>
+                            <span className="text-[var(--ink-strong)]">NUTM Scholar</span>
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@ export default function Bio() {
                         href="/resumes/SWE_David_Idowu.pdf"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-2 w-full py-2 bg-[#e0e1dd]/10 hover:bg-[#e0e1dd]/20 border border-[#e0e1dd]/30 text-[#e0e1dd] text-center text-[10px] font-mono uppercase tracking-widest transition-colors rounded-sm flex items-center justify-center gap-1.5"
+                        className="mt-2 w-full py-2 bg-[var(--ground-2)] hover:bg-[var(--ground-2)] border border-[var(--rule-strong)] text-[var(--ink-strong)] text-center text-[10px] font-mono uppercase tracking-widest transition-colors rounded-sm flex items-center justify-center gap-1.5"
                     >
                         <span>View Primary SWE Resume</span>
                         <span>↗</span>
@@ -64,15 +64,15 @@ export default function Bio() {
                     variants={staggerContainer}
                 >
                     <motion.div variants={fadeInUp} className="flex flex-col gap-1">
-                        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#52b788]">
+                        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[var(--ink-strong)]">
                             About Me
                         </span>
-                        <h2 className="text-3xl md:text-4xl font-light text-[#e0e1dd] tracking-tight">
+                        <h2 className="text-3xl md:text-4xl font-light text-[var(--ink-strong)] tracking-tight">
                             Security-Conscious Full-Stack Engineering
                         </h2>
                     </motion.div>
 
-                    <div className="flex flex-col gap-4 text-[#e0e1dd]/80 leading-relaxed text-sm md:text-base font-light">
+                    <div className="flex flex-col gap-4 text-[var(--ink-strong)]/80 leading-relaxed text-sm md:text-base font-light">
                         {bioContent.paragraphs.map((para, index) => (
                             <motion.p key={index} variants={fadeInUp}>
                                 {para}

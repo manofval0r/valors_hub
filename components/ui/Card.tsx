@@ -23,7 +23,7 @@ export default function Card({
 
     return (
         <motion.div
-            className={`border border-[var(--lavender)]/30 bg-[var(--ink-black)] p-6 rounded-sm ${hoverable ? 'cursor-pointer' : ''} ${className}`}
+            className={`border border-[var(--rule)] bg-[var(--ground-2)] p-6 rounded-[2px] ${hoverable ? 'cursor-pointer' : ''} ${className}`}
             onClick={onClick}
             {...hoverProps}
         >

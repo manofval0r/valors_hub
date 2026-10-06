@@ -18,7 +18,7 @@ export default function Envelope({ status }: EnvelopeProps) {
                 className="w-full h-full"
             >
                 {/* Back of Envelope */}
-                <rect x="50" y="40" width="300" height="150" stroke="#778da9" strokeWidth="2" fill="#0d1b2a" />
+                <rect x="50" y="40" width="300" height="150" stroke="var(--rule-strong)" strokeWidth="2" fill="var(--ground)" />
 
                 {/* Paper (Inside) */}
                 <motion.rect
@@ -26,21 +26,21 @@ export default function Envelope({ status }: EnvelopeProps) {
                     y="50"
                     width="260"
                     height="130"
-                    fill="#e0e1dd"
+                    fill="var(--ground-2)"
                     animate={isFolding ? { y: 20, opacity: 0.5 } : { y: 0, opacity: 1 }}
                     transition={{ duration: 0.5 }}
                 />
 
                 {/* Left & Right Flaps */}
-                <path d="M 50 40 L 200 115 L 350 40" stroke="#778da9" strokeWidth="2" />
-                <path d="M 50 190 L 200 115 L 350 190" stroke="#778da9" strokeWidth="2" />
+                <path d="M 50 40 L 200 115 L 350 40" stroke="var(--rule-strong)" strokeWidth="2" />
+                <path d="M 50 190 L 200 115 L 350 190" stroke="var(--rule-strong)" strokeWidth="2" />
 
                 {/* Top Flap (Animated) */}
                 <motion.path
                     d="M 50 40 L 200 115 L 350 40"
-                    stroke="#778da9"
+                    stroke="var(--rule-strong)"
                     strokeWidth="2"
-                    fill="#0d1b2a"
+                    fill="var(--ground)"
                     animate={isFolding ? { d: "M 50 40 L 200 190 L 350 40" } : { d: "M 50 40 L 200 -20 L 350 40" }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
                 />
@@ -49,7 +49,7 @@ export default function Envelope({ status }: EnvelopeProps) {
                 {status === 'success' && (
                     <motion.path
                         d="M 180 140 L 195 155 L 225 125"
-                        stroke="#e0e1dd"
+                        stroke="var(--ink-strong)"
                         strokeWidth="4"
                         strokeLinecap="round"
                         strokeLinejoin="round"

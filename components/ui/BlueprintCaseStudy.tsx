@@ -76,7 +76,7 @@ function buildChapters(mindMap?: Project['mindMap'], project?: Project): Chapter
             id: 'connections',
             title: 'Cross-Project Connections',
             subtitle: 'How this work powers the wider ecosystem',
-            body: `The engineering decisions made here didn't stay isolated. They influenced and connected to: ${projectNodes.map(p => p.label).join(', ')} — sharing security protocols, design patterns, or architectural blueprints.`,
+            body: `The engineering decisions made here carried over to: ${projectNodes.map(p => p.label).join(', ')} through shared security protocols, design patterns, and architectural blueprints.`,
             autoPanTarget: { x: cx, y: cy },
             highlightCluster: allIds,
         });
@@ -151,7 +151,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
     }, []);
 
     return (
-        <main className="min-h-screen bg-[#030910]">
+        <main className="min-h-screen bg-[var(--ground)]">
             {/* ══════════════════════════════════════════════════
                 LAYER 1 — STICKY BLUEPRINT CANVAS (desktop only)
                ══════════════════════════════════════════════════ */}
@@ -179,33 +179,33 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                     className="relative flex items-end pb-16 md:pb-24 px-6 md:px-14"
                     style={{ minHeight: '100svh' }}
                 >
-                    {/* Gradient fade at bottom so hero blends into chapters */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#030910]/60 via-transparent to-[#030910] pointer-events-none" />
+                    {/* Hairline fade at bottom so hero blends into chapters */}
+                    <div className="absolute inset-0 border-b border-[var(--rule)] pointer-events-none" />
 
                     <motion.div
                         className="relative z-10 max-w-3xl"
                         style={{ opacity: heroOpacity }}
                     >
                         {/* Breadcrumb */}
-                        <div className="flex items-center gap-2 mb-8 text-[#778da9]/50 text-[10px] font-mono uppercase tracking-widest">
-                            <Link href="/work" className="hover:text-[#778da9] transition-colors">Work</Link>
+                        <div className="flex items-center gap-2 mb-8 text-[var(--ink-faint)] text-[10px] font-mono uppercase tracking-widest">
+                            <Link href="/work" className="hover:text-[var(--ink-strong)] transition-colors">Work</Link>
                             <span>/</span>
-                            <span className="text-[#778da9]">{project.title}</span>
+                            <span className="text-[var(--ink-faint)]">{project.title}</span>
                         </div>
 
                         {/* Category + date */}
                         <div className="flex items-center gap-3 mb-5">
-                            <div className="w-1.5 h-1.5 rounded-full bg-[#52b788] animate-pulse" />
-                            <span className="text-[#52b788] text-[10px] font-mono uppercase tracking-[0.3em]">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[var(--ink-strong)]" />
+                            <span className="text-[var(--ink-strong)] text-[10px] font-mono uppercase tracking-[0.3em]">
                                 {project.category === 'full-stack' ? 'Full Stack' : project.category}
                             </span>
-                            <span className="text-[#778da9]/40 text-[10px] font-mono">{project.date}</span>
+                            <span className="text-[var(--ink-faint)] text-[10px] font-mono">{project.date}</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-[#e0e1dd] leading-none md:leading-tight tracking-tight mb-6">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-light text-[var(--ink-strong)] leading-none md:leading-tight tracking-tight mb-6">
                             {project.title}
                         </h1>
-                        <p className="text-[#778da9] text-base md:text-lg font-light leading-relaxed max-w-xl">
+                        <p className="text-[var(--ink-faint)] text-base md:text-lg font-light leading-relaxed max-w-xl">
                             {project.tagline}
                         </p>
 
@@ -213,7 +213,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                         {project.techStack.length > 0 && (
                             <div className="flex flex-wrap gap-2 mt-8">
                                 {project.techStack.map(t => (
-                                    <span key={t} className="text-[9px] px-3 py-1.5 border border-[#778da9]/20 text-[#778da9] font-mono uppercase tracking-widest bg-[#030910]/60 backdrop-blur-sm">
+                                    <span key={t} className="text-[9px] px-3 py-1.5 border border-[var(--rule)] text-[var(--ink-faint)] font-mono uppercase tracking-widest bg-[var(--ground)] rounded-[2px]">
                                         {t}
                                     </span>
                                 ))}
@@ -222,7 +222,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
 
                         {/* Scroll cue */}
                         {hasConstellation && (
-                            <div className="mt-12 flex items-center gap-3 text-[#778da9]/40 text-[9px] font-mono uppercase tracking-widest">
+                            <div className="mt-12 flex items-center gap-3 text-[var(--ink-faint)] text-[9px] font-mono uppercase tracking-widest">
                                 <motion.div
                                     animate={{ y: [0, 5, 0] }}
                                     transition={{ repeat: Infinity, duration: 1.8, ease: 'easeInOut' }}
@@ -253,32 +253,32 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                                         className="w-full max-w-md"
                                     >
                                         {/* Glass card */}
-                                        <div className={`p-7 backdrop-blur-xl border transition-all duration-500 ${activeChapterIdx === i ? 'bg-[#030910]/75 border-[#778da9]/25 shadow-[0_32px_80px_rgba(0,0,0,0.6)]' : 'bg-[#030910]/40 border-[#778da9]/10'}`}>
+                                        <div className={`p-7 border rounded-[2px] transition-all duration-500 ${activeChapterIdx === i ? 'bg-[var(--ground-2)] border-[var(--rule-strong)]' : 'bg-[var(--ground)] border-[var(--rule)]'}`}>
                                             {/* Chapter index */}
                                             <div className="flex items-center gap-3 mb-5">
-                                                <span className="text-[#778da9]/40 text-[10px] font-mono">
+                                                <span className="text-[var(--ink-faint)] text-[10px] font-mono">
                                                     {String(i + 1).padStart(2, '0')} / {String(chapters.length).padStart(2, '0')}
                                                 </span>
                                                 {chapter.subtitle && (
                                                     <>
-                                                        <span className="w-px h-3 bg-[#778da9]/20" />
-                                                        <span className="text-[#778da9]/50 text-[10px] font-mono uppercase tracking-widest">{chapter.subtitle}</span>
+                                                        <span className="w-px h-3 bg-[var(--rule-strong)]" />
+                                                        <span className="text-[var(--ink-faint)] text-[10px] font-mono uppercase tracking-widest">{chapter.subtitle}</span>
                                                     </>
                                                 )}
                                             </div>
 
-                                            <h2 className="text-xl md:text-2xl text-[#e0e1dd] font-mono font-light leading-tight mb-4">
+                                            <h2 className="text-xl md:text-2xl text-[var(--ink-strong)] font-mono font-light leading-tight mb-4">
                                                 {chapter.title}
                                             </h2>
-                                            <p className="text-[#e0e1dd]/55 text-sm leading-relaxed">
+                                            <p className="text-[var(--ink-soft)] text-sm leading-relaxed">
                                                 {chapter.body}
                                             </p>
 
                                             {/* Node cluster count badge */}
                                             {chapter.highlightCluster.length > 0 && (
                                                 <div className="mt-5 flex items-center gap-2">
-                                                    <div className="w-1 h-1 bg-[#52b788] rounded-full animate-pulse" />
-                                                    <span className="text-[#52b788]/60 text-[9px] font-mono uppercase tracking-widest">
+                                                    <div className="w-1 h-1 bg-[var(--ink-strong)] rounded-full" />
+                                                    <span className="text-[var(--ink-faint)] text-[9px] font-mono uppercase tracking-widest">
                                                         {chapter.highlightCluster.length} nodes active
                                                     </span>
                                                 </div>
@@ -307,19 +307,19 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                                 {/* Sidebar meta */}
                                 <div className="flex flex-col gap-8">
                                     <div>
-                                        <span className="text-[#778da9] text-[9px] uppercase font-mono tracking-[0.2em] block mb-1.5">Client</span>
-                                        <span className="text-[#e0e1dd] text-sm">{project.client}</span>
+                                        <span className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] block mb-1.5">Client</span>
+                                        <span className="text-[var(--ink-strong)] text-sm">{project.client}</span>
                                     </div>
                                     <div>
-                                        <span className="text-[#778da9] text-[9px] uppercase font-mono tracking-[0.2em] block mb-1.5">Timeline</span>
-                                        <span className="text-[#e0e1dd] text-sm">{project.date}</span>
+                                        <span className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] block mb-1.5">Timeline</span>
+                                        <span className="text-[var(--ink-strong)] text-sm">{project.date}</span>
                                     </div>
                                     {project.techStack.length > 0 && (
                                         <div>
-                                            <span className="text-[#778da9] text-[9px] uppercase font-mono tracking-[0.2em] block mb-3">Stack</span>
+                                            <span className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] block mb-3">Stack</span>
                                             <div className="flex flex-wrap gap-2">
                                                 {project.techStack.map(t => (
-                                                    <span key={t} className="text-[9px] border border-[#778da9]/20 px-2.5 py-1 text-[#778da9] font-mono uppercase tracking-widest bg-[#112131]/40">
+                                                    <span key={t} className="text-[9px] border border-[var(--rule)] px-2.5 py-1 text-[var(--ink-faint)] font-mono uppercase tracking-widest bg-[var(--ground-2)] rounded-[2px]">
                                                         {t}
                                                     </span>
                                                 ))}
@@ -348,9 +348,9 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                                         imageUrl={project.imageUrl}
                                         title={project.title}
                                     />
-                                    <div className="border border-[#778da9]/10 p-6 bg-[#0d1b2a]/40">
-                                        <h2 className="text-[#778da9] text-[9px] uppercase font-mono tracking-[0.2em] mb-3">Overview</h2>
-                                        <p className="text-[#e0e1dd]/60 text-sm leading-relaxed">{project.description}</p>
+                                    <div className="border border-[var(--rule)] p-6 bg-[var(--ground-2)] rounded-[2px]">
+                                        <h2 className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] mb-3">Overview</h2>
+                                        <p className="text-[var(--ink-soft)] text-sm leading-relaxed">{project.description}</p>
                                     </div>
                                 </div>
                             </div>
@@ -360,7 +360,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
 
                 {/* ── CTA strip ── */}
                 {(project.liveLink || project.codeLink) && (
-                    <div className="relative z-10 px-6 md:px-14 py-10 border-t border-[#778da9]/8 flex items-center gap-5">
+                    <div className="relative z-10 px-6 md:px-14 py-10 border-t border-[var(--rule)] flex items-center gap-5">
                         {project.liveLink && (
                             <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
                                 <Button>Live Site ↗</Button>
@@ -372,8 +372,8 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                             </a>
                         )}
                         {project.collaborator && (
-                            <span className="text-[#778da9]/40 text-[10px] font-mono uppercase tracking-widest ml-2">
-                                w/ <a href={project.collaborator.github} target="_blank" rel="noopener noreferrer" className="hover:text-[#778da9] transition-colors">{project.collaborator.name}</a>
+                            <span className="text-[var(--ink-faint)] text-[10px] font-mono uppercase tracking-widest ml-2">
+                                w/ <a href={project.collaborator.github} target="_blank" rel="noopener noreferrer" className="hover:text-[var(--ink-strong)] transition-colors">{project.collaborator.name}</a>
                             </span>
                         )}
                     </div>
@@ -383,7 +383,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                 {hasConstellation && !isMobile && (project.videoUrl || project.videoPublicId || project.imageUrl) && (
                     <div className="relative z-10 px-6 md:px-14 pb-16">
                         <div className="max-w-2xl">
-                            <p className="text-[#778da9] text-[9px] uppercase font-mono tracking-[0.2em] mb-4">Live Demo</p>
+                            <p className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] mb-4">Live Demo</p>
                             <VideoShowcase
                                 videoUrl={project.videoUrl}
                                 videoPublicId={project.videoPublicId}
@@ -395,19 +395,19 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                 )}
 
                 {/* ── Prev / Next navigation ── */}
-                <div className="relative z-10 border-t border-[#778da9]/10 bg-[#030910]/80 backdrop-blur-xl">
+                <div className="relative z-10 border-t border-[var(--rule)] bg-[var(--ground)]">
                     <div className="max-w-7xl mx-auto grid md:grid-cols-2">
                         {prevProject ? (
-                            <Link href={`/work/${prevProject.slug}`} className="group p-10 md:border-r border-[#778da9]/10 hover:bg-[#778da9]/5 transition-all text-left">
-                                <span className="text-[#778da9]/40 text-[9px] block mb-3 uppercase font-mono tracking-widest">← Previous</span>
-                                <h4 className="text-xl text-[#e0e1dd] group-hover:text-[#778da9] transition-colors font-light">{prevProject.title}</h4>
+                            <Link href={`/work/${prevProject.slug}`} className="group p-10 md:border-r border-[var(--rule)] hover:bg-[var(--ground-2)] transition-all text-left">
+                                <span className="text-[var(--ink-faint)] text-[9px] block mb-3 uppercase font-mono tracking-widest">← Previous</span>
+                                <h4 className="text-xl text-[var(--ink-strong)] transition-colors font-light">{prevProject.title}</h4>
                             </Link>
-                        ) : <div className="p-10 md:border-r border-[#778da9]/10" />}
+                        ) : <div className="p-10 md:border-r border-[var(--rule)]" />}
 
                         {nextProject ? (
-                            <Link href={`/work/${nextProject.slug}`} className="group p-10 hover:bg-[#778da9]/5 transition-all text-right">
-                                <span className="text-[#778da9]/40 text-[9px] block mb-3 uppercase font-mono tracking-widest">Next →</span>
-                                <h4 className="text-xl text-[#e0e1dd] group-hover:text-[#778da9] transition-colors font-light">{nextProject.title}</h4>
+                            <Link href={`/work/${nextProject.slug}`} className="group p-10 hover:bg-[var(--ground-2)] transition-all text-right">
+                                <span className="text-[var(--ink-faint)] text-[9px] block mb-3 uppercase font-mono tracking-widest">Next →</span>
+                                <h4 className="text-xl text-[var(--ink-strong)] transition-colors font-light">{nextProject.title}</h4>
                             </Link>
                         ) : <div className="p-10" />}
                     </div>

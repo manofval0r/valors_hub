@@ -20,9 +20,11 @@ export default function FeaturedProjects() {
             <div className="flex justify-center py-16">
                 <a
                     href="/work"
-                    className="text-[#778da9] hover:text-[#e0e1dd] uppercase text-[9px] tracking-[0.4em] font-mono transition-colors link-underline"
+                    className="group inline-flex items-center gap-3 px-8 py-3.5 rounded-[2px] border text-[11px] font-mono uppercase transition-colors"
+                    style={{ letterSpacing: '0.22em', borderColor: 'var(--ink-strong)', background: 'var(--ink-strong)', color: 'var(--accent-ink)', fontWeight: 700 }}
                 >
                     View All Projects
+                    <span aria-hidden="true" className="transition-transform duration-200 group-hover:translate-x-1">→</span>
                 </a>
             </div>
         </div>

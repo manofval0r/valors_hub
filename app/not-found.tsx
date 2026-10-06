@@ -36,7 +36,7 @@ export default function NotFound() {
 
             {/* Broken Constellation Background */}
             <div className="absolute inset-0 z-0 opacity-15 pointer-events-none">
-                <svg viewBox="0 0 1000 1000" className="w-full h-full text-[#778da9]">
+                <svg viewBox="0 0 1000 1000" className="w-full h-full text-[var(--ink-faint)]">
                     {NODES.map((node) => (
                         <motion.g key={node.i}>
                             <motion.path
@@ -79,7 +79,7 @@ export default function NotFound() {
 
             <div className="relative z-10 text-center flex flex-col gap-8">
                 <motion.h1
-                    className="text-8xl md:text-[12rem] font-normal text-[#e0e1dd] tracking-tighter"
+                    className="text-8xl md:text-[12rem] font-normal text-[var(--ink-strong)] tracking-tighter"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1, ease: "easeOut" }}
@@ -89,7 +89,7 @@ export default function NotFound() {
 
                 <div className="flex flex-col gap-3">
                     <motion.p
-                        className="text-2xl text-[#e0e1dd] font-light"
+                        className="text-2xl text-[var(--ink-strong)] font-light"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
@@ -97,7 +97,7 @@ export default function NotFound() {
                         The constellation has drifted.
                     </motion.p>
                     <motion.p
-                        className="text-[#778da9] uppercase tracking-[0.4em] text-[10px] font-mono"
+                        className="text-[var(--ink-faint)] uppercase tracking-[0.4em] text-[10px] font-mono"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.7 }}
@@ -117,10 +117,10 @@ export default function NotFound() {
                     </Link>
                 </motion.div>
 
-                <div className="flex gap-8 items-center justify-center mt-12 text-[10px] text-[#778da9]/40 uppercase tracking-[0.3em] font-mono">
-                    <Link href="/work" className="hover:text-[#e0e1dd] transition-colors link-underline">Work</Link>
-                    <Link href="/#my-story" className="hover:text-[#e0e1dd] transition-colors link-underline">About</Link>
-                    <Link href="/#contact" className="hover:text-[#e0e1dd] transition-colors link-underline">Contact</Link>
+                <div className="flex gap-8 items-center justify-center mt-12 text-[10px] text-[var(--ink-faint)]/40 uppercase tracking-[0.3em] font-mono">
+                    <Link href="/work" className="hover:text-[var(--ink-strong)] transition-colors link-underline">Work</Link>
+                    <Link href="/#my-story" className="hover:text-[var(--ink-strong)] transition-colors link-underline">About</Link>
+                    <Link href="/#contact" className="hover:text-[var(--ink-strong)] transition-colors link-underline">Contact</Link>
                 </div>
             </div>
         </main>

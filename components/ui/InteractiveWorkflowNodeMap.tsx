@@ -220,19 +220,19 @@ export default function InteractiveWorkflowNodeMap({
     // ─── Desktop Canvas ───
     if (!isMobile || isImmersive) {
         return (
-            <div className={`flex flex-col w-full h-full ${isImmersive ? 'fixed inset-0 z-[100] bg-[#030910]' : ''}`}>
+            <div className={`flex flex-col w-full h-full ${isImmersive ? 'fixed inset-0 z-[100] bg-[var(--ground)]' : ''}`}>
                 {/* Immersive toolbar — only shown when NOT in blueprint mode */}
                 {!blueprintMode && (
-                    <div className={`flex items-center justify-between px-6 py-4 ${isImmersive ? 'border-b border-[#778da9]/10 bg-[#030910]/80 backdrop-blur-xl' : 'mb-3'}`}>
+                    <div className={`flex items-center justify-between px-6 py-4 ${isImmersive ? 'border-b border-[var(--rule)] bg-[var(--ground)]' : 'mb-3'}`}>
                         <div>
-                            <h2 className="text-xl text-[#e0e1dd] font-mono tracking-tight">Mind Map</h2>
-                            <p className="text-[#778da9] text-[9px] uppercase tracking-[0.3em] font-mono mt-0.5">Interactive Engineering Constellation</p>
+                            <h2 className="text-xl text-[var(--ink-strong)] font-mono tracking-tight">Mind Map</h2>
+                            <p className="text-[var(--ink-faint)] text-[9px] uppercase tracking-[0.3em] font-mono mt-0.5">Interactive Engineering Constellation</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <span className="text-[#778da9]/60 text-[10px] font-mono">{Math.round(zoomLevel * 100)}%</span>
+                            <span className="text-[var(--ink-faint)] text-[10px] font-mono">{Math.round(zoomLevel * 100)}%</span>
                             <button
                                 onClick={() => setIsImmersive(!isImmersive)}
-                                className="px-4 py-2 border border-[#778da9]/25 text-[#e0e1dd] text-[10px] font-mono uppercase tracking-widest hover:bg-[#778da9]/10 transition-colors cursor-pointer"
+                                className="px-4 py-2 border border-[var(--rule-strong)] text-[var(--ink-strong)] text-[10px] font-mono uppercase tracking-widest hover:bg-[var(--ground-2)] transition-colors cursor-pointer rounded-[2px]"
                             >
                                 {isImmersive ? 'Exit' : 'Expand'}
                             </button>
@@ -241,7 +241,7 @@ export default function InteractiveWorkflowNodeMap({
                 )}
 
                 <div
-                    className={`relative w-full ${isImmersive ? 'flex-1 mt-[57px]' : blueprintMode ? 'h-full' : 'h-[680px] border border-[#778da9]/10'} overflow-hidden bg-[#030910] ${isPanning ? 'cursor-grabbing' : blueprintMode ? 'cursor-default' : 'cursor-grab'}`}
+                    className={`relative w-full ${isImmersive ? 'flex-1 mt-[57px]' : blueprintMode ? 'h-full' : 'h-[680px] border border-[var(--rule)]'} overflow-hidden bg-[var(--ground)] ${isPanning ? 'cursor-grabbing' : blueprintMode ? 'cursor-default' : 'cursor-grab'}`}
                     ref={containerRef}
                     onWheel={handleWheel}
                     onDoubleClick={!blueprintMode ? handleDoubleClick : undefined}
@@ -254,7 +254,7 @@ export default function InteractiveWorkflowNodeMap({
                     <div className="absolute inset-0 pointer-events-none"
                         style={{
                             opacity: blueprintMode ? 0.08 : 0.12,
-                            backgroundImage: 'radial-gradient(#778da9 0.7px, transparent 0.7px)',
+                            backgroundImage: 'radial-gradient(var(--rule-strong) 0.7px, transparent 0.7px)',
                             backgroundSize: '32px 32px',
                         }}
                     />
@@ -268,17 +268,13 @@ export default function InteractiveWorkflowNodeMap({
                         <svg className="absolute pointer-events-none" style={{ zIndex: 0, left: 0, top: 0, width: 5000, height: 4000, overflow: 'visible' }}>
                             <defs>
                                 <linearGradient id="egDef" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#778da9" stopOpacity="0.15" />
-                                    <stop offset="100%" stopColor="#778da9" stopOpacity="0.4" />
+                                    <stop offset="0%" stopColor="var(--ink-faint)" stopOpacity="0.15" />
+                                    <stop offset="100%" stopColor="var(--ink-faint)" stopOpacity="0.4" />
                                 </linearGradient>
                                 <linearGradient id="egAct" x1="0%" y1="0%" x2="100%" y2="0%">
-                                    <stop offset="0%" stopColor="#52b788" stopOpacity="0.5" />
-                                    <stop offset="100%" stopColor="#52b788" stopOpacity="1" />
+                                    <stop offset="0%" stopColor="var(--ink-strong)" stopOpacity="0.5" />
+                                    <stop offset="100%" stopColor="var(--ink-strong)" stopOpacity="1" />
                                 </linearGradient>
-                                <filter id="egGlow">
-                                    <feGaussianBlur stdDeviation="3" result="blur" />
-                                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                                </filter>
                             </defs>
 
                             {mindMap.edges.map((edge, i) => {
@@ -297,13 +293,12 @@ export default function InteractiveWorkflowNodeMap({
                                             stroke={edge.animated || isEdgeActive ? 'url(#egAct)' : 'url(#egDef)'}
                                             strokeWidth={edge.animated ? 2.5 : isEdgeActive ? 2 : 1.5}
                                             strokeDasharray={edge.animated ? '8 6' : 'none'}
-                                            filter={edge.animated ? 'url(#egGlow)' : undefined}
                                         />
                                         {edge.label && (
                                             <text
                                                 x={(sp.x + tp.x) / 2}
                                                 y={(sp.y + tp.y) / 2 - 10}
-                                                fill={edge.animated || isEdgeActive ? '#52b788' : '#778da9'}
+                                                fill={edge.animated || isEdgeActive ? 'var(--ink-strong)' : 'var(--ink-faint)'}
                                                 fontSize="12"
                                                 fontFamily="monospace"
                                                 textAnchor="middle"
@@ -336,9 +331,9 @@ export default function InteractiveWorkflowNodeMap({
                                     onDrag={draggable ? (_, info) => handleNodeDrag(node.id, info) : undefined}
                                     onMouseEnter={() => !blueprintMode && setActiveNodeId(node.id)}
                                     onMouseLeave={() => !blueprintMode && setActiveNodeId(null)}
-                                    className={`absolute select-none backdrop-blur-md border transition-all duration-500
-                                        ${isHub ? 'bg-[#0e1c2c]/90' : isProject ? 'bg-[#0a1a14]/90' : 'bg-[#0d1b2a]/85'}
-                                        ${highlighted ? (isProject ? 'border-[#52b788]/80 shadow-[0_0_30px_rgba(82,183,136,0.2)]' : 'border-[#e0e1dd]/60 shadow-[0_0_25px_rgba(224,225,221,0.1)]') : (isProject ? 'border-[#52b788]/20' : isHub ? 'border-[#e0e1dd]/15' : 'border-[#778da9]/15')}
+                                    className={`absolute select-none border rounded-[2px] transition-all duration-500
+                                        ${isHub ? 'bg-[var(--ground-2)]' : isProject ? 'bg-[var(--ground-2)]' : 'bg-[var(--ground)]'}
+                                        ${highlighted ? 'border-[var(--rule-fn)]' : isProject ? 'border-[var(--rule-strong)]' : isHub ? 'border-[var(--rule-strong)]' : 'border-[var(--rule)]'}
                                         ${draggable ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'}
                                     `}
                                     style={{
@@ -347,25 +342,25 @@ export default function InteractiveWorkflowNodeMap({
                                         width: w,
                                         opacity: nodeOpacity,
                                         zIndex: isProject ? 35 : isHub ? 30 : 20,
-                                        transition: 'opacity 0.5s ease, border-color 0.3s ease, box-shadow 0.3s ease',
+                                        transition: 'opacity 0.5s ease, border-color 0.3s ease',
                                     }}
                                 >
                                     <div className={`px-4 py-2.5 border-b flex items-center justify-between
-                                        ${isHub ? 'bg-[#e0e1dd]/4 border-[#e0e1dd]/10' : isProject ? 'bg-[#52b788]/5 border-[#52b788]/15' : 'bg-[#112131]/40 border-[#778da9]/10'}`}
+                                        ${isHub ? 'bg-[var(--ground-2)] border-[var(--rule)]' : isProject ? 'bg-[var(--ground-2)] border-[var(--rule)]' : 'bg-[var(--ground-2)] border-[var(--rule)]'}`}
                                     >
                                         <div className="flex items-center gap-2">
                                             {isProject ? (
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#52b788" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
+                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink-strong)" strokeWidth="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" /></svg>
                                             ) : (
-                                                <div className={`w-2 h-2 rounded-full ${highlighted ? (isHub ? 'bg-[#e0e1dd]' : 'bg-[#52b788]') : 'bg-[#778da9]/50'} ${highlighted ? 'animate-pulse' : ''}`} />
+                                                <div className={`w-2 h-2 rounded-full ${highlighted ? 'bg-[var(--ink-strong)]' : 'bg-[var(--ink-faint)]'}`} />
                                             )}
-                                            <span className={`text-[10px] font-mono tracking-[0.2em] uppercase ${isProject ? 'text-[#52b788]/70' : 'text-[#778da9]/60'}`}>{node.type}</span>
+                                            <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[var(--ink-faint)]">{node.type}</span>
                                         </div>
-                                        {node.date && <span className="text-[#778da9]/40 text-[10px] font-mono">{node.date}</span>}
+                                        {node.date && <span className="text-[var(--ink-faint)] text-[10px] font-mono">{node.date}</span>}
                                     </div>
                                     <div className="p-4">
-                                        <h4 className={`text-base font-mono font-medium leading-tight mb-2 ${isProject ? 'text-[#52b788]' : 'text-[#e0e1dd]'}`}>{node.label}</h4>
-                                        {node.description && <p className="text-[#e0e1dd]/50 text-xs leading-relaxed line-clamp-3">{node.description}</p>}
+                                        <h4 className="text-base font-mono font-medium leading-tight mb-2 text-[var(--ink-strong)]">{node.label}</h4>
+                                        {node.description && <p className="text-[var(--ink-soft)] text-xs leading-relaxed line-clamp-3">{node.description}</p>}
                                     </div>
                                 </motion.div>
                             );
@@ -379,11 +374,11 @@ export default function InteractiveWorkflowNodeMap({
 
                     {/* Controls pill — not in blueprint mode */}
                     {!blueprintMode && (
-                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#0d1b2a]/90 backdrop-blur-xl border border-[#778da9]/15 px-5 py-2 rounded-full flex gap-4 items-center text-[9px] font-mono text-[#778da9]/60 pointer-events-none z-50 shadow-2xl">
+                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[var(--ground)] border border-[var(--rule)] px-5 py-2 rounded-[2px] flex gap-4 items-center text-[9px] font-mono text-[var(--ink-faint)] pointer-events-none z-50">
                             <span>Scroll → Zoom</span>
-                            <span className="w-px h-3 bg-[#778da9]/20" />
+                            <span className="w-px h-3 bg-[var(--rule-strong)]" />
                             <span>Double-click → Snap</span>
-                            <span className="w-px h-3 bg-[#778da9]/20" />
+                            <span className="w-px h-3 bg-[var(--rule-strong)]" />
                             <span>Drag → Pan / Remap</span>
                         </div>
                     )}
@@ -410,18 +405,18 @@ export default function InteractiveWorkflowNodeMap({
 
     return (
         <div className="flex flex-col gap-3 py-10 px-4">
-            <div className="pb-4 mb-1 border-b border-[#778da9]/10">
-                <h2 className="text-lg text-[#e0e1dd] font-mono">Mind Map</h2>
-                <p className="text-[#778da9] text-[9px] uppercase tracking-[0.25em] mt-1 font-mono">Tap phases to explore</p>
+            <div className="pb-4 mb-1 border-b border-[var(--rule)]">
+                <h2 className="text-lg text-[var(--ink-strong)] font-mono">Mind Map</h2>
+                <p className="text-[var(--ink-faint)] text-[9px] uppercase tracking-[0.25em] mt-1 font-mono">Tap phases to explore</p>
             </div>
 
             {projectNodes.length > 0 && (
                 <div className="flex gap-2.5 overflow-x-auto pb-3 hide-scrollbar">
                     {projectNodes.map(p => (
                         <Link href={`/work/${p.link}`} key={p.id}>
-                            <div className="min-w-[160px] bg-[#0a1a14]/60 border border-[#52b788]/20 p-3.5 flex-shrink-0 active:scale-95 transition-transform">
-                                <span className="text-[8px] text-[#52b788]/60 font-mono tracking-[0.2em] uppercase">Linked</span>
-                                <h4 className="text-[#52b788] text-sm font-mono mt-0.5">{p.label}</h4>
+                            <div className="min-w-[160px] bg-[var(--ground-2)] border border-[var(--rule-strong)] rounded-[2px] p-3.5 flex-shrink-0 active:scale-95 transition-transform">
+                                <span className="text-[8px] text-[var(--ink-faint)] font-mono tracking-[0.2em] uppercase">Linked</span>
+                                <h4 className="text-[var(--ink-strong)] text-sm font-mono mt-0.5">{p.label}</h4>
                             </div>
                         </Link>
                     ))}
@@ -432,16 +427,16 @@ export default function InteractiveWorkflowNodeMap({
                 const hubChildren = (children[hub.id] || []).map(cid => mindMap.nodes.find(n => n.id === cid)).filter(Boolean) as MindMapNode[];
                 const isExp = mobileExpanded.has(hub.id);
                 return (
-                    <div key={hub.id} className="border border-[#778da9]/10 bg-[#0d1b2a]/50">
-                        <button onClick={() => toggleExpand(hub.id)} className="w-full flex items-center justify-between p-4 active:bg-[#778da9]/5 transition-colors">
+                    <div key={hub.id} className="border border-[var(--rule)] bg-[var(--ground)] rounded-[2px]">
+                        <button onClick={() => toggleExpand(hub.id)} className="w-full flex items-center justify-between p-4 active:bg-[var(--ground-2)] transition-colors">
                             <div className="flex items-center gap-3">
-                                <div className="w-1.5 h-1.5 bg-[#e0e1dd] rounded-full" />
-                                <span className="text-[#e0e1dd] text-sm font-mono text-left">{hub.label}</span>
+                                <div className="w-1.5 h-1.5 bg-[var(--ink-strong)] rounded-full" />
+                                <span className="text-[var(--ink-strong)] text-sm font-mono text-left">{hub.label}</span>
                             </div>
                             <div className="flex items-center gap-2 flex-shrink-0">
-                                {hubChildren.length > 0 && <span className="text-[#778da9]/50 text-[10px] font-mono">{hubChildren.length}</span>}
+                                {hubChildren.length > 0 && <span className="text-[var(--ink-faint)] text-[10px] font-mono">{hubChildren.length}</span>}
                                 <motion.div animate={{ rotate: isExp ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#778da9" strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ink-faint)" strokeWidth="2"><polyline points="6 9 12 15 18 9" /></svg>
                                 </motion.div>
                             </div>
                         </button>
@@ -454,12 +449,12 @@ export default function InteractiveWorkflowNodeMap({
                                     transition={{ duration: 0.28, ease: [0.04, 0.62, 0.23, 0.98] }}
                                     className="overflow-hidden"
                                 >
-                                    <div className="border-t border-[#778da9]/8 p-3 flex flex-col gap-2">
+                                    <div className="border-t border-[var(--rule)] p-3 flex flex-col gap-2">
                                         {hubChildren.map(child => (
-                                            <div key={child.id} className={`p-3 border-l-2 ${child.type === 'project' ? 'border-[#52b788]/50 bg-[#52b788]/5' : 'border-[#778da9]/20 bg-[#112131]/25'}`}>
-                                                <span className={`text-[8px] font-mono tracking-[0.15em] uppercase ${child.type === 'project' ? 'text-[#52b788]/60' : 'text-[#778da9]/50'}`}>{child.type}</span>
-                                                <h5 className={`text-xs font-mono font-medium mt-0.5 ${child.type === 'project' ? 'text-[#52b788]' : 'text-[#e0e1dd]'}`}>{child.label}</h5>
-                                                {child.description && <p className="text-[#e0e1dd]/35 text-[10px] mt-1 leading-relaxed">{child.description}</p>}
+                                            <div key={child.id} className="p-3 border-l-2 border-[var(--rule-strong)] bg-[var(--ground-2)] rounded-[2px]">
+                                                <span className="text-[8px] font-mono tracking-[0.15em] uppercase text-[var(--ink-faint)]">{child.type}</span>
+                                                <h5 className="text-xs font-mono font-medium mt-0.5 text-[var(--ink-strong)]">{child.label}</h5>
+                                                {child.description && <p className="text-[var(--ink-soft)] text-[10px] mt-1 leading-relaxed">{child.description}</p>}
                                             </div>
                                         ))}
                                     </div>
