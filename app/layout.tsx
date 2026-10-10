@@ -45,6 +45,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" data-world="ink" className={`${bricolage.variable} ${martian.variable}`} suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
+        <a
+          href="#home"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-[2px] focus:font-mono focus:text-[11px] focus:uppercase"
+          style={{ letterSpacing: '0.14em', background: 'var(--ink-strong)', color: 'var(--accent-ink)' }}
+        >
+          Skip to content
+        </a>
         <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
           <DotField density={34} />
         </div>

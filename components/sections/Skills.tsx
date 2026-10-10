@@ -1,18 +1,25 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import Section from '../ui/Section';
 import { skills, skillCategories } from '@/data/skills';
 import { fadeInUp } from '@/lib/animations';
 
-// Stable plate: fixed 1000x620 coordinate space, static seeded layout,
-// drag offsets stored per node so edges follow. No drift timer, no
-// percentage positioning, no transform-centering conflict.
+// Coordinate contract (the whole stability story):
+// - One fixed plate space: 1000 x 620 viewBox units. The container locks
+//   the same aspect, so 1 viewBox unit scales uniformly on any zoom.
+// - One source of truth for node position: basePositions + offsets state.
+//   No animation library writes transforms on nodes, so nothing can fight
+//   over position and nothing accumulates twice (the old runaway bug).
+// - Pointer deltas arrive in screen px and are converted to viewBox units
+//   by the live measured scale. Drags are clamped to the plate.
 const W = 1000;
 const H = 620;
 const CX = W / 2;
 const CY = H / 2;
+const MARGIN_X = 62;
+const MARGIN_Y = 58;
 
 function seedRandom(seed: string) {
   let hash = 0;
@@ -23,11 +30,31 @@ function seedRandom(seed: string) {
   };
 }
 
+const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+
 export default function Skills() {
   const [filter, setFilter] = useState('all');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [offsets, setOffsets] = useState<Record<string, { x: number; y: number }>>({});
   const [isMobile, setIsMobile] = useState(false);
+  // The plate is client-only: deterministic layout still differs at the
+  // last float between Node and browser math, and isMobile starts false
+  // on the server. Render a static skeleton until mount so SSR and the
+  // first client pass are byte-identical.
+  const [mounted, setMounted] = useState(false);
+  const plateRef = useRef<HTMLDivElement>(null);
+
+  // Live drag session. Kept in a ref so moves never trigger renders
+  // themselves; a single rAF-flushed setState commits each frame.
+  const dragRef = useRef<{
+    id: string;
+    pointerX: number;
+    pointerY: number;
+    baseOX: number;
+    baseOY: number;
+    pending: { x: number; y: number } | null;
+    raf: number;
+  } | null>(null);
 
   const filteredSkills = useMemo(
     () => skills.filter((s) => filter === 'all' || (filter === 'core' ? s.core : s.category === filter)),
@@ -44,14 +71,26 @@ export default function Skills() {
   }, []);
 
   useEffect(() => {
+    setMounted(true);
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  // Reset drag offsets when the set changes so nodes never pile up
-  useEffect(() => { setOffsets({}); setActiveId(null); }, [filter]);
+  // New set, clean plate. Also aborts any in-flight drag.
+  useEffect(() => {
+    setOffsets({});
+    setActiveId(null);
+    if (dragRef.current) {
+      cancelAnimationFrame(dragRef.current.raf);
+      dragRef.current = null;
+    }
+  }, [filter]);
+
+  useEffect(() => () => {
+    if (dragRef.current) cancelAnimationFrame(dragRef.current.raf);
+  }, []);
 
   const basePositions = useMemo(() => {
     const positions: Record<string, { x: number; y: number; layer: number }> = {};
@@ -63,8 +102,8 @@ export default function Skills() {
       const angle = i * GOLDEN + (rng() - 0.5) * 0.4;
       const radius = coreNodes.length > 1 ? 110 + rng() * 50 : 0;
       positions[skill.id] = {
-        x: Math.min(W - 70, Math.max(70, CX + radius * Math.cos(angle))),
-        y: Math.min(H - 70, Math.max(70, CY + radius * Math.sin(angle) * 0.8)),
+        x: clamp(CX + radius * Math.cos(angle), MARGIN_X, W - MARGIN_X),
+        y: clamp(CY + radius * Math.sin(angle) * 0.8, MARGIN_Y, H - MARGIN_Y),
         layer: 0,
       };
     });
@@ -74,8 +113,8 @@ export default function Skills() {
       const rx = 400 + rng() * 60;
       const ry = 225 + rng() * 40;
       positions[skill.id] = {
-        x: Math.min(W - 66, Math.max(66, CX + rx * Math.cos(angle))),
-        y: Math.min(H - 60, Math.max(60, CY + ry * Math.sin(angle))),
+        x: clamp(CX + rx * Math.cos(angle), MARGIN_X, W - MARGIN_X),
+        y: clamp(CY + ry * Math.sin(angle), MARGIN_Y, H - MARGIN_Y),
         layer: 1,
       };
     });
@@ -86,7 +125,80 @@ export default function Skills() {
     const b = basePositions[id];
     if (!b) return null;
     const o = offsets[id] ?? { x: 0, y: 0 };
-    return { x: b.x + o.x, y: b.y + o.y, layer: b.layer };
+    return {
+      x: clamp(b.x + o.x, MARGIN_X, W - MARGIN_X),
+      y: clamp(b.y + o.y, MARGIN_Y, H - MARGIN_Y),
+      layer: b.layer,
+    };
+  };
+
+  // Screen px -> viewBox units, measured live so zoom never skews a drag.
+  const unitScale = () => {
+    const el = plateRef.current;
+    if (!el) return 1;
+    const rect = el.getBoundingClientRect();
+    return rect.width > 0 ? rect.width / W : 1;
+  };
+
+  const flushDrag = () => {
+    const d = dragRef.current;
+    if (!d || !d.pending) return;
+    const p = d.pending;
+    d.pending = null;
+    setOffsets((prev) => ({ ...prev, [d.id]: p }));
+  };
+
+  const queueDrag = (clientX: number, clientY: number) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const s = unitScale();
+    const b = basePositions[d.id];
+    if (!b) return;
+    const ox = d.baseOX + (clientX - d.pointerX) / s;
+    const oy = d.baseOY + (clientY - d.pointerY) / s;
+    d.pending = {
+      x: clamp(b.x + ox, MARGIN_X, W - MARGIN_X) - b.x,
+      y: clamp(b.y + oy, MARGIN_Y, H - MARGIN_Y) - b.y,
+    };
+    cancelAnimationFrame(d.raf);
+    d.raf = requestAnimationFrame(flushDrag);
+  };
+
+  const beginDrag = (id: string, e: React.PointerEvent) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    const o = offsets[id] ?? { x: 0, y: 0 };
+    dragRef.current = {
+      id, pointerX: e.clientX, pointerY: e.clientY,
+      baseOX: o.x, baseOY: o.y, pending: null, raf: 0,
+    };
+    setActiveId(id);
+  };
+
+  const endDrag = () => {
+    const d = dragRef.current;
+    if (d) {
+      cancelAnimationFrame(d.raf);
+      if (d.pending) {
+        const p = d.pending;
+        setOffsets((prev) => ({ ...prev, [d.id]: p }));
+      }
+      dragRef.current = null;
+    }
+  };
+
+  // Arrow keys nudge the pinned node. Deterministic, 8 units a step.
+  const nudge = (id: string, dx: number, dy: number) => {
+    const b = basePositions[id];
+    if (!b) return;
+    const o = offsets[id] ?? { x: 0, y: 0 };
+    setOffsets((prev) => ({
+      ...prev,
+      [id]: {
+        x: clamp(b.x + o.x + dx, MARGIN_X, W - MARGIN_X) - b.x,
+        y: clamp(b.y + o.y + dy, MARGIN_Y, H - MARGIN_Y) - b.y,
+      },
+    }));
   };
 
   const getLines = (name: string) => {
@@ -99,12 +211,6 @@ export default function Skills() {
   const dailyCore = useMemo(() => skills.filter((s) => s.core), []);
   const matchCount = (id: string) =>
     skills.find((s) => s.id === id)?.connections.filter((c) => filteredSkills.some((f) => f.id === c)).length ?? 0;
-  const sharedTech = (a: string, b: string) => {
-    const sa = skills.find((s) => s.id === a);
-    const sb = skills.find((s) => s.id === b);
-    if (!sa || !sb) return null;
-    return sa.connections.find((c) => sb.connections.includes(c) || sb.id === c || sa.id === c) ?? sa.connections.find((c) => sb.connections.includes(c));
-  };
 
   const activeSkill = activeId ? skills.find((s) => s.id === activeId) : null;
 
@@ -184,10 +290,17 @@ export default function Skills() {
             })}
           </div>
 
+          {!mounted ? (
+            <div className="relative w-full border rounded-[2px] overflow-hidden" style={{ borderColor: 'var(--rule-strong)', background: 'var(--ground)', aspectRatio: '1000 / 620' }} aria-label="Loading skills plate">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.2em', color: 'var(--ink-faint)' }}>Plotting plate</span>
+              </div>
+            </div>
+          ) : (
           <div className="relative w-full border rounded-[2px] overflow-hidden" style={{ borderColor: 'var(--rule-strong)', background: 'var(--ground)' }}>
             <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, var(--ground-dot) 1px, transparent 0)', backgroundSize: '28px 28px' }} aria-hidden="true" />
             {/* Fixed aspect matches viewBox so zoom never squishes nodes */}
-            <div className="relative w-full" style={{ aspectRatio: '1000 / 620' }}>
+            <div ref={plateRef} className="relative w-full" style={{ aspectRatio: '1000 / 620' }}>
               <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                 {filteredSkills.map((skill) => {
                   const a = pos(skill.id);
@@ -215,7 +328,7 @@ export default function Skills() {
               </svg>
 
               <div className="absolute inset-0">
-                {filteredSkills.map((skill) => {
+                {filteredSkills.map((skill, i) => {
                   const p = pos(skill.id);
                   if (!p) return null;
                   const isCore = skill.core;
@@ -225,39 +338,52 @@ export default function Skills() {
                   const dim = !!activeId && !isHov && !neighbor;
                   const lines = getLines(skill.name);
                   return (
-                    <motion.div
+                    <div
                       key={skill.id}
-                      className="absolute cursor-grab active:cursor-grabbing"
+                      className="node-in absolute cursor-grab active:cursor-grabbing"
                       style={{
-                        left: p.x, top: p.y, width: size, height: size,
-                        marginLeft: -size / 2, marginTop: -size / 2,
+                        left: `${(p.x / W) * 100}%`,
+                        top: `${(p.y / H) * 100}%`,
+                        width: size,
+                        height: size,
+                        marginLeft: -size / 2,
+                        marginTop: -size / 2,
                         zIndex: isHov ? 20 : 10,
+                        opacity: dim ? 0.25 : 1,
+                        touchAction: 'none',
+                        animationDelay: `${Math.min(i * 28, 600)}ms`,
+                        userSelect: 'none',
+                        WebkitUserSelect: 'none',
                       }}
-                      drag
-                      dragMomentum={false}
-                      dragElastic={0.08}
-                      onDrag={(_, info) => {
-                        setOffsets((prev) => {
-                          const cur = prev[skill.id] ?? { x: 0, y: 0 };
-                          return { ...prev, [skill.id]: { x: cur.x + info.delta.x, y: cur.y + info.delta.y } };
-                        });
-                      }}
-                      whileDrag={{ scale: 1.1 }}
-                      initial={false}
-                      animate={{ opacity: dim ? 0.25 : 1, scale: isHov ? 1.1 : 1 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-                      onMouseEnter={() => setActiveId(skill.id)}
-                      onMouseLeave={() => setActiveId(null)}
+                      onPointerDown={(e) => beginDrag(skill.id, e)}
+                      onPointerMove={(e) => { if (dragRef.current?.id === skill.id) queueDrag(e.clientX, e.clientY); }}
+                      onPointerUp={endDrag}
+                      onPointerCancel={endDrag}
+                      onMouseEnter={() => { if (!dragRef.current) setActiveId(skill.id); }}
+                      onMouseLeave={() => { if (!dragRef.current) setActiveId(null); }}
                       onClick={() => setActiveId(activeId === skill.id ? null : skill.id)}
                       role="button"
                       tabIndex={0}
-                      aria-label={`${skill.name}, ${matchCount(skill.id)} links${isCore ? ', daily core' : ''}`}
-                      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveId(activeId === skill.id ? null : skill.id); } }}
+                      aria-label={`${skill.name}, ${matchCount(skill.id)} links${isCore ? ', daily core' : ''}. Press arrow keys to move, Enter to pin.`}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveId(activeId === skill.id ? null : skill.id); }
+                        else if (e.key.startsWith('Arrow')) {
+                          e.preventDefault();
+                          const step = e.shiftKey ? 24 : 8;
+                          nudge(skill.id,
+                            e.key === 'ArrowLeft' ? -step : e.key === 'ArrowRight' ? step : 0,
+                            e.key === 'ArrowUp' ? -step : e.key === 'ArrowDown' ? step : 0);
+                          setActiveId(skill.id);
+                        }
+                      }}
                       onFocus={() => setActiveId(skill.id)}
-                      onBlur={() => setActiveId(null)}
+                      onBlur={() => { if (!dragRef.current) setActiveId(null); }}
                     >
-                      {isHov && <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--ink-strong) 20%, transparent) 0%, transparent 65%)' }} />}
-                      <div className="w-full h-full flex items-center justify-center relative" style={{ color: dim ? 'var(--ink-faint)' : 'var(--ink-strong)' }}>
+                      <div
+                        className="w-full h-full flex items-center justify-center relative transition-transform duration-150"
+                        style={{ color: dim ? 'var(--ink-faint)' : 'var(--ink-strong)', transform: isHov ? 'scale(1.1)' : 'scale(1)' }}
+                      >
+                        {isHov && <div className="absolute inset-0 rounded-full" style={{ background: 'radial-gradient(circle, color-mix(in srgb, var(--ink-strong) 20%, transparent) 0%, transparent 65%)' }} />}
                         <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full overflow-visible">
                           <polygon
                             points="50 3, 93 25, 93 75, 50 97, 7 75, 7 25"
@@ -266,7 +392,7 @@ export default function Skills() {
                             strokeWidth={isCore ? 2 : 1.1}
                           />
                         </svg>
-                        <div className="flex flex-col items-center justify-center z-10 px-2 text-center select-none">
+                        <div className="flex flex-col items-center justify-center z-10 px-2 text-center select-none pointer-events-none">
                           {lines.map((line, idx) => (
                             <span key={idx} className="font-mono uppercase leading-[1.15]" style={{ fontSize: isCore ? 10 : 9, fontWeight: isHov || isCore ? 700 : 400, color: dim ? 'var(--ink-faint)' : 'var(--ink-strong)' }}>
                               {line}
@@ -275,21 +401,22 @@ export default function Skills() {
                           <span className="font-mono mt-0.5" style={{ fontSize: 8, color: 'var(--ink-faint)' }}>{matchCount(skill.id)} links</span>
                         </div>
                       </div>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
 
-              <div className="absolute left-3 bottom-3 font-mono uppercase px-3 py-2 border rounded-[2px] backdrop-blur-md" style={{ fontSize: 10, letterSpacing: '0.12em', borderColor: 'var(--rule-strong)', background: 'color-mix(in srgb, var(--ground) 88%, transparent)', color: 'var(--ink-soft)', maxWidth: '70%' }} aria-live="polite">
+              <div className="absolute left-3 bottom-3 font-mono uppercase px-3 py-2 border rounded-[2px] backdrop-blur-md pointer-events-none" style={{ fontSize: 10, letterSpacing: '0.12em', borderColor: 'var(--rule-strong)', background: 'color-mix(in srgb, var(--ground) 88%, transparent)', color: 'var(--ink-soft)', maxWidth: '70%' }} aria-live="polite">
                 {activeSkill
                   ? `${activeSkill.name} links to ${activeSkill.connections.filter((c) => filteredSkills.some((f) => f.id === c)).slice(0, 3).join(', ') || 'core set'}`
                   : `${filteredSkills.length} nodes. Hover to trace a relation. Drag to rearrange.`}
-                {activeId && <span style={{ color: 'var(--ink-faint)' }}> {sharedTech(activeId, activeId) ? '' : ''}</span>}
               </div>
             </div>
           </div>
+          )}
         </div>
 
+          {mounted && (
         <div className="block md:hidden w-full relative pl-4" style={{ borderLeft: '1px dashed var(--rule-strong)' }}>
           <div className="flex flex-col gap-10">
             {skillCategories.filter((c) => c.id !== 'all').map((category, index) => (
@@ -307,6 +434,7 @@ export default function Skills() {
             ))}
           </div>
         </div>
+          )}
       </div>
     </Section>
   );

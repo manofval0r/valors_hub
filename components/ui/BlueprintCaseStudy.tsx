@@ -98,10 +98,15 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
     // Active chapter driven by scroll
     const [activeChapterIdx, setActiveChapterIdx] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    // Gated: server and first client pass always render desktop, so a
+    // phone never hydrates against desktop markup.
+    const mobile = mounted && isMobile;
     const chapterRefs = useRef<(HTMLDivElement | null)[]>([]);
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        setMounted(true);
         const check = () => setIsMobile(window.innerWidth < 768);
         check();
         window.addEventListener('resize', check);
@@ -110,7 +115,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
 
     // IntersectionObserver: when a chapter card enters viewport, update active chapter
     useEffect(() => {
-        if (!hasConstellation || isMobile) return;
+        if (!hasConstellation || mobile) return;
         const observers: IntersectionObserver[] = [];
 
         chapterRefs.current.forEach((el, i) => {
@@ -128,7 +133,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
         });
 
         return () => observers.forEach(o => o.disconnect());
-    }, [hasConstellation, isMobile, chapters.length]);
+    }, [hasConstellation, mobile, chapters.length]);
 
     const activeChapter = chapters[activeChapterIdx];
 
@@ -155,7 +160,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
             {/* ══════════════════════════════════════════════════
                 LAYER 1 — STICKY BLUEPRINT CANVAS (desktop only)
                ══════════════════════════════════════════════════ */}
-            {hasConstellation && !isMobile && (
+            {hasConstellation && !mobile && (
                 <div className="fixed inset-0 z-0 pointer-events-none">
                     <div className="w-full h-full pointer-events-auto">
                         <InteractiveWorkflowNodeMap
@@ -236,7 +241,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                 </div>
 
                 {/* ── Chapter cards (glass cards floating over the constellation) ── */}
-                {hasConstellation && !isMobile && (
+                {hasConstellation && !mobile && (
                     <div className="relative pb-48">
                         {chapters.map((chapter, i) => (
                             <div
@@ -292,9 +297,9 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                 )}
 
                 {/* ── Standard layout for mobile OR projects without mindMap ── */}
-                <div className={`relative z-10 ${!isMobile && hasConstellation ? 'hidden' : 'block'}`}>
+                <div className={`relative z-10 ${!mobile && hasConstellation ? 'hidden' : 'block'}`}>
                     {/* Mobile constellation tree */}
-                    {hasConstellation && isMobile && (
+                    {hasConstellation && mobile && (
                         <div className="px-4 pb-12">
                             <InteractiveWorkflowNodeMap mindMap={project.mindMap} />
                         </div>
@@ -380,7 +385,7 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
                 )}
 
                 {/* ── Video showcase for constellation projects on desktop ── */}
-                {hasConstellation && !isMobile && (project.videoUrl || project.videoPublicId || project.imageUrl) && (
+                {hasConstellation && !mobile && (project.videoUrl || project.videoPublicId || project.imageUrl) && (
                     <div className="relative z-10 px-6 md:px-14 pb-16">
                         <div className="max-w-2xl">
                             <p className="text-[var(--ink-faint)] text-[9px] uppercase font-mono tracking-[0.2em] mb-4">Live Demo</p>

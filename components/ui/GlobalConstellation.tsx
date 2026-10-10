@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { animate, stagger } from 'animejs';
 import Link from 'next/link';
 import { trackEvent } from '@/lib/analytics';
 
@@ -109,12 +110,21 @@ export default function GlobalConstellation() {
         return () => observer.disconnect();
     }, []);
 
-    // Slow idle rotation (0.4 deg / sec)
+    // Slow idle rotation (0.4 deg / sec). Angle accumulates in a ref and
+    // commits to state at ~30fps so the tree never re-renders per frame.
+    // Rotation pauses while interacting and snaps back cleanly after.
     useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let acc = 0;
         const tick = (time: number) => {
             if (!isInteracting) {
                 const delta = lastTimeRef.current ? (time - lastTimeRef.current) / 1000 : 0;
-                setRotation(prev => (prev + delta * 0.4) % 360);
+                acc += delta * 0.4;
+                if (acc >= 0.02) {
+                    const step = acc;
+                    acc = 0;
+                    setRotation(prev => (prev + step) % 360);
+                }
             }
             lastTimeRef.current = time;
             animFrameRef.current = requestAnimationFrame(tick);
@@ -160,6 +170,47 @@ export default function GlobalConstellation() {
     const NODE_R = 7; // node dot radius
     const hasDimensions = dimensions.w > 0 && dimensions.h > 0;
 
+    // Entrance choreography, one shot per mount and filter change.
+    // Transform and opacity only; positions stay React-owned so the
+    // idle rotation can never fight the animation.
+    useEffect(() => {
+        if (!hasDimensions) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const root = canvasRef.current;
+        if (!root) return;
+        const nodes = Array.from(root.querySelectorAll('.cx-node'));
+        const edges = Array.from(root.querySelectorAll('.cx-edge')) as (SVGLineElement & ElementCSSInlineStyle)[];
+        const rings = Array.from(root.querySelectorAll('.cx-ring'));
+        // Edge draw-in: dash the full length, then release to zero.
+        const lens: number[] = edges.map((el) => {
+            try {
+                const len = el.getTotalLength?.() ?? 0;
+                if (len > 0) {
+                    el.style.strokeDasharray = `${len}`;
+                    el.style.strokeDashoffset = `${len}`;
+                }
+                return len;
+            } catch { /* non-geometry element, leave solid */ return 0; }
+        });
+        const anims = [
+            animate(rings, { opacity: [0, 0.18], duration: 600, ease: 'outQuad' }),
+            animate(edges, {
+                strokeDashoffset: [ (_el: Element, i: number) => lens[i] ?? 0, 0 ],
+                duration: 520, delay: stagger(7), ease: 'outExpo',
+            }),
+            // Scale only: opacity stays React-owned (filter dimming),
+            // so the two never write the same property.
+            animate(nodes, { scale: [0, 1], duration: 420, delay: stagger(26, { start: 150 }), ease: 'outExpo' }),
+        ];
+        return () => {
+            anims.forEach((a) => a.pause());
+            edges.forEach((el) => {
+                el.style.strokeDasharray = '';
+                el.style.strokeDashoffset = '';
+            });
+        };
+    }, [hasDimensions, activeFilter]);
+
     return (
         <div
             ref={canvasRef}
@@ -190,6 +241,7 @@ export default function GlobalConstellation() {
                 {[1, 2].map(ring => (
                     <circle
                         key={ring}
+                        className="cx-ring"
                         cx={cx} cy={cy}
                         r={RING_RADII[ring]}
                         fill="none"
@@ -208,6 +260,7 @@ export default function GlobalConstellation() {
                     return (
                         <line
                             key={i}
+                            className="cx-edge"
                             x1={sp.x} y1={sp.y}
                             x2={tp.x} y2={tp.y}
                             stroke="var(--ink-strong)"
@@ -233,7 +286,7 @@ export default function GlobalConstellation() {
                         onClick={() => handleNodeClick(node)}
                         onMouseEnter={() => { setTooltip({ nodeIdx: idx, x: pos.x, y: pos.y }); }}
                         onMouseLeave={() => setTooltip(null)}
-                        className="absolute -translate-x-1/2 -translate-y-1/2 group"
+                        className="cx-node absolute -translate-x-1/2 -translate-y-1/2 group"
                         style={{
                             left: pos.x,
                             top: pos.y,

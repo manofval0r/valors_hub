@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
-import { motion, useMotionValue, useSpring, PanInfo, AnimatePresence } from 'framer-motion';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
 export interface MindMapNode {
@@ -48,6 +48,9 @@ export default function InteractiveWorkflowNodeMap({
 }: InteractiveWorkflowNodeMapProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    // Gated: SSR and first client pass render the desktop canvas.
+    const showDesktop = !mounted || !isMobile;
     const [activeNodeId, setActiveNodeId] = useState<string | null>(null);
     const [canvasOffset, setCanvasOffset] = useState({ x: 0, y: 0 });
     const [zoomLevel, setZoomLevel] = useState(blueprintMode ? 0.55 : 0.65);
@@ -116,6 +119,7 @@ export default function InteractiveWorkflowNodeMap({
     }, [springX, springY]);
 
     useEffect(() => {
+        setMounted(true);
         const check = () => setIsMobile(window.innerWidth < 768);
         check();
         window.addEventListener('resize', check);
@@ -160,15 +164,66 @@ export default function InteractiveWorkflowNodeMap({
 
     const handleBgMouseUp = useCallback(() => setIsPanning(false), []);
 
-    const handleNodeDrag = useCallback((id: string, info: PanInfo) => {
-        setNodePositions(prev => ({
-            ...prev,
-            [id]: {
-                x: prev[id].x + info.delta.x / zoomLevel,
-                y: prev[id].y + info.delta.y / zoomLevel,
-            },
-        }));
-    }, [zoomLevel]);
+    // Node drag: single source of truth is nodePositions state. Pointer
+    // deltas (screen px) are converted with the live zoomLevel. No library
+    // writes transforms on nodes, so position can never double-apply.
+    const nodeDragRef = useRef<{
+        id: string; pointerX: number; pointerY: number;
+        startX: number; startY: number; moved: boolean;
+        pending: { x: number; y: number } | null; raf: number;
+    } | null>(null);
+
+    const beginNodeDrag = useCallback((id: string, e: React.PointerEvent, start: { x: number; y: number }) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
+        nodeDragRef.current = {
+            id, pointerX: e.clientX, pointerY: e.clientY,
+            startX: start.x, startY: start.y, moved: false, pending: null, raf: 0,
+        };
+    }, []);
+
+    const moveNodeDrag = useCallback((e: React.PointerEvent, zoom: number) => {
+        const d = nodeDragRef.current;
+        if (!d) return;
+        const dx = (e.clientX - d.pointerX) / zoom;
+        const dy = (e.clientY - d.pointerY) / zoom;
+        if (Math.abs(e.clientX - d.pointerX) + Math.abs(e.clientY - d.pointerY) > 4) d.moved = true;
+        d.pending = { x: d.startX + dx, y: d.startY + dy };
+        cancelAnimationFrame(d.raf);
+        d.raf = requestAnimationFrame(() => {
+            const cur = nodeDragRef.current;
+            if (!cur || !cur.pending) return;
+            const p = cur.pending;
+            cur.pending = null;
+            setNodePositions(prev => ({ ...prev, [cur.id]: p }));
+        });
+    }, []);
+
+    const endNodeDrag = useCallback(() => {
+        const d = nodeDragRef.current;
+        if (d) {
+            cancelAnimationFrame(d.raf);
+            if (d.pending) {
+                const p = d.pending;
+                setNodePositions(prev => ({ ...prev, [d.id]: p }));
+            }
+            // Keep moved=true briefly so the wrapping Link click is suppressed.
+            const wasMoved = d.moved;
+            nodeDragRef.current = wasMoved ? { ...d, pending: null, raf: 0 } : null;
+            if (wasMoved) setTimeout(() => { nodeDragRef.current = null; }, 0);
+        }
+    }, []);
+
+    const suppressDragClick = useCallback((e: React.SyntheticEvent) => {
+        if (nodeDragRef.current?.moved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, []);
+
+    useEffect(() => () => {
+        if (nodeDragRef.current) cancelAnimationFrame(nodeDragRef.current.raf);
+    }, []);
 
     const generateSmartPath = useCallback((sx: number, sy: number, tx: number, ty: number) => {
         const dx = tx - sx, dy = ty - sy;
@@ -218,7 +273,7 @@ export default function InteractiveWorkflowNodeMap({
     };
 
     // ─── Desktop Canvas ───
-    if (!isMobile || isImmersive) {
+    if (showDesktop || isImmersive) {
         return (
             <div className={`flex flex-col w-full h-full ${isImmersive ? 'fixed inset-0 z-[100] bg-[var(--ground)]' : ''}`}>
                 {/* Immersive toolbar — only shown when NOT in blueprint mode */}
@@ -323,12 +378,14 @@ export default function InteractiveWorkflowNodeMap({
                             const draggable = !blueprintMode;
 
                             const nodeEl = (
-                                <motion.div
+                                <div
                                     key={node.id}
                                     data-node="true"
-                                    drag={draggable}
-                                    dragMomentum={false}
-                                    onDrag={draggable ? (_, info) => handleNodeDrag(node.id, info) : undefined}
+                                    onPointerDown={draggable ? (e) => beginNodeDrag(node.id, e, pos) : undefined}
+                                    onPointerMove={draggable ? (e) => { if (nodeDragRef.current?.id === node.id) moveNodeDrag(e, zoomLevel); } : undefined}
+                                    onPointerUp={draggable ? endNodeDrag : undefined}
+                                    onPointerCancel={draggable ? endNodeDrag : undefined}
+                                    onClickCapture={suppressDragClick}
                                     onMouseEnter={() => !blueprintMode && setActiveNodeId(node.id)}
                                     onMouseLeave={() => !blueprintMode && setActiveNodeId(null)}
                                     className={`absolute select-none border rounded-[2px] transition-all duration-500
@@ -343,6 +400,7 @@ export default function InteractiveWorkflowNodeMap({
                                         opacity: nodeOpacity,
                                         zIndex: isProject ? 35 : isHub ? 30 : 20,
                                         transition: 'opacity 0.5s ease, border-color 0.3s ease',
+                                        touchAction: draggable ? 'none' : undefined,
                                     }}
                                 >
                                     <div className={`px-4 py-2.5 border-b flex items-center justify-between
@@ -362,7 +420,7 @@ export default function InteractiveWorkflowNodeMap({
                                         <h4 className="text-base font-mono font-medium leading-tight mb-2 text-[var(--ink-strong)]">{node.label}</h4>
                                         {node.description && <p className="text-[var(--ink-soft)] text-xs leading-relaxed line-clamp-3">{node.description}</p>}
                                     </div>
-                                </motion.div>
+                                </div>
                             );
 
                             if (isProject && node.link) {

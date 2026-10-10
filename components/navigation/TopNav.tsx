@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useActiveSection } from '@/lib/hooks';
 import AvailabilityBadge from '@/components/ui/AvailabilityBadge';
+import ResumeSheet from '@/components/ui/ResumeSheet';
 
 const WORK_MENU = [
   { label: 'Projects Section', href: '/#projects', note: 'Featured on this page' },
@@ -18,6 +19,7 @@ export default function TopNav() {
   const { activeSection, isScrolled, navItems } = useActiveSection();
   const [workOpen, setWorkOpen] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
+  const [resumeOpen, setResumeOpen] = useState(false);
   const isProjectPage = pathname.startsWith('/work/') && pathname.length > 6;
   const isConstellationPage = pathname === '/constellation';
   const isWorkPage = pathname === '/work';
@@ -121,21 +123,21 @@ export default function TopNav() {
       {pathname === '/' && (
         <div className="fixed top-6 left-6 lg:left-12 z-[60] hidden md:flex items-center gap-3">
           <AvailabilityBadge />
-          <a
-            href="/resumes/SWE_David_Idowu.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="weight-hover flex items-center gap-1.5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] font-mono uppercase transition-colors"
+          <button
+            type="button"
+            onClick={() => setResumeOpen(true)}
+            className="weight-hover flex items-center gap-1.5 px-3 py-1.5 rounded-full border backdrop-blur-md text-[10px] font-mono uppercase transition-colors cursor-pointer"
             style={{ letterSpacing: '0.2em', borderColor: 'var(--rule)', color: 'var(--ink-faint)' }}
-            title="Download primary resume (PDF)"
+            title="Open the resume library"
           >
             <span>CV PDF</span>
             <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
               <path d="M8 3v8M4 8l4 4 4-4M3 13h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </a>
+          </button>
         </div>
       )}
+      <ResumeSheet isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
     </>
   );
 }

@@ -88,18 +88,17 @@ export default function Hero() {
           >
             View Projects (17)
           </Link>
-          <a
-            href="/resumes/SWE_David_Idowu.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-[2px] border text-xs font-mono uppercase flex items-center gap-2 transition-colors"
+          <button
+            type="button"
+            onClick={() => setResumeOpen(true)}
+            className="px-6 py-2.5 rounded-[2px] border text-xs font-mono uppercase flex items-center gap-2 transition-colors cursor-pointer"
             style={{ letterSpacing: '0.14em', borderColor: 'var(--rule-fn)', color: 'var(--ink-strong)' }}
           >
             <span>Download CV (PDF)</span>
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M8 3v8M4 8l4 4 4-4M3 13h10" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-          </a>
+          </button>
           <button
             onClick={() => setResumeOpen(true)}
             className="weight-hover px-5 py-2.5 rounded-[2px] border text-xs font-mono uppercase cursor-pointer transition-colors"

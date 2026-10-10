@@ -130,9 +130,9 @@ export default function Experience() {
                                             </span>
                                         </div>
 
-                                        <h5 className="text-sm font-normal text-[var(--ink-strong)]">
+                                        <h4 className="text-sm font-normal text-[var(--ink-strong)]">
                                             {ach.title}
-                                        </h5>
+                                        </h4>
 
                                         <span className="text-[11px] font-mono text-[var(--ink-faint)]">
                                             {ach.subtitle}
@@ -216,9 +216,9 @@ export default function Experience() {
                                                 <span className="text-[9px] font-mono text-[var(--ink-strong)]">{cert.date}</span>
                                                 <span className="text-[10px] text-[var(--ink-faint)] group-hover:text-[var(--ink-strong)] transition-colors">↗</span>
                                             </div>
-                                            <h5 className="text-xs text-[var(--ink-strong)] leading-snug group-hover:text-[var(--ink-strong)] transition-colors">
+                                            <h4 className="text-xs text-[var(--ink-strong)] leading-snug group-hover:text-[var(--ink-strong)] transition-colors">
                                                 {cert.name}
-                                            </h5>
+                                            </h4>
                                         </div>
                                         <span className="text-[9px] font-mono text-[var(--ink-faint)]/60 mt-2 uppercase tracking-wider">
                                             {cert.issuer}
