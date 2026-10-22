@@ -30,7 +30,7 @@ export default function Experience() {
                         </h2>
                     </div>
                     <span className="text-xs font-mono text-[var(--ink-faint)] uppercase tracking-widest">
-                        5 Shipped Roles · 8 Codebases
+                        6 Shipped Roles · 8 Codebases
                     </span>
                 </motion.div>
 

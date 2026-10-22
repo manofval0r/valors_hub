@@ -26,6 +26,7 @@ export const professionalSummary = [
   'Full-stack software engineer and Cybersecurity Science scholar with production experience across React/Next.js, React Native, Django, Node.js, and Supabase/PostgreSQL.',
   'Sole contributor across 17 shipped or in-progress codebases and 600+ commits across 25 repositories, spanning e-commerce, marketplace, fintech-adjacent, and AI-integrated products.',
   'Builds security-conscious systems by default: JWT and OAuth auth, Row Level Security, rate limiting, and audit-friendly financial ledgers. Uses AI-assisted workflows (Claude Code, GitHub Copilot) with full architectural ownership and manual review.',
+  'Completed a three-month AI transformation internship at AXA Mansard Nigeria (AXA Group): built the enterprise AI-literacy assessment pipeline in Power BI and Power Query, automated vendor and event flows in Power Automate, and authored the organisation\'s AI adoption research.',
 ];
 
 export interface ExperienceItem {
@@ -40,6 +41,21 @@ export interface ExperienceItem {
 }
 
 export const experience: ExperienceItem[] = [
+  {
+    id: '6',
+    role: 'AI Transformation Intern',
+    company: 'AXA Mansard Nigeria · AI Transformers Team',
+    location: 'Lagos, Nigeria (On-site)',
+    startDate: 'Jul 2026',
+    endDate: 'Sep 2026',
+    impactHighlight: 'Shipped the ALRI Power BI dashboard measuring AI literacy across the company; vendor automation progress reported to the CEO.',
+    details: [
+      'Joined the AI Transformers team, researched Microsoft 365 Copilot adoption against staff survey data, and wrote the organisation\'s AI research report: APIs vs the Model Context Protocol, AI automation vs agentic AI, and proposed use cases for Claims, Business Transformation and IT Support.',
+      'Built the ALRI (AI Literacy and Readiness Index) dashboard in Power BI: KPI cards, leaderboard, and department, business-unit and division comparisons, fed by a master respondent dataset I engineered in Power Query and linked to the authorised staff list.',
+      'Built and tested the vendor brokerage reminder system in Power Automate: personalised pre-filled form links with submission-date tracking, weekly reminder entries, plus recovery of a failed weekend run and misdirected-email fixes.',
+      'Automated a company data hackathon in Power Automate with three production email workflows (registration, opening, dataset delivery) tested end to end, and produced HTML/CSS/JS demos plus a technical design description for the SharePoint executive dashboard via the Power BI REST API.',
+    ],
+  },
   {
     id: '1',
     role: 'Full Stack Software Engineer',
@@ -189,10 +205,18 @@ export interface AchievementItem {
   title: string;
   subtitle: string;
   impact: string;
-  tag: 'Fintech' | 'Architecture' | 'Security' | 'Leadership';
+  tag: 'Fintech' | 'Architecture' | 'Security' | 'Leadership' | 'AI Transformation';
 }
 
 export const achievements: AchievementItem[] = [
+  {
+    id: '5',
+    metric: 'Enterprise AI',
+    title: 'Built the AXA Mansard AI Literacy Pipeline (ALRI)',
+    subtitle: 'AXA Mansard Nigeria · AI Transformers Team',
+    impact: 'Engineered the master respondent dataset in Power Query and shipped the Power BI dashboard powering the AI Literacy and Readiness Index, measuring AI literacy across departments, business units and divisions for enterprise AI planning.',
+    tag: 'AI Transformation',
+  },
   {
     id: '1',
     metric: '100% Async',
