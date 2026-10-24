@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { animate, stagger } from 'animejs';
+import { track } from '@vercel/analytics';
 import type { resumes } from '@/data/personal';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
@@ -148,7 +149,7 @@ export default function ResumeDossier({ resume, onBack, showBack = true }: Resum
             <button type="button" onClick={() => setZoomIdx((z) => Math.max(0, z - 1))} disabled={zoomIdx === 0} aria-label="Zoom out" className="w-8 h-8 border rounded-[2px] font-mono cursor-pointer disabled:opacity-30" style={{ borderColor: 'var(--rule)', color: 'var(--ink-strong)' }}>−</button>
             <span className="font-mono w-11 text-center" style={{ fontSize: 10, color: 'var(--ink-faint)' }}>{Math.round(zoom * 100)}%</span>
             <button type="button" onClick={() => setZoomIdx((z) => Math.min(ZOOMS.length - 1, z + 1))} disabled={zoomIdx === ZOOMS.length - 1} aria-label="Zoom in" className="w-8 h-8 border rounded-[2px] font-mono cursor-pointer disabled:opacity-30" style={{ borderColor: 'var(--rule)', color: 'var(--ink-strong)' }}>+</button>
-            <a href={resume.url} download className="px-3 h-8 hidden sm:inline-flex items-center border rounded-[2px] text-[10px] font-mono uppercase" style={{ letterSpacing: '0.12em', borderColor: 'var(--ink-strong)', background: 'var(--ink-strong)', color: 'var(--accent-ink)', fontWeight: 700 }}>
+            <a href={resume.url} download onClick={() => track('resume_download', { role: resume.role })} className="px-3 h-8 hidden sm:inline-flex items-center border rounded-[2px] text-[10px] font-mono uppercase" style={{ letterSpacing: '0.12em', borderColor: 'var(--ink-strong)', background: 'var(--ink-strong)', color: 'var(--accent-ink)', fontWeight: 700 }}>
               PDF ↓
             </a>
           </div>

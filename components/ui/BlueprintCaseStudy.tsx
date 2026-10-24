@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { track } from '@vercel/analytics';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import Button from '@/components/ui/Button';
@@ -112,6 +113,11 @@ export default function BlueprintCaseStudy({ project, prevProject, nextProject }
         window.addEventListener('resize', check);
         return () => window.removeEventListener('resize', check);
     }, []);
+
+    // One conversion-style event per case-study visit
+    useEffect(() => {
+        track('project_view', { project: project.slug });
+    }, [project.slug]);
 
     // IntersectionObserver: when a chapter card enters viewport, update active chapter
     useEffect(() => {

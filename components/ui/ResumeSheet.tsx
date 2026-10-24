@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { track } from '@vercel/analytics';
 import { resumes } from '@/data/personal';
 import ResumeDossier from './ResumeDossier';
 
@@ -26,7 +27,10 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
 
     // Fresh list each time the sheet opens
     useEffect(() => {
-        if (isOpen) setSelectedId(null);
+        if (isOpen) {
+            setSelectedId(null);
+            track('resume_open');
+        }
     }, [isOpen]);
 
     useEffect(() => {
@@ -135,12 +139,19 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: i * 0.04, duration: 0.22, ease: EASE_OUT }}
-                                                onClick={() => setSelectedId(resume.id)}
+                                                onClick={() => {
+                                                    setSelectedId(resume.id);
+                                                    track('resume_role_view', { role: resume.role });
+                                                }}
                                                 role="button"
                                                 tabIndex={0}
                                                 aria-label={`Read ${resume.role} without leaving the portfolio`}
                                                 onKeyDown={(e) => {
-                                                    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedId(resume.id); }
+                                                    if (e.key === 'Enter' || e.key === ' ') {
+                                                        e.preventDefault();
+                                                        setSelectedId(resume.id);
+                                                        track('resume_role_view', { role: resume.role });
+                                                    }
                                                 }}
                                             >
                                                 <div className="flex flex-col gap-1 pr-4">
@@ -164,7 +175,10 @@ export default function ResumeSheet({ isOpen, onClose }: ResumeSheetProps) {
                                                 <a
                                                     href={resume.url}
                                                     download
-                                                    onClick={(e) => e.stopPropagation()}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        track('resume_download', { role: resume.role });
+                                                    }}
                                                     aria-label={`Download ${resume.role} PDF`}
                                                     className="flex items-center gap-2 text-xs font-mono text-[var(--ink-faint)] hover:text-[var(--ink-strong)] flex-shrink-0 transition-colors p-2"
                                                 >
