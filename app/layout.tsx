@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Martian_Mono } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import TopNav from "@/components/navigation/TopNav";
 import MobileNav from "@/components/navigation/MobileNav";
 import LoadingScreen from "@/components/animations/LoadingScreen";
@@ -58,6 +59,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div className="relative z-10">
           <LoadingScreen />
           <Analytics />
+          <SpeedInsights />
           <TopNav />
           <MobileNav />
           <WorldToggle />
