@@ -58,6 +58,10 @@ export default function InteractiveWorkflowNodeMap({
     const [isImmersive, setIsImmersive] = useState(false);
     const panStart = useRef({ x: 0, y: 0, ox: 0, oy: 0 });
     const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
+    // Mobile tree expansion state. Must live with the other hooks: every hook
+    // is declared before the conditional returns below, so switching between
+    // the desktop canvas and the mobile tree never changes the hook order.
+    const [mobileExpanded, setMobileExpanded] = useState<Set<string>>(new Set());
 
     // Spring-animate the canvas offset for smooth auto-pan
     const targetOffsetX = useMotionValue(0);
@@ -454,7 +458,6 @@ export default function InteractiveWorkflowNodeMap({
         children[e.source].push(e.target);
     });
 
-    const [mobileExpanded, setMobileExpanded] = useState<Set<string>>(new Set());
     const toggleExpand = (id: string) => setMobileExpanded(prev => {
         const next = new Set(prev);
         next.has(id) ? next.delete(id) : next.add(id);
